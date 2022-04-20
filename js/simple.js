@@ -1,36 +1,15 @@
-const fetchArticle = async (id = null) =>{  
+const fetchArticle = async () =>{  
     try{
-        let data;
-        if(id !== null){
-            data = await singleFetch(id);
-        }
-        else{
-            data = await allFetch()
-        }
+        const response = await fetch("php/fetch.php")
+        const data = await response.json();
         return data;
     }
     catch(err){
         console.error(err);
+        return;
     }
 }
 
-const singleFetch = async (id)=> {
-    let idFormData = new FormData();
-    idFormData.append("id", id.toString());
-    const response = await fetch("php/fetch.php", {
-        method: "POST",
-        body: idFormData
-    })
-    const data = await response.json();
-    return data;
-}
-
-const allFetch = async ()=> {
-    const response = await fetch("php/fetch.php")
-    const data = await response.json();
-    console.log(data);
-    return data;
-}
 
 const createArticleBox = (header, article) => {
     const mainBoxArea = document.getElementById('main-box');
@@ -51,29 +30,13 @@ const createArticleBox = (header, article) => {
     mainBoxArea.appendChild(mainBox);
 }
 
-const showArticle = async (id = null)=>{
-    try{
-        if(id !== null){
-            await addSingleArticleBox(id);
-        }
-        else{
-            await addAllArticleBox();
-        }
-    } catch(err) {
-        console.error(err);
-    }
-}
-
-const addAllArticleBox = async ()=> {
-    let articleArray = await fetchArticle(null);
+const showArticle = async ()=>{
+    let articleArray = await fetchArticle();
+    //let newArticle = articleArray.filter(el => el.ArticleHeader.includes("Test"));
     for(value of articleArray){
         createArticleBox(value.ArticleHeader, value.ArticleText);
     }
 }
 
-const addSingleArticleBox = async (id)=> {
-    let articleArray = await fetchArticle(id);
-    createArticleBox(articleArray[0].ArticleHeader, articleArray[0].ArticleText);
-}
-
+showArticle();
 showArticle();

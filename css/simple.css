@@ -2,10 +2,11 @@ body, html {
   margin: 0 0;
   max-width: 100vw;
   min-height: 100vh;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
-body .main-wrapper, html .main-wrapper {
-  min-height: 100;
+body .main-wrapper {
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -16,8 +17,8 @@ body .main-wrapper, html .main-wrapper {
           flex-direction: column;
 }
 
-body .header-wrapper, html .header-wrapper {
-  height: 10%;
+body .main-wrapper .header-wrapper {
+  min-height: 10vh;
   width: 100%;
   background-color: lightsteelblue;
   display: -webkit-box;
@@ -29,27 +30,41 @@ body .header-wrapper, html .header-wrapper {
           flex-direction: column;
 }
 
-body .header-wrapper .header-text, html .header-wrapper .header-text {
+body .main-wrapper .header-wrapper .header-text {
   margin: 0 auto;
   max-width: -webkit-fit-content;
   max-width: -moz-fit-content;
   max-width: fit-content;
 }
 
-body .header-wrapper .header-text h1, html .header-wrapper .header-text h1 {
+body .main-wrapper .header-wrapper .header-text h1 {
+  font-size: 3.5rem;
   margin: 15px 0;
 }
 
-body .header-wrapper .header-menu-wrapper, html .header-wrapper .header-menu-wrapper {
+body .main-wrapper .header-wrapper .header-menu-wrapper {
   padding: 5px 0;
   background-color: lightblue;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
-body .header-wrapper .header-menu-wrapper a, html .header-wrapper .header-menu-wrapper a {
+body .main-wrapper .header-wrapper .header-menu-wrapper nav a {
+  text-decoration: none;
+  color: black;
   margin: 0 10px;
+  font-size: 1.2rem;
 }
 
-body .content-wrapper, html .content-wrapper {
+body .main-wrapper .content-wrapper {
   min-height: 80vh;
   width: 100%;
   display: -webkit-box;
@@ -64,7 +79,7 @@ body .content-wrapper, html .content-wrapper {
           align-items: center;
 }
 
-body .content-wrapper .content-box, html .content-wrapper .content-box {
+body .main-wrapper .content-wrapper .content-box {
   width: calc(min(1100px, 100%));
   height: -webkit-fit-content;
   height: -moz-fit-content;
@@ -81,7 +96,7 @@ body .content-wrapper .content-box, html .content-wrapper .content-box {
           flex-direction: column;
 }
 
-body .content-wrapper .content-box .content-header, html .content-wrapper .content-box .content-header {
+body .main-wrapper .content-wrapper .content-box .content-header {
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
@@ -98,28 +113,37 @@ body .content-wrapper .content-box .content-header, html .content-wrapper .conte
   border-bottom: 1px solid lightgray;
 }
 
-body .content-wrapper .content-box .content-header h1, html .content-wrapper .content-box .content-header h1 {
+body .main-wrapper .content-wrapper .content-box .content-header h1 {
   font-size: calc(max(2vw, 1.75rem));
   text-align: center;
   margin: 10px 0;
 }
 
-body .content-wrapper .content-box .content-body, html .content-wrapper .content-box .content-body {
+body .main-wrapper .content-wrapper .content-box .content-body {
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
   width: 100%;
 }
 
-body .content-wrapper .content-box .content-body p, html .content-wrapper .content-box .content-body p {
+body .main-wrapper .content-wrapper .content-box .content-body p {
   font-size: calc(max(1vw, 1.1rem));
   text-align: justify;
   margin: 15px;
 }
 
-body .footer-wrapper, html .footer-wrapper {
+body .main-wrapper .footer-wrapper {
   min-height: 10vh;
   width: 100%;
   background-color: bisque;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 /*# sourceMappingURL=simple.css.map */

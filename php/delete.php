@@ -1,10 +1,12 @@
-<?php
+<?php 
     include_once('simple.php');
+    $article_id = $_POST['article_id'];
     $result;
-    
+
     try{
         $db = new Database('localhost','root','','dummy_db');
-        $result = json_encode($db->fetchArticle());
+        $db->deleteArticle($article_id);
+        $result = json_encode(array("Success" => "Data sucessfully deleted!"));
     }
     catch(Exception $error){
         $result = json_encode(array("Error" => "Something went wrong!"));
