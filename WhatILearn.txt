@@ -1,0 +1,18 @@
++Variable inside 'then' can be passed to outside of 'then' but you have to wait until the promise is resolved first!
++The syntax to throw error in a then is 'throw new Error('Error Text')' and you had to use Catch at the end of promise chain.
++Aync will always return promise.
++Await can only be used inside Async functuion.
++Await suspend function until promise is resolved/rejected.
++Await can be used to replace 'then'. Example
+
+XXX
++Javascript fetch using method POST has to use FormData object as it body.
++To get the variable send using fetch with method POST, use $_POST['<Form data key>'] in php.
++Example: To acess a Form data object with {'Nama': 'D-MAN', 'Age' : '20'}, use $_POST['Nama'] to acess 'Nama' and $_POST['Age'] to acess 'Age'
+
+XXX
++Subqueries must return 1 row and column to be used.
++Example of suqueries usage: SELECT a.name, b.price FROM table_item a, table_price b WHERE a.id = (SELECT c.item_id FROM table_itemPrice c WHERE c.item_id = a.id) AND b.id = (SELECT c.price_id FROM table_itemPrice c WHERE c.price_id = b.id)
+
+XXX
++CSS next is the combination of MAX and MIN to calculate adjust element withd [width: calc(max(80%, min(480px, 100%)))], this code will use 80% of element's parent width if the min return lower than the 80%. The min will return 480px if it lower than 100% of element parent's width. Otherwise return the 100% of the element's parent width.
