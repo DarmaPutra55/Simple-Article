@@ -126,6 +126,7 @@ body .main-wrapper .content-wrapper {
 }
 
 body .main-wrapper .content-wrapper .content-box {
+  position: relative;
   width: calc(min(1100px, 100%));
   height: -webkit-fit-content;
   height: -moz-fit-content;
@@ -150,7 +151,6 @@ body .main-wrapper .content-wrapper .content-box .content-header {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  border-bottom: 1px solid lightgray;
 }
 
 body .main-wrapper .content-wrapper .content-box .content-header .content-header-text {
@@ -181,6 +181,21 @@ body .main-wrapper .content-wrapper .content-box .content-header .content-header
   border: none;
 }
 
+body .main-wrapper .content-wrapper .content-box .content-header .content-header-button button .icon-button-rotate-click {
+  -webkit-transform: rotate(90deg);
+          transform: rotate(90deg);
+}
+
+body .main-wrapper .content-wrapper .content-box .content-header .content-header-button button .icon-button-rotate-back {
+  -webkit-transform: rotate(0deg);
+          transform: rotate(0deg);
+}
+
+body .main-wrapper .content-wrapper .content-box .content-header .content-header-button button i {
+  -webkit-transition: all 200ms;
+  transition: all 200ms;
+}
+
 body .main-wrapper .content-wrapper .content-box .content-body {
   height: -webkit-fit-content;
   height: -moz-fit-content;
@@ -192,6 +207,45 @@ body .main-wrapper .content-wrapper .content-box .content-body p {
   font-size: calc(max(1vw, 1.1rem));
   text-align: justify;
   margin: 15px;
+}
+
+body .main-wrapper .content-wrapper .content-box .content-submenu-wrapper {
+  margin: 10px 0;
+  display: none;
+  top: 0;
+  right: 0;
+  position: absolute;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  width: 4vw;
+}
+
+body .main-wrapper .content-wrapper .content-box .content-submenu-wrapper .content-submenu {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 100%;
+  border: 1px solid lightgrey;
+}
+
+body .main-wrapper .content-wrapper .content-box .content-submenu-wrapper .content-submenu button {
+  width: 100%;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  background-color: white;
+  border: none;
+}
+
+body .main-wrapper .content-wrapper .content-box .content-submenu-wrapper .content-submenu button p {
+  font-size: calc(max(1vw, 1.1rem));
+  text-align: justify;
+  margin: 0 5px;
 }
 
 body .main-wrapper .footer-wrapper {
