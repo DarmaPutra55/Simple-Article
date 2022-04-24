@@ -24,9 +24,11 @@ class Article {
     headerButtonIcon = document.createElement('i');
     articleText = document.createElement('p');
     aritcleIdHolder = document.createElement('input');
+    submenu = new SubMenu();
     onTrans = false;
 
     constructor(articleId, header, article){   
+
         this.mainBox.classList.add('content-box');
         
         this.mainHeader.classList.add('content-header');
@@ -60,62 +62,86 @@ class Article {
         this.mainBox.appendChild(this.mainHeader);
         this.mainBox.appendChild(this.mainArticle);
         this.mainBox.appendChild(this.aritcleIdHolder);
-        
-        this.createArticleSubMenu();
-        this.addIconAnnimation();
         this.mainBoxArea.appendChild(this.mainBox);
+        this.submenu.addSubmenu(this.mainBox);
+        this.submenu.setSubmenuPosition(this.headerButtonWrapper);
+        this.setExpandButtonEvent();
+        this.setContentBoxResizeEvent();
     }
 
-    addIconAnnimation = ()=> {
-        const subMenu = this.mainBox.lastChild;
-    
+    setExpandButtonEvent = ()=> {
         this.headerButton.addEventListener("click", ()=>{
             if(!this.onTrans){
                 this.onTrans = true;
-                this.headerButtonIcon.classList.toggle('icon-button-rotate-click');
-                this.headerButtonIcon.classList.toggle('icon-button-rotate-back'); 
-    
+                this.setIconAnnimation();
+                this.submenu.setSubmenuAnimation();
+                
                 this.headerButtonIcon.addEventListener('transitionend', ()=>{
-                    subMenu.style.right = getComputedStyle(this.headerButtonWrapper).width;
-                    
-                    if(getComputedStyle(subMenu).display === 'none'){
-                        subMenu.style.display = 'block';
-                    }
-                    else{
-                        subMenu.style.display = 'none';
-                    }
-
                     this.onTrans = false;
                 }, {once: true})
             }
-        });
-    
+        })
     }
 
-    createArticleSubMenu = ()=> {
-        const articleSubMenuWrapper = document.createElement('div');
-        const articleSubMenu = document.createElement('div');
-        const articleEditButton = document.createElement('button');
-        const articleDeleteButton = document.createElement('button');
-        const articleEditButtonText = document.createElement('p');
-        const articleDeleteButtonText = document.createElement('p');
+    setContentBoxResizeEvent = () =>{
+        const resize = new ResizeObserver(() => {
+            this.submenu.setSubmenuPosition(this.headerButtonWrapper);
+        })
+        resize.observe(this.mainBox);
+    }
+
+    setIconAnnimation = () =>{
+        this.headerButtonIcon.classList.toggle('icon-button-rotate-click');
+        this.headerButtonIcon.classList.toggle('icon-button-rotate-back'); 
+    }   
+}
+
+class SubMenu {
+        articleSubMenuWrapper = document.createElement('div');
+        articleSubMenu = document.createElement('div');
+        articleEditButton = document.createElement('button');
+        articleDeleteButton = document.createElement('button');
+        articleEditButtonText = document.createElement('p');
+        articleDeleteButtonText = document.createElement('p');
     
-        articleSubMenuWrapper.classList.add('content-submenu-wrapper');
+
+    constructor(){
+        this.articleSubMenuWrapper.classList.add('content-submenu-wrapper', 'content-submenu-close');
     
-        articleSubMenu.classList.add('content-submenu');
+        this.articleSubMenu.classList.add('content-submenu');
     
-        articleEditButtonText.textContent = "Edit";
-        articleDeleteButtonText.textContent = "Delete";
+        this.articleEditButtonText.textContent = "Edit";
+        this.articleDeleteButtonText.textContent = "Delete";
     
-        articleEditButton.appendChild(articleEditButtonText);
-        articleDeleteButton.appendChild(articleDeleteButtonText);
+        this.articleEditButton.appendChild(this.articleEditButtonText);
+        this.articleDeleteButton.appendChild(this.articleDeleteButtonText);
     
-        articleSubMenu.appendChild(articleEditButton);
-        articleSubMenu.appendChild(articleDeleteButton);
+        this.articleSubMenu.appendChild(this.articleEditButton);
+        this.articleSubMenu.appendChild(this.articleDeleteButton);
         
-        articleSubMenuWrapper.appendChild(articleSubMenu);
-    
-        this.mainBox.appendChild(articleSubMenuWrapper);
+        this.articleSubMenuWrapper.appendChild(this.articleSubMenu);
+    }
+
+    addSubmenu = (parentDiv) =>{
+        parentDiv.appendChild(this.articleSubMenuWrapper);
+    }
+
+    setSubmenuPosition = (targetPositon) =>{
+        const subMenu = this.articleSubMenuWrapper;
+        subMenu.style.right = getComputedStyle(targetPositon).width;
+    }
+
+    setSubmenuAnimation = () => {
+        const subMenu = this.articleSubMenuWrapper;
+            if(getComputedStyle(subMenu).display === 'hidden'){
+                subMenu.style.display = 'block';
+            }
+            else{
+                subMenu.style.display = 'hidden';
+            }
+
+            subMenu.classList.toggle('content-submenu-expand');
+            subMenu.classList.toggle('content-submenu-close');
     }
 }
 

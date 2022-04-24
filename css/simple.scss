@@ -1,3 +1,5 @@
+$normal-text-size: calc(max(1vw, 1.1rem));
+
 body, html{
     margin: 0 0;
     max-width: 100vw;
@@ -101,8 +103,15 @@ body{
                     }
                     
                     .content-header-button{
-                        flex-grow: 0;
+                        @media only screen and (min-width: 500px){
+                            position: absolute;
+                            top: 0;
+                            right: 0;
+                        }
                         
+                        @media only screen and (max-width: 500px){
+                            flex: 0;
+                        }
                         
                         button{
                             background-color: white;
@@ -131,20 +140,22 @@ body{
                     width: 100%;
     
                     p{
-                        font-size: calc(max(1vw, 1.1rem));
+                        font-size: $normal-text-size;
                         text-align: justify;
                         margin: 15px;
                     }
                 }
 
                 .content-submenu-wrapper{
-                    margin: 10px 0;
-                    display: none;
-                    top: 0;
-                    right: 0;
+                    padding: 0 10px;
+                    display: hidden;
                     position: absolute;
+                    overflow: hidden;
+                    top: 0;
                     height: fit-content;
-                    width: 4vw;
+                    margin: 10px 0;
+                    width: fit-content;
+                    transition: max-height 200ms;
 
                     .content-submenu{
                         display: flex;
@@ -153,18 +164,27 @@ body{
                         border: 1px solid lightgrey;
 
                         button{
+                            padding: 5px 5px;
                             width: 100%;
                             height: fit-content;
                             background-color: white;
                             border: none;
 
                             p{
-                                font-size: calc(max(1vw, 1.1rem));
+                                font-size: $normal-text-size;
                                 text-align: justify;
                                 margin: 0 5px;
                             }
                         }
                     }
+                }
+
+                .content-submenu-expand{
+                    max-height: 200px;
+                }
+
+                .content-submenu-close{
+                    max-height: 0px;
                 }
             }
         }
