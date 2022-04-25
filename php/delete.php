@@ -1,6 +1,6 @@
 <?php 
     include_once('simple.php');
-    $article_id = $_POST['article_id'];
+    $article_id = $_POST['ArticleID'];
     $result;
 
     try{

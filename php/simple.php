@@ -20,7 +20,7 @@
     
     public function fetchArticle(){
       $connection = $this->connectDB();
-      $statement = $connection->prepare('SELECT articleheader as ArticleHeader, articletext as ArticleText FROM tb_article');
+      $statement = $connection->prepare('SELECT id as ArticleID, articleheader as ArticleHeader, articletext as ArticleText FROM tb_article');
       $statement->execute();
       $result = $statement->get_result();
       if($result->num_rows == 0) {

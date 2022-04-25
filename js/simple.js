@@ -1,33 +1,51 @@
-const fetchArticle = async () => {
-    try {
-        const response = await fetch("php/fetch.php")
-        const data = await response.json();
+class DBOperation {
+    fetchArticle = async () => {
+        try {
+            const response = await fetch("php/fetch.php")
+            const data = await response.json();
 
-        return data;
+            return data;
+        }
+        catch (err) {
+            console.error(err);
+
+            return;
+        }
     }
-    catch (err) {
-        console.error(err);
 
-        return;
+    deleteArticle = async (articleID) => {
+        try {
+            let data = new FormData();
+            data.append('ArticleID', articleID);
+            const response = await fetch('php/delete.php', {
+                method: 'POST',
+                body: data
+            })
+            const result = await response.json();
+            return result;
+        }
+
+        catch (err) {
+            alert("Error has occured: " + err);
+        }
     }
 }
 
 class Article {
-    mainBoxArea = document.getElementById('main-box');
-    mainBox = document.createElement('div');
-    mainHeader = document.createElement('div');
-    mainArticle = document.createElement('div');
-    headerTextWrapper = document.createElement('div');
-    headerButtonWrapper = document.createElement('div');
-    headerText = document.createElement('h1');
-    headerButton = document.createElement('button');
-    headerButtonIcon = document.createElement('i');
-    articleText = document.createElement('p');
-    aritcleIdHolder = document.createElement('input');
-    submenu = new SubMenu();
-    onTrans = false;
-
     constructor(articleId, header, article) {
+        this.mainBoxArea = document.getElementById('main-box');
+        this.mainBox = document.createElement('div');
+        this.mainHeader = document.createElement('div');
+        this.mainArticle = document.createElement('div');
+        this.headerTextWrapper = document.createElement('div');
+        this.headerButtonWrapper = document.createElement('div');
+        this.headerText = document.createElement('h1');
+        this.headerButton = document.createElement('button');
+        this.headerButtonIcon = document.createElement('i');
+        this.articleText = document.createElement('p');
+        this.aritcleIdHolder = document.createElement('input');
+        this.submenu = new SubMenu();
+        this.onTrans = false;
 
         this.mainBox.classList.add('content-box');
 
@@ -47,7 +65,9 @@ class Article {
         this.headerText.innerHTML = header;
 
         this.articleText.innerHTML = article;
+    }
 
+    addArticle = (DeleteCallback) => {
         this.mainHeader.appendChild(this.headerTextWrapper);
         this.mainHeader.appendChild(this.headerButtonWrapper);
 
@@ -65,6 +85,7 @@ class Article {
         this.mainBoxArea.appendChild(this.mainBox);
         this.submenu.addSubmenu(this.mainBox);
         this.submenu.setSubmenuPosition(this.headerButtonWrapper);
+        this.submenu.setDeleteButtonEvenet(this.aritcleIdHolder.value, DeleteCallback);
         this.setExpandButtonEvent();
         this.setContentBoxResizeEvent();
     }
@@ -97,15 +118,14 @@ class Article {
 }
 
 class SubMenu {
-    articleSubMenuWrapper = document.createElement('div');
-    articleSubMenu = document.createElement('div');
-    articleEditButton = document.createElement('button');
-    articleDeleteButton = document.createElement('button');
-    articleEditButtonText = document.createElement('p');
-    articleDeleteButtonText = document.createElement('p');
-
-
     constructor() {
+        this.articleSubMenuWrapper = document.createElement('div');
+        this.articleSubMenu = document.createElement('div');
+        this.articleEditButton = document.createElement('button');
+        this.articleDeleteButton = document.createElement('button');
+        this.articleEditButtonText = document.createElement('p');
+        this.articleDeleteButtonText = document.createElement('p');
+
         this.articleSubMenuWrapper.classList.add('content-submenu-wrapper', 'content-submenu-close');
 
         this.articleSubMenu.classList.add('content-submenu');
@@ -143,14 +163,32 @@ class SubMenu {
         subMenu.classList.toggle('content-submenu-expand');
         subMenu.classList.toggle('content-submenu-close');
     }
+
+    setDeleteButtonEvenet = async (ArticleID, DeleteCallback) => {
+        this.articleDeleteButton.addEventListener('click', async () => {
+            const dbOperation = new DBOperation();
+            const dbOperationResult = await dbOperation.deleteArticle(ArticleID);
+            await DeleteCallback();
+            alert(dbOperationResult.Success);
+        })
+    }
 }
 
 const showArticle = async () => {
-    const articleArray = await fetchArticle();
+    const dbOperation = new DBOperation();
+    const articleArray = await dbOperation.fetchArticle();
     //let newArticle = articleArray.filter(el => el.ArticleHeader.includes("Test"));
-    for (const [index, value] of articleArray.entries()) {
-        const article = new Article(index, value.ArticleHeader, value.ArticleText);
+    if(articleArray !== null){
+        for (value of articleArray) {
+            const article = new Article(value.ArticleID, value.ArticleHeader, value.ArticleText);
+            article.addArticle(refreshArticle);
+        }
     }
+}
+
+const refreshArticle = async () => {
+    document.getElementById('main-box').innerHTML = '';
+    await showArticle();
 }
 
 showArticle();
