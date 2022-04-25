@@ -7,9 +7,7 @@ class DBOperation {
             return data;
         }
         catch (err) {
-            console.error(err);
-
-            return;
+            alert("Error has occured: "+err);
         }
     }
 
