@@ -1,14 +1,14 @@
 <?php 
     include_once ('simple.php');
-    $articleheader = $_POST['articleheader'];
-    $articletext = $_POST['articletext'];
+    $articleTitle = $_POST['articleTitle'];
+    $articleContent = $_POST['articleContent'];
     $date = $_POST['date'];
     $uploader = $_POST['uploader'];
     $result;
 
     try{
         $db = new Database('localhost','root','','dummy_db');
-        $db->insertArticle($articleheader, $articletext, $date, $uploader);
+        $db->insertArticle($articleTitle, $articleContent, $date, $uploader);
         $result = json_encode(array("Success" => "Data sucessfully added!"));
     }
     catch(Exception $error){

@@ -1,174 +1,51 @@
-class DBOperation {
-    fetchArticle = async () => {
-        try {
-            const response = await fetch("php/fetch.php")
-            const data = await response.json();
-
-            return data;
-        }
-        catch (err) {
-            alert("Error has occured: "+err);
-        }
+class ArticleEditor{
+    constructor(){
+        this.articleIDInput = document.getElementById('article-id');
+        this.articleTitleInput = document.getElementById('article-title');
+        this.articleTextInput = document.getElementById('article-content');
+        this.articleSubmitButton = document.getElementById('submit-article');
+        this.articleClearButton = document.getElementById('clear-article');
+        console.log("Created");
     }
 
-    deleteArticle = async (articleID) => {
-        try {
-            let data = new FormData();
-            data.append('ArticleID', articleID);
-            const response = await fetch('php/delete.php', {
-                method: 'POST',
-                body: data
-            })
-            const result = await response.json();
-            return result;
-        }
-
-        catch (err) {
-            alert("Error has occured: " + err);
-        }
-    }
-}
-
-class Article {
-    constructor(articleId, header, article) {
-        this.mainBoxArea = document.getElementById('main-box');
-        this.mainBox = document.createElement('div');
-        this.mainHeader = document.createElement('div');
-        this.mainArticle = document.createElement('div');
-        this.headerTextWrapper = document.createElement('div');
-        this.headerButtonWrapper = document.createElement('div');
-        this.headerText = document.createElement('h1');
-        this.headerButton = document.createElement('button');
-        this.headerButtonIcon = document.createElement('i');
-        this.articleText = document.createElement('p');
-        this.aritcleIdHolder = document.createElement('input');
-        this.submenu = new SubMenu();
-        this.onTrans = false;
-
-        this.mainBox.classList.add('content-box');
-
-        this.mainHeader.classList.add('content-header');
-
-        this.mainArticle.classList.add('content-body');
-
-        this.headerTextWrapper.classList.add('content-header-text');
-
-        this.headerButtonWrapper.classList.add('content-header-button');
-
-        this.headerButtonIcon.classList.add('fa', 'fa-solid', 'fa-ellipsis-vertical', 'fa-2x', 'icon-button-rotate-back');
-
-        this.aritcleIdHolder.type = "hidden";
-        this.aritcleIdHolder.value = articleId;
-
-        this.headerText.innerHTML = header;
-
-        this.articleText.innerHTML = article;
-    }
-
-    addArticle = (DeleteCallback) => {
-        this.mainHeader.appendChild(this.headerTextWrapper);
-        this.mainHeader.appendChild(this.headerButtonWrapper);
-
-        this.headerTextWrapper.appendChild(this.headerText);
-
-        this.headerButton.appendChild(this.headerButtonIcon);
-
-        this.headerButtonWrapper.appendChild(this.headerButton);
-
-        this.mainArticle.appendChild(this.articleText);
-
-        this.mainBox.appendChild(this.mainHeader);
-        this.mainBox.appendChild(this.mainArticle);
-        this.mainBox.appendChild(this.aritcleIdHolder);
-        this.mainBoxArea.appendChild(this.mainBox);
-        this.submenu.addSubmenu(this.mainBox);
-        this.submenu.setSubmenuPosition(this.headerButtonWrapper);
-        this.submenu.setDeleteButtonEvenet(this.aritcleIdHolder.value, DeleteCallback);
-        this.setExpandButtonEvent();
-        this.setContentBoxResizeEvent();
-    }
-
-    setExpandButtonEvent = () => {
-        this.headerButton.addEventListener("click", () => {
-            if (!this.onTrans) {
-                this.onTrans = true;
-                this.setIconAnnimation();
-                this.submenu.setSubmenuAnimation();
-
-                this.headerButtonIcon.addEventListener('transitionend', () => {
-                    this.onTrans = false;
-                }, { once: true })
-            }
-        })
-    }
-
-    setContentBoxResizeEvent = () => {
-        const resize = new ResizeObserver(() => {
-            this.submenu.setSubmenuPosition(this.headerButtonWrapper);
-        })
-        resize.observe(this.mainBox);
-    }
-
-    setIconAnnimation = () => {
-        this.headerButtonIcon.classList.toggle('icon-button-rotate-click');
-        this.headerButtonIcon.classList.toggle('icon-button-rotate-back');
-    }
-}
-
-class SubMenu {
-    constructor() {
-        this.articleSubMenuWrapper = document.createElement('div');
-        this.articleSubMenu = document.createElement('div');
-        this.articleEditButton = document.createElement('button');
-        this.articleDeleteButton = document.createElement('button');
-        this.articleEditButtonText = document.createElement('p');
-        this.articleDeleteButtonText = document.createElement('p');
-
-        this.articleSubMenuWrapper.classList.add('content-submenu-wrapper', 'content-submenu-close');
-
-        this.articleSubMenu.classList.add('content-submenu');
-
-        this.articleEditButtonText.textContent = "Edit";
-        this.articleDeleteButtonText.textContent = "Delete";
-
-        this.articleEditButton.appendChild(this.articleEditButtonText);
-        this.articleDeleteButton.appendChild(this.articleDeleteButtonText);
-
-        this.articleSubMenu.appendChild(this.articleEditButton);
-        this.articleSubMenu.appendChild(this.articleDeleteButton);
-
-        this.articleSubMenuWrapper.appendChild(this.articleSubMenu);
-    }
-
-    addSubmenu = (parentDiv) => {
-        parentDiv.appendChild(this.articleSubMenuWrapper);
-    }
-
-    setSubmenuPosition = (targetPositon) => {
-        const subMenu = this.articleSubMenuWrapper;
-        subMenu.style.right = getComputedStyle(targetPositon).width;
-    }
-
-    setSubmenuAnimation = () => {
-        const subMenu = this.articleSubMenuWrapper;
-        if (getComputedStyle(subMenu).display === 'hidden') {
-            subMenu.style.display = 'block';
-        }
-        else {
-            subMenu.style.display = 'hidden';
-        }
-
-        subMenu.classList.toggle('content-submenu-expand');
-        subMenu.classList.toggle('content-submenu-close');
-    }
-
-    setDeleteButtonEvenet = async (ArticleID, DeleteCallback) => {
-        this.articleDeleteButton.addEventListener('click', async () => {
+    submitArticle = async (articleTitle, articleText, uploader = "Texas") => {
+        try{
             const dbOperation = new DBOperation();
-            const dbOperationResult = await dbOperation.deleteArticle(ArticleID);
-            await DeleteCallback();
-            alert(dbOperationResult.Success);
-        })
+            const result = await dbOperation.uploadArticle(articleTitle, articleText, uploader, this.getDateNow());
+            console.log(result);
+            this.clearArticle();
+        }
+        catch(err){
+            alert(err);
+        }
+    }
+
+    clearArticle = () => {
+        this.articleTitleInput.value = "";
+        this.articleTextInput.value = "";
+    }
+
+    addSubmitButtonEvent = () => {
+        this.articleSubmitButton.addEventListener('click', ()=>{
+            if(this.articleTitleInput.value !=="" && this.articleTextInput.value !== ""){
+                this.submitArticle(this.articleTitleInput.value, this.articleTextInput.value);
+            }
+            else{
+                alert("Please fill the form first!");
+            }
+        });
+    }
+
+    addClearButtonEvent = () =>{
+        this.articleClearButton.addEventListener('click', ()=> {
+           this.clearArticle(); 
+        });
+    }
+
+    getDateNow = () => {
+        let date = new Date();
+        let today = date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
+        return today;
     }
 }
 
@@ -189,4 +66,28 @@ const refreshArticle = async () => {
     await showArticle();
 }
 
-showArticle();
+const getMainArticleContainer = async () => {
+    const response = await fetch('view/article.html');
+    const text = await response.text();
+    return text;
+}
+
+const addMainContent = async (content) => {
+    const mainContentArea = document.getElementById('main-content-area');
+    mainContentArea.innerHTML = await content();
+}
+
+const mainArticleStart = async () =>{
+    await addMainContent(getMainArticleContainer);
+    await showArticle();
+}
+
+//mainArticleStart();
+const setUp = () =>{
+    let articleE = new ArticleEditor();
+    articleE.addSubmitButtonEvent();
+    articleE.addClearButtonEvent();
+    console.log(articleE);
+}
+
+setUp();

@@ -1,7 +1,6 @@
+$normal-text-size: calc(max(1vw, 1.1rem));
 @mixin main-article-scss {
     .main-article {
-        height: 100%;
-        width: 100%;
         display: flex;
         flex-direction: column;
         align-items: center;

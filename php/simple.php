@@ -31,7 +31,7 @@
 
     public function insertArticle(string $article_header, string $article_text, string $date, string $uploader){
       $connection = $this->connectDB();
-      $statement = $connection->prepare("INSERT INTO tb_article(articleheader, articletext, upload_date, username) VALUES(?, ?, ?, ?)");
+      $statement = $connection->prepare("INSERT INTO tb_article(articleheader, articletext, upload_date, uploader) VALUES(?, ?, ?, ?)");
       $statement->bind_param('ssss', $article_header, $article_text, $date, $uploader);
       $statement->execute();
     }
