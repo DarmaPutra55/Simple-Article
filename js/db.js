@@ -1,7 +1,7 @@
-class DBOperation {
+export default class DBOperation {
     fetchArticle = async () => {
         try {
-            const response = await fetch("php/fetch.php");
+            const response = await fetch("/php/fetch.php");
             const data = await response.json();
 
             return data;
@@ -15,7 +15,7 @@ class DBOperation {
         try {
             let data = new FormData();
             data.append('ArticleID', articleID);
-            const response = await fetch('php/delete.php', {
+            const response = await fetch('/php/delete.php', {
                 method: 'POST',
                 body: data
             });
@@ -36,7 +36,7 @@ class DBOperation {
             uploadFormData.append("uploader", uploader);
             uploadFormData.append("date", date);
 
-            const response = await fetch('php/insert.php', {
+            const response = await fetch('/php/insert.php', {
                 method: 'POST',
                 body: uploadFormData
             });

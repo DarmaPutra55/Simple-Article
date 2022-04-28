@@ -1,3 +1,6 @@
+import SubMenu from "/js/sub-article.js";
+import DBOperation from "/js/db.js";
+
 class Article {
     constructor(articleId, header, article) {
         this.mainBoxArea = document.getElementById('main-box');
@@ -82,4 +85,27 @@ class Article {
         this.headerButtonIcon.classList.toggle('icon-button-rotate-click');
         this.headerButtonIcon.classList.toggle('icon-button-rotate-back');
     }
+}
+
+export const showArticle = async () => {
+    const dbOperation = new DBOperation();
+    const articleArray = await dbOperation.fetchArticle();
+    //let newArticle = articleArray.filter(el => el.ArticleHeader.includes("Test"));
+    if(articleArray !== null){
+        for (const value of articleArray) {
+            const article = new Article(value.ArticleID, value.ArticleHeader, value.ArticleText);
+            article.addArticle(refreshArticle);
+        }
+    }
+}
+
+const refreshArticle = async () => {
+    document.getElementById('main-box').innerHTML = '';
+    await showArticle();
+}
+
+export const getMainContent = async () => {
+    const response = await fetch('view/article.html');
+    const text = await response.text();
+    return text;
 }

@@ -1,93 +1,33 @@
-class ArticleEditor{
-    constructor(){
-        this.articleIDInput = document.getElementById('article-id');
-        this.articleTitleInput = document.getElementById('article-title');
-        this.articleTextInput = document.getElementById('article-content');
-        this.articleSubmitButton = document.getElementById('submit-article');
-        this.articleClearButton = document.getElementById('clear-article');
-        console.log("Created");
-    }
+import { getMainContent as articleViewContent, showArticle } from "/js/article.js";
+import { getMainContent as articleEditorContent, addArticleEditorEvent } from "/js/article-editor.js";
+import DBOperation from "/js/db.js";
 
-    submitArticle = async (articleTitle, articleText, uploader = "Texas") => {
-        try{
-            const dbOperation = new DBOperation();
-            const result = await dbOperation.uploadArticle(articleTitle, articleText, uploader, this.getDateNow());
-            console.log(result);
-            this.clearArticle();
-        }
-        catch(err){
-            alert(err);
-        }
-    }
 
-    clearArticle = () => {
-        this.articleTitleInput.value = "";
-        this.articleTextInput.value = "";
-    }
 
-    addSubmitButtonEvent = () => {
-        this.articleSubmitButton.addEventListener('click', ()=>{
-            if(this.articleTitleInput.value !=="" && this.articleTextInput.value !== ""){
-                this.submitArticle(this.articleTitleInput.value, this.articleTextInput.value);
-            }
-            else{
-                alert("Please fill the form first!");
-            }
-        });
+const getUrl = ()=>{
+    let link = window.location.pathname.split('/');
+    if(link.length > 2){
+        return link[link.length - 2];
     }
-
-    addClearButtonEvent = () =>{
-        this.articleClearButton.addEventListener('click', ()=> {
-           this.clearArticle(); 
-        });
-    }
-
-    getDateNow = () => {
-        let date = new Date();
-        let today = date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
-        return today;
-    }
+    return link[link.length - 1];
 }
 
-const showArticle = async () => {
-    const dbOperation = new DBOperation();
-    const articleArray = await dbOperation.fetchArticle();
-    //let newArticle = articleArray.filter(el => el.ArticleHeader.includes("Test"));
-    if(articleArray !== null){
-        for (value of articleArray) {
-            const article = new Article(value.ArticleID, value.ArticleHeader, value.ArticleText);
-            article.addArticle(refreshArticle);
-        }
-    }
-}
-
-const refreshArticle = async () => {
-    document.getElementById('main-box').innerHTML = '';
-    await showArticle();
-}
-
-const getMainArticleContainer = async () => {
-    const response = await fetch('view/article.html');
-    const text = await response.text();
-    return text;
-}
-
-const addMainContent = async (content) => {
+const setUpMainView = async (content) => {
     const mainContentArea = document.getElementById('main-content-area');
     mainContentArea.innerHTML = await content();
 }
 
-const mainArticleStart = async () =>{
-    await addMainContent(getMainArticleContainer);
-    await showArticle();
+const showContent = async() =>{
+    if(getUrl().includes("tambah")){
+        await setUpMainView(articleEditorContent);
+        addArticleEditorEvent();
+    }
+
+    else{
+        await setUpMainView(articleViewContent);
+        await showArticle();
+    }
+    //alert(getUrl());
 }
 
-//mainArticleStart();
-const setUp = () =>{
-    let articleE = new ArticleEditor();
-    articleE.addSubmitButtonEvent();
-    articleE.addClearButtonEvent();
-    console.log(articleE);
-}
-
-setUp();
+showContent();

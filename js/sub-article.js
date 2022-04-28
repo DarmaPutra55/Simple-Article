@@ -1,4 +1,6 @@
-class SubMenu {
+import DBOperation from "/js/db.js";
+
+export default class SubMenu {
     constructor() {
         this.articleSubMenuWrapper = document.createElement('div');
         this.articleSubMenu = document.createElement('div');

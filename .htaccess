@@ -1,4 +1,5 @@
 RewriteEngine on  
 RewriteCond %{REQUEST_FILENAME} !-d  
 RewriteCond %{REQUEST_FILENAME}\.html -f  
-RewriteRule ^(.*)$ $1.html
+RewriteRule ^(.*)$ $1.html [NC]
+RewriteRule ^tambah/([0-9]+) tambah.html?id=$2 [NC, L]
