@@ -43,3 +43,8 @@ XXX
 
 XXX
 +Use await when you think a function will return an unfulfilled promise.
+
+XXX
++Don't use space on RewriteRule's []:
+[NC, L] <- ERROR!
+[NC,L] <- GOOD!

@@ -109,13 +109,11 @@ export const getMainContent = async() =>{
 
 export const showArticleEditor = () => {
     const articleEditor = new ArticleEditor();
-    articleEditor.addArticleEditorEvent();
     articleEditor.showArticle();
 }
 
 export const showArticleEditorEdit = async (id) => {
     const articleEditor = new ArticleEditor();
-    articleEditor.addArticleEditorEvent();
     await articleEditor.setArticleEditorValue(id);
     articleEditor.showArticle();
 }
