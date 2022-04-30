@@ -1,5 +1,5 @@
 import { getMainContent as articleViewContent, showArticle } from "/js/article.js";
-import { getMainContent as articleEditorContent, addArticleEditorEvent } from "/js/article-editor.js";
+import { getMainContent as articleEditorContent, checkURLParameter, showArticleEditorEdit, showArticleEditor, getURLParameter } from "/js/article-editor.js";
 import DBOperation from "/js/db.js";
 
 
@@ -20,7 +20,13 @@ const setUpMainView = async (content) => {
 const showContent = async() =>{
     if(getUrl().includes("tambah")){
         await setUpMainView(articleEditorContent);
-        addArticleEditorEvent();
+        if(checkURLParameter()){
+            await showArticleEditorEdit(getURLParameter());
+        }
+        else{
+            showArticleEditor();
+        }
+        
     }
 
     else{

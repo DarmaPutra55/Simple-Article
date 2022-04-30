@@ -56,6 +56,7 @@ class Article {
         this.submenu.addSubmenu(this.mainBox);
         this.submenu.setSubmenuPosition(this.headerButtonWrapper);
         this.submenu.setDeleteButtonEvenet(this.aritcleIdHolder.value, DeleteCallback);
+        this.submenu.setEditButtonEvenet(this.aritcleIdHolder.value);
         this.setExpandButtonEvent();
         this.setContentBoxResizeEvent();
     }

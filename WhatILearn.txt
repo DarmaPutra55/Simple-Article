@@ -40,3 +40,6 @@ XXX
 +Example:
 	const resize = new ResizeObserver(() => callback()) //Callback will be triggered when target element rezise.
     resize.observe(<Target element>);
+
+XXX
++Use await when you think a function will return an unfulfilled promise.

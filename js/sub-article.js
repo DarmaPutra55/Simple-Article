@@ -53,6 +53,12 @@ export default class SubMenu {
             const dbOperationResult = await dbOperation.deleteArticle(ArticleID);
             await DeleteCallback();
             alert(dbOperationResult.Success);
-        })
+        });
+    }
+
+    setEditButtonEvenet = (ArticleID) => {
+        this.articleEditButton.addEventListener('click', () => {
+            window.location.href = "/tambah/"+ArticleID;
+        });
     }
 }

@@ -1,14 +1,15 @@
 <?php 
     include_once('simple.php');
-    $article_id = $_POST['article_id'];
-    $article_header = $_POST['article_header'];
-    $article_text = $_POST['article_text'];
-    $update_date = $_POST['update_date'];
+    $article_id = $_POST['articleID'];
+    $article_header = $_POST['articleTitle'];
+    $article_text = $_POST['articleContent'];
+    $uploader = $_POST['uploader'];
+    $update_date = $_POST['date'];
     $result;
 
     try{
         $db = new Database('localhost','root','','dummy_db');
-        $db->updateArticle($article_id, $article_header, $article_text, $update_date);
+        $db->updateArticle($article_id, $article_header, $article_text, $uploader, $update_date);
         $result = json_encode(array("Success" => "Data sucessfully updated!"));
     }
     catch(Exception $error){
