@@ -378,10 +378,6 @@ body .main-wrapper .content-wrapper .article-content-wrapper .article-content-bo
   border: none;
 }
 
-body .main-wrapper .content-wrapper .article-content-wrapper-hide {
-  display: none;
-}
-
 body .main-wrapper .footer-wrapper {
   min-height: 10vh;
   width: 100%;
@@ -395,5 +391,9 @@ body .main-wrapper .footer-wrapper {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+.hide {
+  display: none;
 }
 /*# sourceMappingURL=simple.css.map */

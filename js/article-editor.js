@@ -80,7 +80,7 @@ export default class ArticleEditor{
     }
 
     showArticle = () => {
-        this.articleWrapper.classList.toggle("article-content-wrapper-hide");
+        this.articleWrapper.classList.toggle("hide");
     }
 
     setArticleEditorValue = async(id) =>{

@@ -153,10 +153,6 @@ body {
                     }
                 }
             }
-
-            .article-content-wrapper-hide{
-                display: none;
-            }
         }
 
 
@@ -171,4 +167,8 @@ body {
 
     }
 
+}
+
+.hide{
+    display: none;
 }

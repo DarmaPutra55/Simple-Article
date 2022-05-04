@@ -70,6 +70,19 @@
       $statement->execute();
     }
 
+    public function loginUser(string $username, string $password){
+      $conntection = $this->connectDB();
+      $statement = $conntection->prepare("SELECT COUNT(username) as Status FROM tb_user WHERE username = ? AND password = ?");
+      $statement->bind_param("ss", $username, $password);
+      $statement->execute();
+      $resultRaw = $statement->get_result();
+      $result = $resultRaw->fetch_all(MYSQLI_ASSOC);
+      if($result[0]['Status'] === 1){
+        return "Found User.";
+      }
+      return "User not found!";
+    }
+
     /* TODO: Check database and table, if database no exist, make one. Same goes with the table
     private function checkDb(){
       $connection = new mysqli($this->server, $this->username, $this->password);
