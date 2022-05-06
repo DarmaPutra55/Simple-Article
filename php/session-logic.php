@@ -1,9 +1,9 @@
 <?php
-    include_once 'simple.php';
+    include_once('simple.php');
     class Session {
 
         public function __construct(){
-            $this->db = new Database('localhost','root','','dummy_db');
+            $this->db = new Database();
         }
 
         public function checkLogin(){
@@ -23,9 +23,8 @@
         }
 
         public function logIn(string $username, string $password){
-            $login = $this->db->loginUser($username, $password);
-            print_r($login);
-            if($login === "Found User."){
+            $login = $this->db->checkUser($username, $password);
+            if($login){
                 $_SESSION['username'] = $username;
             }
             else{

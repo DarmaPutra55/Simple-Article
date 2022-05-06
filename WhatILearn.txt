@@ -48,3 +48,6 @@ XXX
 +Don't use space on RewriteRule's []:
 [NC, L] <- ERROR!
 [NC,L] <- GOOD!
+
+XXX
++Before echoing an associative array in php, make sure to use JSON ENCODE first! You are sending a JSON, not a pure array.

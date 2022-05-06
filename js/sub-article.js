@@ -1,4 +1,4 @@
-import DBOperation from "/js/db.js";
+import DBOperation from "./db.js";
 
 export default class SubMenu {
     constructor() {
@@ -52,7 +52,9 @@ export default class SubMenu {
             const dbOperation = new DBOperation();
             const dbOperationResult = await dbOperation.deleteArticle(ArticleID);
             await DeleteCallback();
-            alert(dbOperationResult.Success);
+            if(dbOperationResult.status === "ok"){
+                alert('Data sucessfully deleted!');
+            }
         });
     }
 

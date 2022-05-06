@@ -4,12 +4,12 @@
     $result;
 
     try{
-        $db = new Database('localhost','root','','dummy_db');
+        $db = new Database();
         $db->deleteArticle($article_id);
-        $result = json_encode(array("Success" => "Data sucessfully deleted!"));
+        $result = json_encode(array("status" => "ok"));
     }
     catch(Exception $error){
-        $result = json_encode(array("Error" => "Something went wrong!"));
+        $result = json_encode(array("status" => "error"));
     }
     finally{
         header('Content-Type: application/json; charset=utf-8');

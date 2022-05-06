@@ -4,6 +4,7 @@ export default class ArticleEditor{
     constructor(){
         this.articleWrapper = document.getElementById('article-editor-wrapper');
         this.articleIDInput = document.getElementById('article-id');
+        this.articleIDInput.value = null;
         this.articleTitleInput = document.getElementById('article-title');
         this.articleTextInput = document.getElementById('article-content');
         this.articleSubmitButton = document.getElementById('submit-article');
@@ -17,14 +18,15 @@ export default class ArticleEditor{
         this.articleTextInput.value = articleText;
     }
 
-    submitArticle = async (articleTitle, articleText, uploader = "Texas", id=null) => {
+    submitArticle = async (articleTitle, articleText, uploader = "Texas", id="") => {
         try{
-            if(id !== null){
+            if(id !== ""){
                 this.updateArticle(id, articleTitle, articleText, uploader);
                 this.clearArticle();
             }
             else{
                 this.addArticle(articleTitle, articleText, uploader);
+                this.clearArticle();
             }
         }
         catch(err){
@@ -35,13 +37,19 @@ export default class ArticleEditor{
     addArticle = async (articleTitle, articleText, uploader) => {
         const dbOperation = new DBOperation();
         const result = await dbOperation.uploadArticle(articleTitle, articleText, uploader, this.getDateNow());
-        alert("Berhasil memasukan data!");
+        console.log(result);
+        if(result.status === "ok"){
+            alert("Article created!");
+        }
     }
 
     updateArticle = async (id, articleTitle, articleText, uploader) => {
         const dbOperation = new DBOperation();
         const result = await dbOperation.updateArticle(id, articleTitle, articleText, uploader, this.getDateNow());
-        alert("Berhasil update data!");
+        console.log(result);
+        if(result.status === "ok"){
+            alert("Article updated!");
+        }
     }
 
     clearArticle = () => {

@@ -2,12 +2,12 @@
   class Database{
     //private string $request = $_SERVER['REQUEST_METHOD'];
 
-    public function __construct(string $server, string $username, string $password, string $database)
+    public function __construct()
     {
-      $this->server = $server;
-      $this->username = $username;
-      $this->password = $password;
-      $this->database = $database;
+      $this->server = 'localhost';
+      $this->username = 'root';
+      $this->password = '';
+      $this->database = 'dummy_db';
       //$this->checkDb();
     }
 
@@ -70,17 +70,43 @@
       $statement->execute();
     }
 
-    public function loginUser(string $username, string $password){
-      $conntection = $this->connectDB();
-      $statement = $conntection->prepare("SELECT COUNT(username) as Status FROM tb_user WHERE username = ? AND password = ?");
+    public function checkUser(string $username, string $password = null){
+      if($password === null){
+        $result = $this->checkUserRegister($username);
+      }
+      else{
+        $result = $this->checkUserLogin($username, $password);
+      }
+
+      if($result[0]['Status'] === 1){
+        return true;
+      }
+      return false;
+    }
+
+    private function checkUserLogin(string $username, string $password){
+      $connection = $this->connectDB();
+      $statement = $connection->prepare("SELECT COUNT(username) as Status FROM tb_user WHERE username = ? AND password = ?");
       $statement->bind_param("ss", $username, $password);
       $statement->execute();
       $resultRaw = $statement->get_result();
-      $result = $resultRaw->fetch_all(MYSQLI_ASSOC);
-      if($result[0]['Status'] === 1){
-        return "Found User.";
-      }
-      return "User not found!";
+      return $resultRaw->fetch_all(MYSQLI_ASSOC);
+    }
+
+    private function checkUserRegister(string $username){
+      $connection = $this->connectDB();
+      $statement = $connection->prepare("SELECT COUNT(username) as Status FROM tb_user WHERE username = ?");
+      $statement->bind_param("s", $username);
+      $statement->execute();
+      $resultRaw = $statement->get_result();
+      return $resultRaw->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function registerUser(string $username, string $password){
+      $connection = $this->connectDB();
+      $statement = $connection->prepare("INSERT INTO tb_user(username, password) VALUES(?, ?)");
+      $statement->bind_param("ss", $username, $password);
+      $statement->execute();
     }
 
     /* TODO: Check database and table, if database no exist, make one. Same goes with the table

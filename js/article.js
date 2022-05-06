@@ -1,6 +1,5 @@
 import SubMenu from "/js/sub-article.js";
 import DBOperation from "/js/db.js";
-
 class Article {
     constructor(articleId, header, article) {
         this.mainBoxArea = document.getElementById('main-box');
