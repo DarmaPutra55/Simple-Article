@@ -1,0 +1,62 @@
+@mixin login-scss {
+    .login-menu-wrapper {
+        height: fit-content;
+        max-height: 300px;
+        width: 300px;
+        background-color: aquamarine;
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        right: 0;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        transition: max-height 200ms;
+
+        .login-text-wrapper{
+            height: 20%;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;   
+
+            h1{
+                width: fit-content;
+                margin: 0 0;
+            }
+        }
+
+        .login-form-wrapper{
+            .login-form{
+                fieldset{
+                    border: none;
+                    
+                    .login-form-group-text{
+                        margin: 10px 0;
+                        display: flex;
+                        flex-direction: column;
+
+                        label{
+                            margin-bottom: 5px;
+                        }
+                    }   
+                    
+                    .login-form-group-button{
+                        margin: 10px 0;
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: space-between;
+
+                        input[type=button]{
+                            width: 40%;
+                        }
+                    }
+                }
+            }    
+        }  
+    }
+
+    .collapse{
+        max-height: 0px;
+    }
+}

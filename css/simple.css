@@ -143,91 +143,6 @@ body .main-wrapper .content-wrapper {
   left: 0;
 }
 
-body .main-wrapper .content-wrapper .login-menu-wrapper {
-  height: -webkit-fit-content;
-  height: -moz-fit-content;
-  height: fit-content;
-  max-height: 300px;
-  width: 300px;
-  background-color: aquamarine;
-  position: absolute;
-  z-index: 1;
-  top: 0;
-  right: 0;
-  overflow: hidden;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-transition: max-height 200ms;
-  transition: max-height 200ms;
-}
-
-body .main-wrapper .content-wrapper .login-menu-wrapper .login-text-wrapper {
-  height: 20%;
-  width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-}
-
-body .main-wrapper .content-wrapper .login-menu-wrapper .login-text-wrapper h1 {
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
-  margin: 0 0;
-}
-
-body .main-wrapper .content-wrapper .login-menu-wrapper .login-form-wrapper .login-form fieldset {
-  border: none;
-}
-
-body .main-wrapper .content-wrapper .login-menu-wrapper .login-form-wrapper .login-form fieldset .login-form-group-text {
-  margin: 10px 0;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-}
-
-body .main-wrapper .content-wrapper .login-menu-wrapper .login-form-wrapper .login-form fieldset .login-form-group-text label {
-  margin-bottom: 5px;
-}
-
-body .main-wrapper .content-wrapper .login-menu-wrapper .login-form-wrapper .login-form fieldset .login-form-group-button {
-  margin: 10px 0;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-}
-
-body .main-wrapper .content-wrapper .login-menu-wrapper .login-form-wrapper .login-form fieldset .login-form-group-button input[type=button] {
-  width: 40%;
-}
-
-body .main-wrapper .content-wrapper .collapse {
-  max-height: 0px;
-}
-
 body .main-wrapper .content-wrapper .main-article {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -425,7 +340,7 @@ body .main-wrapper .content-wrapper .article-content-wrapper .article-content-bo
 }
 
 body .main-wrapper .content-wrapper .article-content-wrapper .article-content-box .article-content-form fieldset .article-content-group-text {
-  margin: 10px 10px;
+  margin: 5px 5px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -444,14 +359,20 @@ body .main-wrapper .content-wrapper .article-content-wrapper .article-content-bo
 }
 
 body .main-wrapper .content-wrapper .article-content-wrapper .article-content-box .article-content-form fieldset .article-content-group-text input[type=text] {
+  padding: 5px 10px;
   height: 5vh;
   font-size: calc(max(1vw, 1.1rem));
+  background-color: #fafafa;
+  border: none;
 }
 
 body .main-wrapper .content-wrapper .article-content-wrapper .article-content-box .article-content-form fieldset .article-content-group-text textarea {
+  padding: 5px 10px;
   height: 45vh;
   resize: none;
   font-size: calc(max(1vw, 1.1rem));
+  background-color: #fafafa;
+  border: none;
 }
 
 body .main-wrapper .content-wrapper .article-content-wrapper .article-content-box .article-content-form fieldset .article-content-group-button {
@@ -482,6 +403,91 @@ body .main-wrapper .content-wrapper .article-content-wrapper .article-content-bo
 body .main-wrapper .content-wrapper .article-content-wrapper .article-content-box .article-content-form fieldset .article-content-group-button :nth-child(2) {
   background-color: lightcoral;
   border: none;
+}
+
+body .main-wrapper .content-wrapper .login-menu-wrapper {
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  max-height: 300px;
+  width: 300px;
+  background-color: aquamarine;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  overflow: hidden;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-transition: max-height 200ms;
+  transition: max-height 200ms;
+}
+
+body .main-wrapper .content-wrapper .login-menu-wrapper .login-text-wrapper {
+  height: 20%;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+body .main-wrapper .content-wrapper .login-menu-wrapper .login-text-wrapper h1 {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: 0 0;
+}
+
+body .main-wrapper .content-wrapper .login-menu-wrapper .login-form-wrapper .login-form fieldset {
+  border: none;
+}
+
+body .main-wrapper .content-wrapper .login-menu-wrapper .login-form-wrapper .login-form fieldset .login-form-group-text {
+  margin: 10px 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+body .main-wrapper .content-wrapper .login-menu-wrapper .login-form-wrapper .login-form fieldset .login-form-group-text label {
+  margin-bottom: 5px;
+}
+
+body .main-wrapper .content-wrapper .login-menu-wrapper .login-form-wrapper .login-form fieldset .login-form-group-button {
+  margin: 10px 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+body .main-wrapper .content-wrapper .login-menu-wrapper .login-form-wrapper .login-form fieldset .login-form-group-button input[type=button] {
+  width: 40%;
+}
+
+body .main-wrapper .content-wrapper .collapse {
+  max-height: 0px;
 }
 
 body .main-wrapper .footer-wrapper {

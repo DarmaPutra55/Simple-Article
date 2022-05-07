@@ -1,0 +1,79 @@
+@mixin article-editor-scss {
+    .article-content-wrapper{
+        min-height: 75vh;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+
+        .article-content-box{
+            height: 100%;
+            width: calc(min(1100px, 100%));
+            
+            .article-content-form{
+                height: 100%;
+                width: 100%;
+                box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+
+                fieldset{
+                    padding: 0 10px;
+                    height: 100%;
+                    border: none;
+
+                    .article-content-group-text{
+                        margin: 5px 5px;
+                        display: flex;
+                        flex-direction: column;
+
+                        label{
+                            margin: 10px 0;
+                            font-size: calc(max(1.75vw, 1.75rem));
+                            width: fit-content;
+                        }
+
+                        input[type=text]{
+                            padding: 5px 10px;
+                            height: 5vh;
+                            font-size: $normal-text-size;
+                            background-color: rgb(250, 250, 250);
+                            border: none;
+                        }
+
+                        textarea{
+                            padding: 5px 10px;
+                            height: 45vh;
+                            resize: none;
+                            font-size: $normal-text-size;
+                            background-color: rgb(250, 250, 250);
+                            border: none;
+                        }
+                    }
+
+                    .article-content-group-button{
+                        margin: 10px 10px;
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: space-between;
+
+                        button{
+                            width: calc(max(200px, 15vw));
+                            height: 5vh;
+                            font-size: $normal-text-size;
+                        }
+
+                        :nth-child(1){
+                            background-color: lightgreen;
+                            border: none;
+                        }
+
+                        :nth-child(2){
+                            background-color: lightcoral;
+                            border: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

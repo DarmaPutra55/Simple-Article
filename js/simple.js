@@ -65,6 +65,6 @@ const showContent = async() =>{
     //alert(getUrl());
 }
 
-setLoginMenuEvent();
-setLoginButtonEvent();
+//setLoginMenuEvent();
+//setLoginButtonEvent();
 showContent();
