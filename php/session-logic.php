@@ -9,30 +9,37 @@
         public function checkLogin(){
             if(isset($_SESSION['username'])){
                 return true;
-            }
             
-            return $this->erroAlert("User not found!");
+            }
+            return false;
+        }
+
+        public function getUsername(){
+            if(isset($_SESSION['username'])){
+                return $_SESSION['username'];
+            }
         }
 
         public function logOut(){
             if($this->checkLogin()){
                 session_destroy();
-                return "Logout success!";
+                return "logout success";
             }
-            return $this->erroAlert("Logout failed!");
+
+            return "logout failed";
         }
 
         public function logIn(string $username, string $password){
             $login = $this->db->checkUser($username, $password);
             if($login){
                 $_SESSION['username'] = $username;
+                return "login success";
             }
-            else{
-                $this->erroAlert("User not found!");
-            }
+
+            return "login failed";
         }
 
-        private function erroAlert($msg){
+        /*private function erroAlert($msg){
             return "<script type='text/javascript'> alert( ".$msg." ) </script>";
-        }
+        }*/
     }

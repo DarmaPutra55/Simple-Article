@@ -93,4 +93,35 @@ export default class DBOperation {
         }
     }
 
+    loginUser = async (username, password) =>{
+        let loginFormData = new FormData();
+        loginFormData.append('username', username);
+        loginFormData.append('password', password);
+
+        try{
+            const response = await fetch('/php/login.php', {
+                method: 'Post',
+                body: loginFormData
+            });
+
+            const result = await response.json();
+            return result;
+        }
+
+        catch(err){
+            alert("Error has occured: " + err);
+        }
+    }
+
+    fetchUsername = async () =>{
+        try{
+            const response = await fetch('/php/getUsername.php');
+            const result = await response.json();
+            return result; 
+        }
+        catch(err){
+            alert("Error has occured: " + err);
+        }
+    }
+
 }

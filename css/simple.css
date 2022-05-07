@@ -64,7 +64,7 @@ body .main-wrapper .header-wrapper .header-text-wrapper .header-text {
 }
 
 body .main-wrapper .header-wrapper .header-text-wrapper .header-text h1 {
-  font-size: calc(max(3vw, 2.9rem));
+  font-size: calc(max(2.9vw, 2.9rem));
   margin: 15px 0;
 }
 
@@ -107,86 +107,22 @@ body .main-wrapper .header-wrapper .header-menu-wrapper nav a {
   font-size: 1.2rem;
 }
 
-body .main-wrapper .header-wrapper .header-menu-wrapper .login-menu-wrapper {
-  height: -webkit-fit-content;
-  height: -moz-fit-content;
-  height: fit-content;
-  width: 300px;
-  background-color: aquamarine;
-  position: absolute;
-  z-index: 1;
-  top: 40px;
-  right: 0;
-  overflow: hidden;
+body .main-wrapper .header-wrapper .header-menu-wrapper .login-nav {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  margin-right: 10px;
 }
 
-body .main-wrapper .header-wrapper .header-menu-wrapper .login-menu-wrapper .login-text-wrapper {
-  height: 20%;
-  width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-}
-
-body .main-wrapper .header-wrapper .header-menu-wrapper .login-menu-wrapper .login-text-wrapper h1 {
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
-  margin: 0 0;
-}
-
-body .main-wrapper .header-wrapper .header-menu-wrapper .login-menu-wrapper .login-form-wrapper .login-form fieldset {
+body .main-wrapper .header-wrapper .header-menu-wrapper .login-nav input[type=button] {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  padding: 0 10px;
+  color: black;
+  font-size: 1rem;
   border: none;
-}
-
-body .main-wrapper .header-wrapper .header-menu-wrapper .login-menu-wrapper .login-form-wrapper .login-form fieldset .login-form-group-text {
-  margin: 10px 0;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-}
-
-body .main-wrapper .header-wrapper .header-menu-wrapper .login-menu-wrapper .login-form-wrapper .login-form fieldset .login-form-group-text label {
-  margin-bottom: 5px;
-}
-
-body .main-wrapper .header-wrapper .header-menu-wrapper .login-menu-wrapper .login-form-wrapper .login-form fieldset .login-form-group-button {
-  margin: 10px 0;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-}
-
-body .main-wrapper .header-wrapper .header-menu-wrapper .login-menu-wrapper .login-form-wrapper .login-form fieldset .login-form-group-button input[type=button] {
-  width: 40%;
-}
-
-body .main-wrapper .header-wrapper .header-menu-wrapper .collapse {
-  max-height: 0px;
+  background-color: transparent;
 }
 
 body .main-wrapper .header-wrapper .header-menu-wrapper .nav-mobile-opened {
@@ -202,6 +138,94 @@ body .main-wrapper .header-wrapper .header-menu-wrapper .nav-mobile-opened {
 body .main-wrapper .content-wrapper {
   min-height: 75vh;
   width: 100%;
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+body .main-wrapper .content-wrapper .login-menu-wrapper {
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  max-height: 300px;
+  width: 300px;
+  background-color: aquamarine;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  overflow: hidden;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-transition: max-height 200ms;
+  transition: max-height 200ms;
+}
+
+body .main-wrapper .content-wrapper .login-menu-wrapper .login-text-wrapper {
+  height: 20%;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+body .main-wrapper .content-wrapper .login-menu-wrapper .login-text-wrapper h1 {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: 0 0;
+}
+
+body .main-wrapper .content-wrapper .login-menu-wrapper .login-form-wrapper .login-form fieldset {
+  border: none;
+}
+
+body .main-wrapper .content-wrapper .login-menu-wrapper .login-form-wrapper .login-form fieldset .login-form-group-text {
+  margin: 10px 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+body .main-wrapper .content-wrapper .login-menu-wrapper .login-form-wrapper .login-form fieldset .login-form-group-text label {
+  margin-bottom: 5px;
+}
+
+body .main-wrapper .content-wrapper .login-menu-wrapper .login-form-wrapper .login-form fieldset .login-form-group-button {
+  margin: 10px 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+body .main-wrapper .content-wrapper .login-menu-wrapper .login-form-wrapper .login-form fieldset .login-form-group-button input[type=button] {
+  width: 40%;
+}
+
+body .main-wrapper .content-wrapper .collapse {
+  max-height: 0px;
 }
 
 body .main-wrapper .content-wrapper .main-article {
