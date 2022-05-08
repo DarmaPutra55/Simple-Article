@@ -88,14 +88,19 @@ class Article {
 }
 
 export const showArticle = async () => {
-    const dbOperation = new DBOperation();
-    const articleArray = await dbOperation.fetchArticle();
-    //let newArticle = articleArray.filter(el => el.ArticleHeader.includes("Test"));
-    if(articleArray !== null){
-        for (const value of articleArray) {
-            const article = new Article(value.ArticleID, value.ArticleHeader, value.ArticleText);
-            article.addArticle(refreshArticle);
+    try{
+        const dbOperation = new DBOperation();
+        const articleArray = await dbOperation.fetchArticle();
+        //let newArticle = articleArray.filter(el => el.ArticleHeader.includes("Test"));
+        if(articleArray !== null){
+            for (const value of articleArray) {
+                const article = new Article(value.ArticleID, value.ArticleHeader, value.ArticleText);
+                article.addArticle(refreshArticle);
+            }
         }
+    }
+    catch(err){
+        console.log("Error: "+err);
     }
 }
 

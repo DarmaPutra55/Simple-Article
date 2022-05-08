@@ -1,4 +1,5 @@
-import DBOperation from "./db.js";
+import { redirectEvent } from "/js/router.js"
+import DBOperation from "/js/db.js";
 
 export default class SubMenu {
     constructor() {
@@ -60,7 +61,8 @@ export default class SubMenu {
 
     setEditButtonEvenet = (ArticleID) => {
         this.articleEditButton.addEventListener('click', () => {
-            window.location.href = "/tambah/"+ArticleID;
+            window.history.pushState("", {}, "/tambah/"+ArticleID);
         });
+        redirectEvent(this.articleEditButton);
     }
 }
