@@ -488,6 +488,8 @@ body .main-wrapper .content-wrapper .login-menu-wrapper .login-form-wrapper .log
 
 body .main-wrapper .content-wrapper .collapse {
   max-height: 0px;
+  -webkit-transition: max-height 0ms;
+  transition: max-height 0ms;
 }
 
 body .main-wrapper .footer-wrapper {

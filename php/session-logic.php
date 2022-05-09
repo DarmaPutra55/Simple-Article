@@ -8,16 +8,10 @@
 
         public function checkLogin(){
             if(isset($_SESSION['username'])){
-                return true;
+                return $_SESSION['username'];
             
             }
-            return false;
-        }
-
-        public function getUsername(){
-            if(isset($_SESSION['username'])){
-                return $_SESSION['username'];
-            }
+            return "not logged in";
         }
 
         public function logOut(){

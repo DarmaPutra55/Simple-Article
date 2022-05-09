@@ -1,22 +1,24 @@
 import DBOperation from "/js/db.js";
 
 //Login Start
-const setLoginMenuEvent = ()=>{
-    const loginButton = document.getElementById('login-button');
+export const loginMenuEvent = ()=>{
     const loginMenu = document.getElementById('login-menu');
-    loginButton.addEventListener('click', ()=>{
-        loginMenu.classList.toggle("collapse");
-    });
+    loginMenu.classList.toggle("collapse");
+}
+
+export const checkLoginMenuState = () =>{
+    const loginMenu = document.getElementById('login-menu');
+    return loginMenu.classList.contains('collapse');
 }
 
 const setLoginButtonEvent = ()=>{
     const loginMenuUsername = document.getElementById('login-menu-username');
     const loginMenuPassword = document.getElementById('login-menu-password');
     const loginMenuButton = document.getElementById('login-menu-button');
-    const trimmedUsername = (loginMenuUsername.value).trim();
-    const trimmedPassword = (loginMenuPassword.value).trim();
-    if(trimmedUsername !=="" && trimmedPassword !== ""){
-        loginMenuButton.addEventListener('click', async ()=> {
+    loginMenuButton.addEventListener('click', async ()=> {
+        const trimmedUsername = (loginMenuUsername.value).trim();
+        const trimmedPassword = (loginMenuPassword.value).trim();
+        if(trimmedUsername !=="" && trimmedPassword !== ""){
             const db = new DBOperation();
             const result = await db.loginUser(loginMenuUsername.value, loginMenuPassword.value);
             if(result.success === "ok"){
@@ -28,11 +30,12 @@ const setLoginButtonEvent = ()=>{
                 alert("Login failed!");
             }
             
-        });
-    }
-    else{
-        alert("Please fill the form!");
-    }
+        
+        }
+        else{
+            alert("Please fill the form!");
+        }
+    });
 }
 
 const setLoginButtonClearEvent = () => {
@@ -41,14 +44,24 @@ const setLoginButtonClearEvent = () => {
     const clearMenuButton = document.getElementById('login-menu-clear');
 
     clearMenuButton.addEventListener('click', ()=>{
-        loginMenuPassword.textContent = "";
-        loginMenuUsername.textContent = "";
+        loginMenuPassword.value = "";
+        loginMenuUsername.value = "";
     });    
 }
 
-export const setUpLogin = ()=>{
-    setLoginMenuEvent();
-    setLoginButtonEvent();
-    setLoginButtonClearEvent();
+const addLogin = async (parentElement) => {
+    const response = await fetch("/view/login.html");
+    const result = await response.text();
+    const container = document.createElement('div');
+    container.innerHTML = result;
+    parentElement.appendChild(container);
+}
+
+export const setUpLogin = (parentElement)=>{
+    addLogin(parentElement).then(()=>{
+        setLoginButtonEvent();
+        setLoginButtonClearEvent();
+    });
+    
 }
 //Login End

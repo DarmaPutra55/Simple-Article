@@ -1,12 +1,14 @@
 import DBOperation from "/js/db.js";
 
 //Login Start
-const setRegisterMenuEvent = ()=>{
-    const registerButton = document.getElementById('register-button');
+export const registerMenuEvent = ()=>{
     const registerMenu = document.getElementById('register-menu');
-    registerButton.addEventListener('click', ()=>{
-        registerMenu.classList.toggle("collapse");
-    });
+    registerMenu.classList.toggle('collapse');
+}
+
+export const checkRegisterMenuState = () =>{
+    const registerMenu = document.getElementById('register-menu');
+    return registerMenu.classList.contains('collapse');
 }
 
 const setRegisterButtonEvent = ()=>{
@@ -38,6 +40,7 @@ const setRegisterButtonEvent = ()=>{
                 alert("Register failed!");
             }
         }
+        
         else{
             alert("Please fill the form!");
         }
@@ -56,9 +59,18 @@ const setRegisterButtonClearEvent = () => {
     });
 }
 
-export const setUpRegister = ()=>{
-    setRegisterMenuEvent();
-    setRegisterButtonEvent();
-    setRegisterButtonClearEvent();
+const addRegister = async (parentElement) => {
+    const response = await fetch("/view/register.html");
+    const result = await response.text();
+    const container = document.createElement('div');
+    container.innerHTML = result;
+    parentElement.appendChild(container);
+}
+
+export const setUpRegister = (parentElement)=>{
+    addRegister(parentElement).then(()=>{
+        setRegisterButtonEvent();
+        setRegisterButtonClearEvent();
+    });
 }
 //Login End
