@@ -8,7 +8,7 @@ html {
 }
 
 body .main-wrapper {
-  height: 100%;
+  min-height: 100%;
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -161,6 +161,29 @@ body .main-wrapper .header-wrapper .header-menu-wrapper nav a {
   font-size: 1.2rem;
 }
 
+body .main-wrapper .header-wrapper .header-menu-wrapper nav p {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  text-decoration: none;
+  color: black;
+  padding: 10px 15px;
+  margin: 0 0;
+  font-size: 1.2rem;
+  font-family: sans-serif;
+}
+
+body .main-wrapper .header-wrapper .header-menu-wrapper nav button {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  color: black;
+  padding: 10px 15px;
+  border: none;
+  font-size: 1.2rem;
+  background-color: lightblue;
+}
+
 body .main-wrapper .content-wrapper {
   min-height: 75vh;
   width: 100%;
@@ -306,28 +329,27 @@ body .main-wrapper .content-wrapper .main-article .content-box .content-submenu-
 }
 
 body .main-wrapper .content-wrapper .main-article .content-box .content-submenu-wrapper .content-submenu a {
-  padding: 5px 10px;
+  padding: 5px 5px;
   width: 100%;
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
   color: black;
   font-size: 1.2rem;
+  font-family: sans-serif;
   text-align: justify;
   text-decoration: none;
 }
 
 body .main-wrapper .content-wrapper .main-article .content-box .content-submenu-wrapper .content-submenu button {
-  padding: 5px 10px;
+  padding: 5px 5px;
   width: 100%;
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
   background-color: white;
   border: none;
-}
-
-body .main-wrapper .content-wrapper .main-article .content-box .content-submenu-wrapper .content-submenu button p {
+  font-family: sans-serif;
   font-size: 1.2rem;
   text-align: justify;
 }

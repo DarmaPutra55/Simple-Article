@@ -93,26 +93,25 @@ $normal-text-size: calc(max(1vw, 1.1rem));
                     border: 1px solid lightgrey;
 
                     a {
-                        padding: 5px 10px;
+                        padding: 5px 5px;
                         width: 100%;
                         height: fit-content;
                         color: black;
                         font-size: $normal-text-size;
+                        font-family: sans-serif;
                         text-align: justify;
                         text-decoration: none;
                     }
 
                     button {
-                        padding: 5px 10px;
+                        padding: 5px 5px;
                         width: 100%;
                         height: fit-content;
                         background-color: white;
                         border: none;
-
-                        p {
-                            font-size: $normal-text-size;
-                            text-align: justify;
-                        }
+                        font-family: sans-serif;
+                        font-size: $normal-text-size;
+                        text-align: justify;
                     }
                 }
             }

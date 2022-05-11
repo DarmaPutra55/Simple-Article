@@ -7,16 +7,13 @@ export default class SubMenu {
         this.articleSubMenu = document.createElement('div');
         this.articleEdit = document.createElement('a');
         this.articleDeleteButton = document.createElement('button');
-        this.articleDeleteButtonText = document.createElement('p');
 
         this.articleSubMenuWrapper.classList.add('content-submenu-wrapper', 'content-submenu-close');
 
         this.articleSubMenu.classList.add('content-submenu');
 
         this.articleEdit.textContent = "Edit";
-        this.articleDeleteButtonText.textContent = "Delete";
-        
-        this.articleDeleteButton.appendChild(this.articleDeleteButtonText);
+        this.articleDeleteButton.textContent = "Delete";
 
         this.articleSubMenu.appendChild(this.articleEdit);
         this.articleSubMenu.appendChild(this.articleDeleteButton);

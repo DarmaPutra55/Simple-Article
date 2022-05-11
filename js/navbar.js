@@ -11,6 +11,13 @@ const fetchContent = async (link) => {
     return result;
 }
 
+export const setUsername = (username) => {
+    const usernameText = document.getElementsByClassName('username-text');
+    for(let element of usernameText){
+        element.textContent = username;
+    }
+}
+
 export const getNormalNav = async () => {
     const content = await fetchContent("/view/navbar/normalNavBar.html");
     const wrapper = document.createElement('div');

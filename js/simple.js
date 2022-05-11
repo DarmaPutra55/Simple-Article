@@ -1,8 +1,7 @@
 import { addNavRedirectEvent, showContent, addWindowHistoryEvent } from "/js/router.js";
 import { checkUservalidity } from "/js/validator.js";
-import { getNormalNav, getNormalSide, getLoggedSide, getLoggedNav} from "/js/navbar.js";
+import { getNormalNav, getNormalSide, getLoggedSide, getLoggedNav, setUsername} from "/js/navbar.js";
 import DBOperation from "/js/db.js";
-
 
 const showNormalNavContent = async () => {
     const navArea = document.getElementById("header-wrapper");
@@ -19,22 +18,27 @@ const showLoggedNavContent = async () => {
 }
 
 const showNavContent = async () => {
-    if(checkUservalidity() !==""){
-        await showNormalNavContent();
+    const result = await checkUservalidity();
+    if(result !==""){
+        await showLoggedNavContent();
+        setUsername(result);
     }
     else{
-        await showLoggedNavContent();
+        await showNormalNavContent();
+        setUsername(result);
     }
 }
 
 
 const pageStart = async () =>{    
-    await showNavContent()
-    addNavRedirectEvent();
-    showContent();
-    addWindowHistoryEvent();
+    const body = document.getElementsByTagName("body");
+    Promise.all([showNavContent(), showContent()]).then(()=>{
+        addNavRedirectEvent();
+        addWindowHistoryEvent();
+        body[0].classList.toggle('hide');
+    }).catch((err)=>{
+        console.log("Error: "+err);
+    });
 }
-
-
 
 pageStart();

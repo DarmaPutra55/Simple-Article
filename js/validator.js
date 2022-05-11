@@ -4,7 +4,6 @@ export const checkUservalidity = async () =>{
     if(result.error === undefined){
         return result.username;
     }
-
     return "";   
 }
     
