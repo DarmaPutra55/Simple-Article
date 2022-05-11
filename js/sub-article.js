@@ -5,22 +5,20 @@ export default class SubMenu {
     constructor() {
         this.articleSubMenuWrapper = document.createElement('div');
         this.articleSubMenu = document.createElement('div');
-        this.articleEditButton = document.createElement('button');
+        this.articleEdit = document.createElement('a');
         this.articleDeleteButton = document.createElement('button');
-        this.articleEditButtonText = document.createElement('p');
         this.articleDeleteButtonText = document.createElement('p');
 
         this.articleSubMenuWrapper.classList.add('content-submenu-wrapper', 'content-submenu-close');
 
         this.articleSubMenu.classList.add('content-submenu');
 
-        this.articleEditButtonText.textContent = "Edit";
+        this.articleEdit.textContent = "Edit";
         this.articleDeleteButtonText.textContent = "Delete";
-
-        this.articleEditButton.appendChild(this.articleEditButtonText);
+        
         this.articleDeleteButton.appendChild(this.articleDeleteButtonText);
 
-        this.articleSubMenu.appendChild(this.articleEditButton);
+        this.articleSubMenu.appendChild(this.articleEdit);
         this.articleSubMenu.appendChild(this.articleDeleteButton);
 
         this.articleSubMenuWrapper.appendChild(this.articleSubMenu);
@@ -48,8 +46,9 @@ export default class SubMenu {
         subMenu.classList.toggle('content-submenu-close');
     }
 
-    setDeleteButtonEvenet = async (ArticleID, DeleteCallback) => {
-        this.articleDeleteButton.addEventListener('click', async () => {
+    setDeleteButtonEvent = async (ArticleID, DeleteCallback) => {
+        this.articleDeleteButton.addEventListener('click', async (e) => {
+            e.preventDefault();
             const dbOperation = new DBOperation();
             const dbOperationResult = await dbOperation.deleteArticle(ArticleID);
             await DeleteCallback();
@@ -59,10 +58,8 @@ export default class SubMenu {
         });
     }
 
-    setEditButtonEvenet = (ArticleID) => {
-        this.articleEditButton.addEventListener('click', () => {
-            window.history.pushState("", {}, "/tambah/"+ArticleID);
-        });
-        redirectEvent(this.articleEditButton);
+    setEditEvent = (ArticleID) => {
+        this.articleEdit.href = "/tambah/"+ArticleID; 
+        redirectEvent(this.articleEdit);
     }
 }

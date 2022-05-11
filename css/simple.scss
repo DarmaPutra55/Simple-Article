@@ -18,6 +18,39 @@ body {
         display: flex;
         flex-direction: column;
 
+            .side-menu-wrapper {
+                width: calc(max(150px, 15vw));
+                min-height: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: 2;
+                overflow: hidden;
+                background-color: white;
+                display: flex;
+                flex-direction: column;
+                transition: width 300ms;
+
+                &.collapse{
+                    width: 0;
+                }
+
+                nav {
+                    display: flex;
+                    flex-direction: column;
+
+                    a {
+                        border-top: 1px solid lightgrey;
+                        border-bottom: 1px solid lightgrey;
+                        flex-grow: 1;
+                        text-decoration: none;
+                        color: black;
+                        padding: 12.5px 10px;
+                        font-size: 1.2rem;
+                    }
+                }
+            }
+
         .header-wrapper {
             min-height: 15vh;
             width: 100%;
@@ -50,7 +83,6 @@ body {
                 position: relative;
                 top: 0;
                 left: 0;
-                padding: 10px 0;
                 background-color: lightblue;
                 flex-grow: 0;
 
@@ -71,14 +103,9 @@ body {
                         flex-grow: 1;
                         text-decoration: none;
                         color: black;
-                        padding: 0 15px;
+                        padding: 10px 15px;
                         font-size: 1.2rem;
                     }
-                }
-                
-                .nav-mobile-opened {
-                    display: flex;
-                    flex-direction: column;
                 }
             }
         }

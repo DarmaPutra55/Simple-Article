@@ -92,8 +92,18 @@ $normal-text-size: calc(max(1vw, 1.1rem));
                     width: 100%;
                     border: 1px solid lightgrey;
 
+                    a {
+                        padding: 5px 10px;
+                        width: 100%;
+                        height: fit-content;
+                        color: black;
+                        font-size: $normal-text-size;
+                        text-align: justify;
+                        text-decoration: none;
+                    }
+
                     button {
-                        padding: 5px 5px;
+                        padding: 5px 10px;
                         width: 100%;
                         height: fit-content;
                         background-color: white;
@@ -102,7 +112,6 @@ $normal-text-size: calc(max(1vw, 1.1rem));
                         p {
                             font-size: $normal-text-size;
                             text-align: justify;
-                            margin: 0 5px;
                         }
                     }
                 }

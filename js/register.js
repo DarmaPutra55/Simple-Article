@@ -11,7 +11,7 @@ const setRegisterButtonEvent = ()=>{
         const registerResult = await db.registerUser(registerMenuUsername.value, registerMenuPassword.value);
         const trimmedUsername = (registerMenuUsername.value).trim();
         const trimmedPassword = (registerMenuPassword.value).trim();
-        if(trimmedUsername == "" && trimmedPassword == ""){
+        if(trimmedUsername == "" || trimmedPassword == ""){
             alert("Please fill the form first!");
             return;
         }

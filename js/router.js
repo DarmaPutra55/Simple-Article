@@ -4,15 +4,23 @@ import { getContent as articleRegisterContent, setUpRegister } from "/js/registe
 import { getContent as articleLoginContent, setUpLogin } from "/js/login.js";
 
 export const addNavRedirectEvent = () => {
-    const menuNav = document.getElementById('menu-nav-container');
-    const loginNav = document.getElementById('login-nav-container');
+    const menuNav = document.getElementById('header-menu');
+    const sideMenuNav = document.getElementById('side-menu');
 
-    for(let childElement of menuNav.children){
-        redirectEvent(childElement);
+    for(let mainNav of menuNav.children){
+        for(let childNav of mainNav.children){
+            if(childNav.tagName === "A"){
+                redirectEvent(childNav);
+            }
+        }
     }
 
-    for(let childElement of loginNav.children){
-        redirectEvent(childElement);
+    for(let mainNav of sideMenuNav.children){
+        for(let childNav of mainNav.children){
+            if(childNav.tagName === "A"){
+                redirectEvent(childNav);
+            }
+        }
     }
 }
 

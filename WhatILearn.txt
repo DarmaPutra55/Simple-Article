@@ -51,3 +51,8 @@ XXX
 
 XXX
 +Before echoing an associative array in php, make sure to use JSON ENCODE first! You are sending a JSON, not a pure array.
+
+XXX
++Use History.pushState() to change the url without redirecting.
++Popstate event is fired when user pressed Back or Forward in their browser, it also fired history.back() or history.forward() is called in JavaScrip.
++Button will automatically redirect into same history when clicked. Use preventDefault() to prevent this behaviour.

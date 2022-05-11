@@ -10,7 +10,8 @@ const setLoginButtonEvent = ()=>{
         e.preventDefault();
         const trimmedUsername = (loginMenuUsername.value).trim();
         const trimmedPassword = (loginMenuPassword.value).trim();
-        if(trimmedUsername =="" && trimmedPassword == ""){
+        
+        if(trimmedUsername =="" || trimmedPassword == ""){
             alert("Please fill the form first!");
             return;
         }

@@ -67,7 +67,7 @@ export default class ArticleEditor{
             e.preventDefault();
             const trimmedArticleTitle = (this.articleTitleInput.value).trim();
             const trimmedArticleText = (this.articleTextInput.value).trim();
-            if(trimmedArticleTitle =="" && trimmedArticleText == ""){
+            if(trimmedArticleTitle == "" || trimmedArticleText == ""){
                 alert("Please fill the form first!");
                 return;
             }
