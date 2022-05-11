@@ -63,21 +63,23 @@ export default class ArticleEditor{
     }
 
     addSubmitButtonEvent = () => {
-        this.articleSubmitButton.addEventListener('click', ()=>{
+        this.articleSubmitButton.addEventListener('click', (e)=>{
+            e.preventDefault();
             const trimmedArticleTitle = (this.articleTitleInput.value).trim();
             const trimmedArticleText = (this.articleTextInput.value).trim();
-            if(trimmedArticleTitle !=="" && trimmedArticleText !== ""){
-                this.submitArticle(trimmedArticleTitle, trimmedArticleText, null, this.articleIDInput.value);
-            }
-            else{
+            if(trimmedArticleTitle =="" && trimmedArticleText == ""){
                 alert("Please fill the form first!");
+                return;
             }
+
+            this.submitArticle(trimmedArticleTitle, trimmedArticleText, null, this.articleIDInput.value);
         });
     }
 
     addClearButtonEvent = () =>{
-        this.articleClearButton.addEventListener('click', ()=> {
-           this.clearArticle(); 
+        this.articleClearButton.addEventListener('click', (e)=> {
+            e.preventDefault();
+            this.clearArticle(); 
         });
     }
 

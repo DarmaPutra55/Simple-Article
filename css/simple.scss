@@ -65,25 +65,14 @@ body {
                 }
 
                 nav {
+                    display: flex;
+
                     a {
+                        flex-grow: 1;
                         text-decoration: none;
                         color: black;
-                        padding: 0 10px;
+                        padding: 0 15px;
                         font-size: 1.2rem;
-                    }
-                }
-                
-                .login-nav{
-                    display: flex;
-                    margin-right: 10px;
-
-                    input[type=button]{
-                        flex-grow: 1;
-                        padding: 0 10px;
-                        color: black;
-                        font-size: 1rem;
-                        border: none;
-                        background-color: transparent;
                     }
                 }
                 

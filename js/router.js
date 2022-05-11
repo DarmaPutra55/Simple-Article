@@ -1,16 +1,19 @@
 import { getMainContent as articleViewContent, showArticle } from "/js/article.js";
 import { getMainContent as articleEditorContent, checkURLParameter, showArticleEditorEdit, showArticleEditor, getURLParameter } from "/js/article-editor.js";
+import { getContent as articleRegisterContent, setUpRegister } from "/js/register.js";
+import { getContent as articleLoginContent, setUpLogin } from "/js/login.js";
 
 export const addNavRedirectEvent = () => {
-    const indexNav = document.getElementById('home-nav');
-    const tambahNav = document.getElementById('tambah-nav');
-    const aboutNav = document.getElementById('about-nav');
-    const contactNav = document.getElementById('contact-nav');
+    const menuNav = document.getElementById('menu-nav-container');
+    const loginNav = document.getElementById('login-nav-container');
 
-    redirectEvent(indexNav);
-    redirectEvent(tambahNav);
-    redirectEvent(aboutNav);
-    redirectEvent(contactNav);
+    for(let childElement of menuNav.children){
+        redirectEvent(childElement);
+    }
+
+    for(let childElement of loginNav.children){
+        redirectEvent(childElement);
+    }
 }
 
 export const redirectEvent = (element) =>{
@@ -34,20 +37,53 @@ const setUpMainView = async (content) => {
     mainContentArea.innerHTML = await content();
 }
 
-export const showContent = async () => {
-    if(getUrl().includes("tambah")){
-        await setUpMainView(articleEditorContent);
+const showTambahContent = async () => {
+    await setUpMainView(articleEditorContent);
         if(checkURLParameter()){
             await showArticleEditorEdit(getURLParameter());
         }
         else{
             showArticleEditor();
         }
+}
+
+const showMainContent = async () => {
+    await setUpMainView(articleViewContent);
+    await showArticle();
+}
+
+const showLoginContent = async () => {
+    await setUpMainView(articleLoginContent);
+    setUpLogin();
+} 
+
+const showRegisterContent = async () => {
+    await setUpMainView(articleRegisterContent);
+    setUpRegister()
+}
+
+export const showContent = async () => {
+    if(getUrl().includes("tambah")){
+        showTambahContent();
+    }
+
+    else if(getUrl().includes("login")){
+        showLoginContent();
+    }
+
+    else if(getUrl().includes("register")){
+        showRegisterContent();
     }
 
     else{
-        await setUpMainView(articleViewContent);
-        await showArticle();
+        showMainContent();
     }
     //alert(getUrl());
+}
+
+export const addWindowHistoryEvent = () =>{
+    window.addEventListener('popstate', (e)=>{
+        e.preventDefault();
+        showContent();
+    });
 }
