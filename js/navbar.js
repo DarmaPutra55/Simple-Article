@@ -1,7 +1,7 @@
 export const addLogoutEvent = (element) => {
     element.addEventListener('click', (e)=> {
         e.preventDefault();
-
+        
     });
 }
 

@@ -10,7 +10,7 @@ $normal-text-size: calc(max(1vw, 1.1rem));
             width: calc(min(1100px, 100%));
             height: fit-content;
             margin: 15px 0;
-            box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+            box-shadow: $shadow;
             display: flex;
             flex-direction: column;
 
@@ -25,7 +25,7 @@ $normal-text-size: calc(max(1vw, 1.1rem));
                     align-self: center;
 
                     h1 {
-                        font-size: calc(max(2vw, 1.75rem));
+                        font-size: $normal-header-size;
                         text-align: center;
                         margin: 10px 0;
                     }

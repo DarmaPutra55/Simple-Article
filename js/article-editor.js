@@ -18,7 +18,11 @@ export default class ArticleEditor{
         this.articleTextInput.value = articleText;
     }
 
-    submitArticle = async (articleTitle, articleText, uploader = "Texas", id="") => {
+    setUsername = (username) =>{
+        this.userName = username;
+    }
+
+    submitArticle = async (articleTitle, articleText, uploader, id="") => {
         try{
             if(id !== ""){
                 this.updateArticle(id, articleTitle, articleText, uploader);
@@ -37,7 +41,6 @@ export default class ArticleEditor{
     addArticle = async (articleTitle, articleText, uploader) => {
         const dbOperation = new DBOperation();
         const result = await dbOperation.uploadArticle(articleTitle, articleText, uploader, this.getDateNow());
-        console.log(result);
         if(result.status === "ok"){
             alert("Article created!");
         }
@@ -46,7 +49,6 @@ export default class ArticleEditor{
     updateArticle = async (id, articleTitle, articleText, uploader) => {
         const dbOperation = new DBOperation();
         const result = await dbOperation.updateArticle(id, articleTitle, articleText, uploader, this.getDateNow());
-        console.log(result);
         if(result.status === "ok"){
             alert("Article updated!");
         }
@@ -72,7 +74,7 @@ export default class ArticleEditor{
                 return;
             }
 
-            this.submitArticle(trimmedArticleTitle, trimmedArticleText, null, this.articleIDInput.value);
+            this.submitArticle(trimmedArticleTitle, trimmedArticleText, this.userName, this.articleIDInput.value);
         });
     }
 
@@ -105,7 +107,6 @@ export default class ArticleEditor{
 
     fetchArticle = async(id) =>{
         const db = new DBOperation();
-        console.log(this.articleIDInput.value);
         const result = await db.fetchArticle(id);
         return result;
     }
@@ -117,8 +118,9 @@ export const getMainContent = async() =>{
     return result;
 }
 
-export const showArticleEditor = () => {
+export const showArticleEditor = (username) => {
     const articleEditor = new ArticleEditor();
+    articleEditor.setUsername(username);
     articleEditor.showArticle();
 }
 
