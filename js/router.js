@@ -72,12 +72,22 @@ const showRegisterContent = async () => {
 }
 
 export const showContent = async () => {
-    if(getUsername() !== ""){
-        await showLoggedContent();
+    if(await getUsername() === ""){
+        if(getUrl().includes("login")){
+            await showLoginContent();
+        }
+    
+        else if(getUrl().includes("register")){
+            await showRegisterContent();
+        }
+
+        else{
+            showMainContent();
+        }
     }
 
     else{
-        window.location.href = "/index";
+        showLoggedContent();
     }
     //alert(getUrl());
 }
@@ -85,14 +95,6 @@ export const showContent = async () => {
 const showLoggedContent = async () => {
     if(getUrl().includes("tambah")){
         await showTambahContent();
-    }
-
-    else if(getUrl().includes("login")){
-        await showLoginContent();
-    }
-
-    else if(getUrl().includes("register")){
-        await showRegisterContent();
     }
 
     else{
