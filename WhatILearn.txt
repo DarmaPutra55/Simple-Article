@@ -56,3 +56,6 @@ XXX
 +Use History.pushState() to change the url without redirecting.
 +Popstate event is fired when user pressed Back or Forward in their browser, it also fired history.back() or history.forward() is called in JavaScrip.
 +Button will automatically redirect into same history when clicked. Use preventDefault() to prevent this behaviour.
+
+XXX
++Use window.ScrollY/ScrollX to get current screen position if user scrolled.

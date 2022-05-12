@@ -2,6 +2,7 @@ import { getMainContent as articleViewContent, showArticle } from "/js/article.j
 import { getMainContent as articleEditorContent, checkURLParameter, showArticleEditorEdit, showArticleEditor, getURLParameter } from "/js/article-editor.js";
 import { getContent as articleRegisterContent, setUpRegister } from "/js/register.js";
 import { getContent as articleLoginContent, setUpLogin } from "/js/login.js";
+import { getUsername } from "/js/getUsername.js";
 
 export const addNavRedirectEvent = () => {
     const menuNav = document.getElementById('header-menu');
@@ -71,22 +72,32 @@ const showRegisterContent = async () => {
 }
 
 export const showContent = async () => {
-    if(getUrl().includes("tambah")){
-        showTambahContent();
-    }
-
-    else if(getUrl().includes("login")){
-        showLoginContent();
-    }
-
-    else if(getUrl().includes("register")){
-        showRegisterContent();
+    if(getUsername() !== ""){
+        await showLoggedContent();
     }
 
     else{
-        showMainContent();
+        window.location.href = "/index";
     }
     //alert(getUrl());
+}
+
+const showLoggedContent = async () => {
+    if(getUrl().includes("tambah")){
+        await showTambahContent();
+    }
+
+    else if(getUrl().includes("login")){
+        await showLoginContent();
+    }
+
+    else if(getUrl().includes("register")){
+        await showRegisterContent();
+    }
+
+    else{
+        await showMainContent();
+    }
 }
 
 export const addWindowHistoryEvent = () =>{

@@ -1,5 +1,7 @@
 import SubMenu from "/js/sub-article.js";
 import DBOperation from "/js/db.js";
+import { getUsername } from "/js/getUsername.js";
+
 class Article {
     constructor(articleId, header, article) {
         this.mainBoxArea = document.getElementById('main-box');
@@ -7,14 +9,11 @@ class Article {
         this.mainHeader = document.createElement('div');
         this.mainArticle = document.createElement('div');
         this.headerTextWrapper = document.createElement('div');
-        this.headerButtonWrapper = document.createElement('div');
+        
         this.headerText = document.createElement('h1');
-        this.headerButton = document.createElement('button');
-        this.headerButtonIcon = document.createElement('i');
+        
         this.articleText = document.createElement('p');
         this.aritcleIdHolder = document.createElement('input');
-        this.submenu = new SubMenu();
-        this.onTrans = false;
 
         this.mainBox.classList.add('content-box');
 
@@ -24,11 +23,8 @@ class Article {
 
         this.headerTextWrapper.classList.add('content-header-text');
 
-        this.headerButtonWrapper.classList.add('content-header-button');
-
-        this.headerButtonIcon.classList.add('fa', 'fa-solid', 'fa-ellipsis-vertical', 'fa-2x', 'icon-button-rotate-back');
-
         this.aritcleIdHolder.type = "hidden";
+        
         this.aritcleIdHolder.value = articleId;
 
         this.headerText.innerHTML = header;
@@ -36,15 +32,10 @@ class Article {
         this.articleText.innerHTML = article;
     }
 
-    addArticle = (DeleteCallback) => {
+    addArticle = async (DeleteCallback) => {
         this.mainHeader.appendChild(this.headerTextWrapper);
-        this.mainHeader.appendChild(this.headerButtonWrapper);
-
+        
         this.headerTextWrapper.appendChild(this.headerText);
-
-        this.headerButton.appendChild(this.headerButtonIcon);
-
-        this.headerButtonWrapper.appendChild(this.headerButton);
 
         this.mainArticle.appendChild(this.articleText);
 
@@ -52,12 +43,31 @@ class Article {
         this.mainBox.appendChild(this.mainArticle);
         this.mainBox.appendChild(this.aritcleIdHolder);
         this.mainBoxArea.appendChild(this.mainBox);
-        this.submenu.addSubmenu(this.mainBox);
-        this.submenu.setSubmenuPosition(this.headerButtonWrapper);
-        this.submenu.setDeleteButtonEvent(this.aritcleIdHolder.value, DeleteCallback);
-        this.submenu.setEditEvent(this.aritcleIdHolder.value);
-        this.setExpandButtonEvent();
-        this.setContentBoxResizeEvent();
+
+        if(await getUsername() !==""){
+            this.setSubmenu(DeleteCallback);
+        }
+    }
+
+    setSubmenu = (DeleteCallback) => {
+        this.onTrans = false;
+        this.headerButtonWrapper = document.createElement('div');
+        this.headerButton = document.createElement('button');
+        this.headerButtonIcon = document.createElement('i');
+
+        this.headerButton.appendChild(this.headerButtonIcon);
+        this.headerButtonWrapper.appendChild(this.headerButton);
+        this.mainHeader.appendChild(this.headerButtonWrapper);
+        this.headerButtonWrapper.classList.add('content-header-button');
+
+        this.headerButtonIcon.classList.add('fa', 'fa-solid', 'fa-ellipsis-vertical', 'fa-2x', 'icon-button-rotate-back');
+            this.submenu = new SubMenu();
+            this.submenu.addSubmenu(this.mainBox);
+            this.submenu.setSubmenuPosition(this.headerButtonWrapper);
+            this.submenu.setDeleteButtonEvent(this.aritcleIdHolder.value, DeleteCallback);
+            this.submenu.setEditEvent(this.aritcleIdHolder.value);
+            this.setExpandButtonEvent();
+            this.setContentBoxResizeEvent();
     }
 
     setExpandButtonEvent = () => {
