@@ -9,7 +9,7 @@
 
         .article-content-box{
             height: 100%;
-            width: calc(min(1100px, 100%));
+            max-width: calc(min(1100px, 100%));
             
             .article-content-form{
                 height: 100%;
@@ -57,8 +57,8 @@
                         justify-content: space-between;
 
                         button{
-                            width: calc(max(200px, 15vw));
-                            height: 5vh;
+                            width: calc(max(150px, 15vw));
+                            height: 75px;
                             font-size: $normal-text-size;
                         }
 

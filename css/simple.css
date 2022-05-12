@@ -158,7 +158,7 @@ body .main-wrapper .header-wrapper .header-text-wrapper .header-text {
 }
 
 body .main-wrapper .header-wrapper .header-text-wrapper .header-text h1 {
-  font-size: 2.9rem;
+  font-size: calc(max(2.5vw, 2rem));
   margin: 15px 0;
 }
 
@@ -456,7 +456,7 @@ body .main-wrapper .content-wrapper .article-content-wrapper {
 
 body .main-wrapper .content-wrapper .article-content-wrapper .article-content-box {
   height: 100%;
-  width: calc(min(1100px, 100%));
+  max-width: calc(min(1100px, 100%));
 }
 
 body .main-wrapper .content-wrapper .article-content-wrapper .article-content-box .article-content-form {
@@ -523,8 +523,8 @@ body .main-wrapper .content-wrapper .article-content-wrapper .article-content-bo
 }
 
 body .main-wrapper .content-wrapper .article-content-wrapper .article-content-box .article-content-form fieldset .article-content-group-button button {
-  width: calc(max(200px, 15vw));
-  height: 5vh;
+  width: calc(max(150px, 15vw));
+  height: 75px;
   font-size: 1.2rem;
 }
 
@@ -661,6 +661,10 @@ body .main-wrapper .footer-wrapper {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+body .main-wrapper .footer-wrapper h1 {
+  font-size: calc(max(2.5vw, 2rem));
 }
 
 .hide {
