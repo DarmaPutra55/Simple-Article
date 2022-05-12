@@ -1,25 +1,24 @@
 import { addNavRedirectEvent, showContent, addWindowHistoryEvent } from "/js/router.js";
-import { checkUservalidity } from "/js/validator.js";
-import { getNormalNav, getNormalSide, getLoggedSide, getLoggedNav, setUsername} from "/js/navbar.js";
-import { makeShadow } from "/js/modal.js";
+import { getUsername } from "/js/getUsername.js";
+import { addLogoutEvent, getNav, getSide, setUsername, makeSideMenuShadow, toggleSideMenu, setSideMenu } from "/js/navbar.js";
 import DBOperation from "/js/db.js";
 
 const showNormalNavContent = async () => {
     const navArea = document.getElementById("header-wrapper");
     const sideArea = document.getElementById("main-wrapper");
-    navArea.appendChild(await getNormalNav());
-    sideArea.insertAdjacentElement("afterbegin",await getNormalSide());
+    navArea.appendChild(await getNav("normal"));
+    sideArea.insertAdjacentElement("afterbegin",await getSide("normal"));
 }
 
 const showLoggedNavContent = async () => {
     const navArea = document.getElementById("header-wrapper");
     const sideArea = document.getElementById("main-wrapper");
-    navArea.appendChild(await getLoggedNav());
-    sideArea.insertAdjacentElement("afterbegin", await getLoggedSide());
+    navArea.appendChild(await getNav("logged"));
+    sideArea.insertAdjacentElement("afterbegin", await getSide("logged"));
 }
 
 const showNavContent = async () => {
-    const result = await checkUservalidity();
+    const result = await getUsername();
     if(result !==""){
         await showLoggedNavContent();
         setUsername(result);
@@ -28,20 +27,17 @@ const showNavContent = async () => {
         await showNormalNavContent();
         setUsername(result);
     }
+    addLogoutEvent();
 }
 
 const setSidemenuExpandEvent = () => {
     const sideMenuExpandButton = document.getElementById('side-menu-expand-button');
     sideMenuExpandButton.addEventListener('click', (e)=>{
         e.preventDefault();
-        makeShadow(toggleSideMenu);
+        makeSideMenuShadow();
+        setSideMenu();
         toggleSideMenu();
     });
-}
-
-const toggleSideMenu = () => {
-    const sideMenu = document.getElementById('side-menu');
-    sideMenu.classList.toggle('collapse');
 }
 
 const pageStart = async () =>{    

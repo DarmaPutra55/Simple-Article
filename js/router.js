@@ -46,13 +46,12 @@ const setUpMainView = async (content) => {
 }
 
 const showTambahContent = async () => {
-    const userName = document.getElementsByClassName('username-text')[0];
     await setUpMainView(articleEditorContent);
         if(checkURLParameter()){
             await showArticleEditorEdit(getURLParameter());
         }
         else{
-            showArticleEditor(userName.textContent);
+            showArticleEditor();
         }
 }
 

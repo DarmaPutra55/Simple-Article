@@ -113,6 +113,17 @@ export default class DBOperation {
         }
     }
 
+    logoutUser = async () => {
+        try{
+            const response = await fetch('/php/logout.php');
+            const result = await response.json();
+            return result;
+        }
+        catch(err){
+            alert("Error has occored: " + err);
+        }
+    }
+
     registerUser = async (username, password) =>{
         let registerFormData = new FormData();
         registerFormData.append('username', username);

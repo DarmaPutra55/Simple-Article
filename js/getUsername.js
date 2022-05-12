@@ -1,4 +1,4 @@
-export const checkUservalidity = async () =>{
+export const getUsername = async () =>{
     const response = await fetch("/php/userValidation.php");
     const result = await response.json();
     if(result.error === undefined){

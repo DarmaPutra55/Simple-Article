@@ -1,4 +1,4 @@
-export const makeShadow = (modalCloseCallback) => {
+const makeShadow = (modalCloseCallback) => {
     const body = document.getElementsByTagName('body')[0];
     const shadow = document.createElement('div');
     shadow.classList.add('modal-shadow');

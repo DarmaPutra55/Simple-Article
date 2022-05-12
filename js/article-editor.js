@@ -1,14 +1,15 @@
 import DBOperation from "/js/db.js";
+import { getUsername } from "/js/getUsername.js";
 
 export default class ArticleEditor{
     constructor(){
         this.articleWrapper = document.getElementById('article-editor-wrapper');
         this.articleIDInput = document.getElementById('article-id');
-        this.articleIDInput.value = null;
         this.articleTitleInput = document.getElementById('article-title');
         this.articleTextInput = document.getElementById('article-content');
         this.articleSubmitButton = document.getElementById('submit-article');
         this.articleClearButton = document.getElementById('clear-article');
+        this.setUsername();
         this.addArticleEditorEvent();
     }
 
@@ -18,8 +19,8 @@ export default class ArticleEditor{
         this.articleTextInput.value = articleText;
     }
 
-    setUsername = (username) =>{
-        this.userName = username;
+    setUsername = async () =>{
+        this.userName = await getUsername();
     }
 
     submitArticle = async (articleTitle, articleText, uploader, id="") => {
@@ -118,9 +119,8 @@ export const getMainContent = async() =>{
     return result;
 }
 
-export const showArticleEditor = (username) => {
+export const showArticleEditor = () => {
     const articleEditor = new ArticleEditor();
-    articleEditor.setUsername(username);
     articleEditor.showArticle();
 }
 
