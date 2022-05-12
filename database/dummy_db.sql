@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 30, 2022 at 12:24 PM
+-- Generation Time: May 12, 2022 at 06:58 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.1
 
@@ -40,8 +40,17 @@ CREATE TABLE `tb_article` (
 --
 
 INSERT INTO `tb_article` (`id`, `articleheader`, `articletext`, `upload_date`, `uploader`) VALUES
-(21, 'Test 2', 'This is a test text. Nothing more, nothing less. It a text made for testing purpose. When not used for testing the value of this text become nothing, like the vast void in the space.', '0000-00-00', '2022-4-30'),
-(28, 'Next Away', 'Nexogen', '0000-00-00', '2022-4-30');
+(39, 'Ikas', 'Ambra', '0000-00-00', '2022-5-12'),
+(40, 'dasd', 'dasda', '2022-05-11', 'null'),
+(41, 'dasda', 'dasdad', '2022-05-11', 'null'),
+(42, 'dfasfadfawefa', 'sfasfadfaf', '2022-05-11', 'null'),
+(46, 'cxzcxz', 'xczcz', '2022-05-11', 'null'),
+(47, 'cxzcxz', 'czxcxzc', '2022-05-11', 'null'),
+(51, 'dasdsa', 'sdada', '2022-05-11', 'Serpent'),
+(52, 'dasdas', 'dsadad', '2022-05-11', 'Serpent'),
+(53, 'dasda', 'dasdaadsasd', '2022-05-11', 'Serpent'),
+(54, 'Nexion', 'Laser beam and thing.', '2022-05-12', 'Serpent'),
+(55, 'dsad', 'dasda', '2022-05-12', 'Serpent');
 
 -- --------------------------------------------------------
 
@@ -60,8 +69,13 @@ CREATE TABLE `tb_user` (
 --
 
 INSERT INTO `tb_user` (`id`, `username`, `password`) VALUES
-(1, 'Alpha', ' ee11cbb19052e40b07aac0ca060c23ee'),
-(2, 'Aleph', '1b3231655cebb7a1f783eddf27d254ca');
+(1, 'Alpha', 'magucka'),
+(2, 'Aleph', 'horin'),
+(3, 'Banbano', 'helix'),
+(17, 'Darma', 'Dambala'),
+(18, 'Damra', 'Dambala'),
+(19, 'Jumanji', 'juju'),
+(21, 'Serpent', 'Uc52kDRBgiqKPUp');
 
 --
 -- Indexes for dumped tables
@@ -87,13 +101,13 @@ ALTER TABLE `tb_user`
 -- AUTO_INCREMENT for table `tb_article`
 --
 ALTER TABLE `tb_article`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT for table `tb_user`
 --
 ALTER TABLE `tb_user`
-  MODIFY `id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

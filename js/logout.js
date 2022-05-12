@@ -1,4 +1,4 @@
-import DBOperation from '/js/db.js';
+import DBOperation from '/simplePHPFetch/js/db.js';
 
 export const logout = async () => {
     const db = new DBOperation();
@@ -6,7 +6,7 @@ export const logout = async () => {
     
     if(result.success === "ok"){
         alert("Logout success!");
-        window.location.href = "/index";
+        window.location.href = "https://localhost/simplePHPFetch/";
     }
 
     else{

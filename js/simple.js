@@ -1,7 +1,7 @@
-import { addNavRedirectEvent, showContent, addWindowHistoryEvent } from "/js/router.js";
-import { getUsername } from "/js/getUsername.js";
-import { addLogoutEvent, getNav, getSide, setUsername, makeSideMenuShadow, toggleSideMenu, setSideMenu } from "/js/navbar.js";
-import DBOperation from "/js/db.js";
+import { addNavRedirectEvent, showContent, addWindowHistoryEvent } from "/simplePHPFetch/js/router.js";
+import { getUsername } from "/simplePHPFetch/js/getUsername.js";
+import { addLogoutEvent, getNav, getSide, setUsername, makeSideMenuShadow, toggleSideMenu, setSideMenu } from "/simplePHPFetch/js/navbar.js";
+import DBOperation from "/simplePHPFetch/js/db.js";
 
 const showNormalNavContent = async () => {
     const navArea = document.getElementById("header-wrapper");

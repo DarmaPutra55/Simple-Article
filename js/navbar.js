@@ -1,4 +1,4 @@
-import { logout }  from '/js/logout.js';
+import { logout }  from '/simplePHPFetch/js/logout.js';
 
 export const addLogoutEvent = () => {
     const logoutButton = document.getElementsByClassName("logout-button");
@@ -86,7 +86,7 @@ export const getSide = async (nav) => {
 }
 
 const getNormalNav = async () => {
-    const content = await fetchContent("/view/navbar/normalNavBar.html");
+    const content = await fetchContent("/simplePHPFetch/view/navbar/normalNavBar.html");
     const wrapper = document.createElement('div');
     wrapper.classList.add('header-menu-wrapper');
     wrapper.id = "header-menu";
@@ -95,7 +95,7 @@ const getNormalNav = async () => {
 }
 
 const getNormalSide = async () => {
-    const content = await fetchContent("/view/navbar/normalSideBar.html");
+    const content = await fetchContent("/simplePHPFetch/view/navbar/normalSideBar.html");
     const wrapper = document.createElement('div');
     wrapper.classList.add('side-menu-wrapper', 'collapse');
     wrapper.id = "side-menu";
@@ -105,7 +105,7 @@ const getNormalSide = async () => {
 }
 
 const getLoggedSide = async () => {
-    const content = await fetchContent("/view/navbar/loggedSideBar.html");
+    const content = await fetchContent("/simplePHPFetch/view/navbar/loggedSideBar.html");
     const wrapper = document.createElement('div');
     wrapper.classList.add('side-menu-wrapper', 'collapse');
     wrapper.id = "side-menu";
@@ -115,7 +115,7 @@ const getLoggedSide = async () => {
 }
 
 const getLoggedNav = async () => {
-    const content = await fetchContent("/view/navbar/loggedNavBar.html");
+    const content = await fetchContent("/simplePHPFetch/view/navbar/loggedNavBar.html");
     const wrapper = document.createElement('div');
     wrapper.classList.add('header-menu-wrapper');
     wrapper.id = "header-menu";

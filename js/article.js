@@ -1,6 +1,6 @@
-import SubMenu from "/js/sub-article.js";
-import DBOperation from "/js/db.js";
-import { getUsername } from "/js/getUsername.js";
+import SubMenu from "/simplePHPFetch/js/sub-article.js";
+import DBOperation from "/simplePHPFetch/js/db.js";
+import { getUsername } from "/simplePHPFetch/js/getUsername.js";
 
 class Article {
     constructor(articleId, header, article) {
@@ -120,7 +120,7 @@ const refreshArticle = async () => {
 }
 
 export const getMainContent = async () => {
-    const response = await fetch('view/article.html');
+    const response = await fetch('/simplePHPFetch/view/article.html');
     const text = await response.text();
     return text;
 }

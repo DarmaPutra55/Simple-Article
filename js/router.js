@@ -1,8 +1,8 @@
-import { getMainContent as articleViewContent, showArticle } from "/js/article.js";
-import { getMainContent as articleEditorContent, checkURLParameter, showArticleEditorEdit, showArticleEditor, getURLParameter } from "/js/article-editor.js";
-import { getContent as articleRegisterContent, setUpRegister } from "/js/register.js";
-import { getContent as articleLoginContent, setUpLogin } from "/js/login.js";
-import { getUsername } from "/js/getUsername.js";
+import { getMainContent as articleViewContent, showArticle } from "/simplePHPFetch/js/article.js";
+import { getMainContent as articleEditorContent, checkURLParameter, showArticleEditorEdit, showArticleEditor, getURLParameter } from "/simplePHPFetch/js/article-editor.js";
+import { getContent as articleRegisterContent, setUpRegister } from "/simplePHPFetch/js/register.js";
+import { getContent as articleLoginContent, setUpLogin } from "/simplePHPFetch/js/login.js";
+import { getUsername } from "/simplePHPFetch/js/getUsername.js";
 
 export const addNavRedirectEvent = () => {
     const menuNav = document.getElementById('header-menu');
@@ -35,7 +35,7 @@ export const redirectEvent = (element) =>{
 
 const getUrl = ()=>{
     const link = window.location.pathname.split('/');
-    if(link.length > 2){
+    if(link.length > 3){
         return link[link.length - 2];
     }
     return link[link.length - 1];
