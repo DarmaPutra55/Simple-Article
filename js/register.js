@@ -1,4 +1,4 @@
-import DBOperation from "/simplePHPFetch/js/db.js";
+import DBOperation from "/js/db.js";
 
 //Login Start
 const setRegisterButtonEvent = ()=>{
@@ -24,7 +24,7 @@ const setRegisterButtonEvent = ()=>{
             else{
                     alert("Login failed!");  
                 }
-            window.location.href = "https://localhost/simplePHPFetch/";
+            window.location.href = "/index";
         }
 
         else if(registerResult.error === "username-exist"){
@@ -52,7 +52,7 @@ const setRegisterButtonClearEvent = () => {
 
 
 export const getContent = async () => {
-    const response = await fetch("/simplePHPFetch/view/register.html");
+    const response = await fetch("/view/register.html");
     const result = await response.text();
     return result;
 }

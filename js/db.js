@@ -16,7 +16,7 @@ export default class DBOperation {
     fetchSingleArticle = async (id) =>{
         let articlFormData = new FormData();
         articlFormData.append("aricleID", id);
-        const response = await fetch("/simplePHPFetch/php/fetch.php", {
+        const response = await fetch("/php/fetch.php", {
             method: "POST",
             body: articlFormData,
         });
@@ -26,7 +26,7 @@ export default class DBOperation {
     }
 
     fetchAllArticle = async () =>{
-        const response = await fetch("/simplePHPFetch/php/fetch.php");
+        const response = await fetch("/php/fetch.php");
         const data = await response.json();
         return data;
     }
@@ -35,7 +35,7 @@ export default class DBOperation {
         try {
             let data = new FormData();
             data.append('ArticleID', articleID);
-            const response = await fetch('/simplePHPFetch/php/delete.php', {
+            const response = await fetch('/php/delete.php', {
                 method: 'POST',
                 body: data
             });
@@ -56,7 +56,7 @@ export default class DBOperation {
             uploadFormData.append("uploader", uploader);
             uploadFormData.append("date", date);
 
-            const response = await fetch('/simplePHPFetch/php/insert.php', {
+            const response = await fetch('/php/insert.php', {
                 method: 'POST',
                 body: uploadFormData
             });
@@ -79,7 +79,7 @@ export default class DBOperation {
             updateFormData.append("uploader", uploader);
             updateFormData.append("date", date);
 
-            const response = await fetch('/simplePHPFetch/php/update.php', {
+            const response = await fetch('/php/update.php', {
                 method: 'POST',
                 body: updateFormData
             });
@@ -99,7 +99,7 @@ export default class DBOperation {
         loginFormData.append('password', password);
 
         try{
-            const response = await fetch('/simplePHPFetch/php/login.php', {
+            const response = await fetch('/php/login.php', {
                 method: 'Post',
                 body: loginFormData
             });
@@ -115,7 +115,7 @@ export default class DBOperation {
 
     logoutUser = async () => {
         try{
-            const response = await fetch('/simplePHPFetch/php/logout.php');
+            const response = await fetch('/php/logout.php');
             const result = await response.json();
             return result;
         }
@@ -130,7 +130,7 @@ export default class DBOperation {
         registerFormData.append('password', password);
 
         try{
-            const response = await fetch('/simplePHPFetch/php/register.php', {
+            const response = await fetch('/php/register.php', {
                 method: 'Post',
                 body: registerFormData
             });
@@ -146,7 +146,7 @@ export default class DBOperation {
 
     fetchUsername = async () =>{
         try{
-            const response = await fetch('/simplePHPFetch/php/getUsername.php');
+            const response = await fetch('/php/getUsername.php');
             const result = await response.json();
             return result; 
         }

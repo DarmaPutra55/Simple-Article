@@ -1,5 +1,5 @@
-import { redirectEvent } from "/simplePHPFetch/js/router.js"
-import DBOperation from "/simplePHPFetch/js/db.js";
+import { redirectEvent } from "/js/router.js"
+import DBOperation from "/js/db.js";
 
 export default class SubMenu {
     constructor() {
@@ -56,7 +56,7 @@ export default class SubMenu {
     }
 
     setEditEvent = (ArticleID) => {
-        this.articleEdit.href = "/simplePHPFetch/tambah/"+ArticleID; 
+        this.articleEdit.href = "/tambah/"+ArticleID; 
         redirectEvent(this.articleEdit);
     }
 }

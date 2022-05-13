@@ -1,5 +1,5 @@
-import DBOperation from "/simplePHPFetch/js/db.js";
-import { getUsername } from "/simplePHPFetch/js/getUsername.js";
+import DBOperation from "/js/db.js";
+import { getUsername } from "/js/getUsername.js";
 
 export default class ArticleEditor{
     constructor(){
@@ -114,7 +114,7 @@ export default class ArticleEditor{
 }
 
 export const getMainContent = async() =>{
-    const response = await fetch("/simplePHPFetch/view/article-editor.html");
+    const response = await fetch("/view/article-editor.html");
     const result = response.text();
     return result;
 }
