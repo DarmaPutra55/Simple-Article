@@ -1,4 +1,3 @@
-$normal-text-size: calc(max(1vw, 1.1rem));
 @mixin main-article-scss {
     .main-article {
         display: flex;
@@ -7,7 +6,7 @@ $normal-text-size: calc(max(1vw, 1.1rem));
 
         .content-box {
             position: relative;
-            width: calc(min(1100px, 100%));
+            width: $contentSize;
             height: fit-content;
             margin: 15px 0;
             box-shadow: $shadow;

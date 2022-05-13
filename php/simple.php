@@ -4,7 +4,7 @@
 
     public function __construct()
     {
-      $this->server = 'localhost';
+      $this->host = 'localhost';
       $this->username = 'root';
       $this->password = '';
       $this->database = 'dummy_db';
@@ -12,7 +12,7 @@
     }
 
     private function connectDB(){
-      $connection = new mysqli($this->server, $this->username, $this->password, $this->database);
+      $connection = new mysqli($this->host, $this->username, $this->password, $this->database);
       if($connection->connect_errno){
         die("Error: ".$connection->connect_error);
       }
