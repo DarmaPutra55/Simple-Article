@@ -35,7 +35,7 @@ export const redirectEvent = (element) =>{
 
 const getUrl = ()=>{
     const link = window.location.pathname.split('/');
-    if(link.length > 3){
+    if(link.length > 2){
         return link[link.length - 2];
     }
     return link[link.length - 1];

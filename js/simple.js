@@ -10,6 +10,11 @@ const showNormalNavContent = async () => {
     sideArea.insertAdjacentElement("afterbegin",await getSide("normal"));
 }
 
+const setViewportHeight = () => {
+    const viewport = document.getElementById('viewport');
+    viewport.setAttribute('content', viewport.getAttribute('content') + ", height="+window.innerHeight);
+}
+
 const showLoggedNavContent = async () => {
     const navArea = document.getElementById("header-wrapper");
     const sideArea = document.getElementById("main-wrapper");
@@ -42,6 +47,7 @@ const setSidemenuExpandEvent = () => {
 
 const pageStart = async () =>{    
     const body = document.getElementsByTagName("body");
+    setViewportHeight();
     await showNavContent();
     showContent().then(()=>{
         addNavRedirectEvent();

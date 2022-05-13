@@ -132,7 +132,7 @@ export const showArticleEditorEdit = async (id) => {
 
 export const checkURLParameter = () =>{
     const url = window.location.pathname.split('/');
-    if(url.length > 3){
+    if(url.length > 2){
         return true;
     }
     return false;

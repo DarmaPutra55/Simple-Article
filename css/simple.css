@@ -456,7 +456,7 @@ body .main-wrapper .content-wrapper .article-content-wrapper {
 
 body .main-wrapper .content-wrapper .article-content-wrapper .article-content-box {
   height: 100%;
-  max-width: calc(min(1100px, 100%));
+  width: calc(min(1100px, 100%));
 }
 
 body .main-wrapper .content-wrapper .article-content-wrapper .article-content-box .article-content-form {
