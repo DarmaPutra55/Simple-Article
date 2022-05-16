@@ -1,9 +1,10 @@
 <?php 
+    session_start();
     include_once('simple.php');
     $article_id = $_POST['articleID'];
     $article_header = $_POST['articleTitle'];
     $article_text = $_POST['articleContent'];
-    $uploader = $_POST['uploader'];
+    $uploader = $_SESSION['username'];
     $update_date = $_POST['date'];
     $result;
 

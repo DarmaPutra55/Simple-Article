@@ -2,7 +2,7 @@ import { getMainContent as articleViewContent, showArticle } from "/js/article.j
 import { getMainContent as articleEditorContent, checkURLParameter, showArticleEditorEdit, showArticleEditor, getURLParameter } from "/js/article-editor.js";
 import { getContent as articleRegisterContent, setUpRegister } from "/js/register.js";
 import { getContent as articleLoginContent, setUpLogin } from "/js/login.js";
-import { getUsername } from "/js/getUsername.js";
+import { cekCookiesUsername } from "/js/getUsername.js";
 
 export const addNavRedirectEvent = () => {
     const menuNav = document.getElementById('header-menu');
@@ -72,23 +72,13 @@ const showRegisterContent = async () => {
 }
 
 export const showContent = async () => {
-    if(await getUsername() === ""){
-        if(getUrl().includes("login")){
-            await showLoginContent();
-        }
-    
-        else if(getUrl().includes("register")){
-            await showRegisterContent();
-        }
-
-        else{
-            showMainContent();
-        }
-    }
-
-    else{
+    if(cekCookiesUsername()){
         showLoggedContent();
+        return "";
     }
+    
+    showNormalContent();
+
     //alert(getUrl());
 }
 
@@ -99,6 +89,20 @@ const showLoggedContent = async () => {
 
     else{
         await showMainContent();
+    }
+}
+
+const showNormalContent = async () => {
+    if(getUrl().includes("login")){
+        await showLoginContent();
+    }
+    
+    else if(getUrl().includes("register")){
+        await showRegisterContent();
+    }
+
+    else{
+        showMainContent();
     }
 }
 

@@ -1,5 +1,4 @@
 import DBOperation from "/js/db.js";
-import { getUsername } from "/js/getUsername.js";
 
 export default class ArticleEditor{
     constructor(){
@@ -9,7 +8,6 @@ export default class ArticleEditor{
         this.articleTextInput = document.getElementById('article-content');
         this.articleSubmitButton = document.getElementById('submit-article');
         this.articleClearButton = document.getElementById('clear-article');
-        this.setUsername();
         this.addArticleEditorEvent();
     }
 
@@ -19,18 +17,14 @@ export default class ArticleEditor{
         this.articleTextInput.value = articleText;
     }
 
-    setUsername = async () =>{
-        this.userName = await getUsername();
-    }
-
-    submitArticle = async (articleTitle, articleText, uploader, id="") => {
+    submitArticle = async (articleTitle, articleText, id="") => {
         try{
             if(id !== ""){
-                this.updateArticle(id, articleTitle, articleText, uploader);
+                this.updateArticle(id, articleTitle, articleText);
                 this.clearArticle();
             }
             else{
-                this.addArticle(articleTitle, articleText, uploader);
+                this.addArticle(articleTitle, articleText);
                 this.clearArticle();
             }
         }
@@ -39,17 +33,17 @@ export default class ArticleEditor{
         }
     }
 
-    addArticle = async (articleTitle, articleText, uploader) => {
+    addArticle = async (articleTitle, articleText) => {
         const dbOperation = new DBOperation();
-        const result = await dbOperation.uploadArticle(articleTitle, articleText, uploader, this.getDateNow());
+        const result = await dbOperation.uploadArticle(articleTitle, articleText, this.getDateNow());
         if(result.status === "ok"){
             alert("Article created!");
         }
     }
 
-    updateArticle = async (id, articleTitle, articleText, uploader) => {
+    updateArticle = async (id, articleTitle, articleText) => {
         const dbOperation = new DBOperation();
-        const result = await dbOperation.updateArticle(id, articleTitle, articleText, uploader, this.getDateNow());
+        const result = await dbOperation.updateArticle(id, articleTitle, articleText, this.getDateNow());
         if(result.status === "ok"){
             alert("Article updated!");
         }
@@ -75,7 +69,7 @@ export default class ArticleEditor{
                 return;
             }
 
-            this.submitArticle(trimmedArticleTitle, trimmedArticleText, this.userName, this.articleIDInput.value);
+            this.submitArticle(trimmedArticleTitle, trimmedArticleText, this.articleIDInput.value);
         });
     }
 

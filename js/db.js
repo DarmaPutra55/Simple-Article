@@ -48,12 +48,11 @@ export default class DBOperation {
         }
     }
 
-    uploadArticle = async (articleTitle, articleContent, uploader, date) =>{
+    uploadArticle = async (articleTitle, articleContent, date) =>{
         try{
             let uploadFormData = new FormData();
             uploadFormData.append("articleTitle", articleTitle);
             uploadFormData.append("articleContent", articleContent);
-            uploadFormData.append("uploader", uploader);
             uploadFormData.append("date", date);
 
             const response = await fetch('/php/insert.php', {
@@ -70,13 +69,12 @@ export default class DBOperation {
         }
     }
 
-    updateArticle = async (articleID, articleTitle, articleContent, uploader, date) =>{
+    updateArticle = async (articleID, articleTitle, articleContent, date) =>{
         try{
             let updateFormData = new FormData();
             updateFormData.append("articleID", articleID);
             updateFormData.append("articleTitle", articleTitle);
             updateFormData.append("articleContent", articleContent);
-            updateFormData.append("uploader", uploader);
             updateFormData.append("date", date);
 
             const response = await fetch('/php/update.php', {

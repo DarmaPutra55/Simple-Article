@@ -1,6 +1,6 @@
 import SubMenu from "/js/sub-article.js";
 import DBOperation from "/js/db.js";
-import { getUsername } from "/js/getUsername.js";
+import { cekCookiesUsername } from "/js/getUsername.js";
 
 class Article {
     constructor(articleId, header, article) {
@@ -32,7 +32,7 @@ class Article {
         this.articleText.innerHTML = article;
     }
 
-    addArticle = async (DeleteCallback) => {
+    addArticle = async () => {
         this.mainHeader.appendChild(this.headerTextWrapper);
         
         this.headerTextWrapper.appendChild(this.headerText);
@@ -43,13 +43,9 @@ class Article {
         this.mainBox.appendChild(this.mainArticle);
         this.mainBox.appendChild(this.aritcleIdHolder);
         this.mainBoxArea.appendChild(this.mainBox);
-
-        if(await getUsername() !==""){
-            this.setSubmenu(DeleteCallback);
-        }
     }
 
-    setSubmenu = (DeleteCallback) => {
+    addSubmenu = (DeleteCallback) => {
         this.onTrans = false;
         this.headerButtonWrapper = document.createElement('div');
         this.headerButton = document.createElement('button');
@@ -101,11 +97,16 @@ export const showArticle = async () => {
     try{
         const dbOperation = new DBOperation();
         const articleArray = await dbOperation.fetchArticle();
+        const mainBox = document.getElementById('main-box');
         //let newArticle = articleArray.filter(el => el.ArticleHeader.includes("Test"));
         if(articleArray !== null){
+            mainBox.innerHTML = "";
             for (const value of articleArray) {
                 const article = new Article(value.ArticleID, value.ArticleHeader, value.ArticleText);
-                article.addArticle(refreshArticle);
+                article.addArticle();
+                if(cekCookiesUsername()){
+                    article.addSubmenu(refreshArticle);
+                }
             }
         }
     }

@@ -1,6 +1,8 @@
 import { logout }  from '/js/logout.js';
+import { getCookieUsername } from '/js/getUsername.js';
+import { addNavRedirectEvent } from '/js/router.js';
 
-export const addLogoutEvent = () => {
+const addLogoutEvent = () => {
     const logoutButton = document.getElementsByClassName("logout-button");
     for(let element of logoutButton){
         element.addEventListener('click', (e)=> {
@@ -16,7 +18,7 @@ const fetchContent = async (link) => {
     return result;
 }
 
-export const makeSideMenuShadow = () => {
+const makeSideMenuShadow = () => {
     const body = document.getElementsByTagName('body')[0];
     const shadow = document.createElement('div');
     shadow.id = "side-menu-shadow";
@@ -49,25 +51,73 @@ const stopSroll = () => {
     body.classList.toggle('stop-scroll');
 }
 
-export const setSideMenu = () => {
+const setSideMenu = () => {
     setSideMenuShadowPos();
     setSideMenuPos();
 }
 
 
-export const toggleSideMenu = () => {
+const toggleSideMenu = () => {
     const sideMenu = document.getElementById('side-menu');
     sideMenu.classList.toggle('collapse');
 }
 
-export const setUsername = (username) => {
+const setUsername = () => {
     const usernameText = document.getElementsByClassName('username-text');
+    const username = getCookieUsername();
     for(let element of usernameText){
         element.textContent = username;
     }
 }
 
-export const getNav = async (nav) => {
+const showLoggedNavContent = async () => {
+    const navArea = document.getElementById("header-wrapper");
+    const sideArea = document.getElementById("main-wrapper");
+    navArea.appendChild(await getNav("logged"));
+    sideArea.insertAdjacentElement("afterbegin", await getSide("logged"));
+}
+
+const showNormalNavContent = async () => {
+    const navArea = document.getElementById("header-wrapper");
+    const sideArea = document.getElementById("main-wrapper");
+    navArea.appendChild(await getNav("normal"));
+    sideArea.insertAdjacentElement("afterbegin",await getSide("normal"));
+}
+
+const setSidemenuExpandEvent = () => {
+    const sideMenuExpandButton = document.getElementById('side-menu-expand-button');
+    sideMenuExpandButton.addEventListener('click', (e)=>{
+        e.preventDefault();
+        makeSideMenuShadow();
+        setSideMenu();
+        toggleSideMenu();
+    });
+}
+
+
+const setNav = async (status) => {
+    setSidemenuExpandEvent();
+
+    if(status){
+        await showLoggedNavContent();
+        setUsername();
+        addLogoutEvent();
+        addNavRedirectEvent();
+    }
+
+    else{
+        await showNormalNavContent();
+        addNavRedirectEvent();
+    }
+    
+}
+
+export const showNav = async (status) =>{
+    await setNav(status);
+    addNavRedirectEvent();
+}
+
+const getNav = async (nav) => {
     if(nav === "normal"){
         return await getNormalNav();
     }
@@ -76,7 +126,7 @@ export const getNav = async (nav) => {
     }
 }
 
-export const getSide = async (nav) => {
+const getSide = async (nav) => {
     if(nav === "normal"){
         return await getNormalSide();
     }
