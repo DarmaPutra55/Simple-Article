@@ -1,7 +1,8 @@
 @mixin article-editor-scss {
     .article-content-wrapper{
-        min-height: 75vh;
+        min-height: 200px;
         width: 100%;
+        margin: 15px 0;
         display: flex;
         flex-direction: row;
         align-items: center;

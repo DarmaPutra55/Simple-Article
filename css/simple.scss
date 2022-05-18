@@ -1,6 +1,9 @@
 @import 'main-article/main-article.scss';
 @import 'article-editor/article-editor.scss';
 @import 'login/login.scss';
+@import 'navBar/side/sideBar.scss';
+@import 'navBar/nav/navBar.scss';
+
 $normal-text-size: 1.2rem;
 $shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 $normal-header-size: 1.75rem;
@@ -10,7 +13,7 @@ body,
 html {
     margin: 0 0;
     max-width: 100vw;
-    min-height: 100vh;
+    min-height: calc(max(100vh, 600px));
     box-sizing: border-box;
 }
 
@@ -19,81 +22,16 @@ body {
         overflow-y: hidden;
     }
 
-    .modal-shadow {
-        height: 100vh;
-        width: 100vw;
-        background-color: black;
-        opacity: 0.6;
-        position: absolute;
-        left: 0;
-        z-index: 3;
-    }
-
+    @include sidebar-css;
+    
     .main-wrapper {
-        min-height: 100%;
+        min-height: calc(max(100vh, 600px));
         width: 100%;
         display: flex;
         flex-direction: column;
 
-            .side-menu-wrapper {
-                width: calc(max(150px, 15vw));
-                min-height: 100%;
-                position: absolute;
-                left: 0;
-                z-index: 4;
-                overflow: hidden;
-                background-color: white;
-                display: flex;
-                flex-direction: column;
-                transition: width 300ms;
-
-                &.collapse{
-                    width: 0;
-                }
-
-                nav {
-                    display: flex;
-                    flex-direction: column;
-
-                    a {
-                        border-bottom: 1px solid lightgrey;
-                        flex-grow: 1;
-                        text-decoration: none;
-                        color: black;
-                        padding: 12.5px 10px;
-                        font-size: $normal-text-size;
-                    }
-
-                    p {
-                        border-bottom: 1px solid lightgrey;
-                        flex-grow: 1;
-                        text-decoration: none;
-                        color: black;
-                        padding: 12.5px 10px;
-                        margin: 0 0;
-                        font-size: $normal-text-size;
-                        font-family: sans-serif;
-                    }
-
-                    button {
-                        flex-grow: 1;
-                        color: black;
-                        padding: 12.5px 10px;
-                        border: none;
-                        border-bottom: 1px solid lightgrey;
-                        font-size: $normal-text-size;
-                        text-align: justify;
-                        background-color: white;
-                    }
-                }
-
-                @media only screen and (min-width: 700px) {
-                    display: none;
-                }
-            }
-
         .header-wrapper {
-            min-height: 15vh;
+            flex-grow: 1;
             width: 100%;
             background-color: white;
             position: sticky;
@@ -121,6 +59,8 @@ body {
                     }
                 }
             }
+
+            @include navBar-css;
          
             .side-menu-expand-button-wrapper{
                 position: absolute;
@@ -131,8 +71,8 @@ body {
 
                 .side-menu-expand-button{
                     align-self: center;
-                    height: 80px;
-                    width: 80px;
+                    height: 50px;
+                    width: 50px;
                     background-color: white;
                     border: none;
                 }
@@ -142,58 +82,11 @@ body {
                 }    
             }
 
-            .header-menu-wrapper {
-                position: relative;
-                top: 0;
-                left: 0;
-                flex-grow: 0;
-                background-color: whitesmoke;
-
-                @media only screen and (min-width: 700px) {
-                    display: flex;
-                    flex-direction: row;
-                    justify-content: space-between;
-                }
-
-                @media only screen and (max-width: 700px) {
-                    display: none;
-                }
-
-                nav {
-                    display: flex;
-
-                    a {
-                        flex-grow: 1;
-                        text-decoration: none;
-                        color: black;
-                        padding: 10px 15px;
-                        font-size: $normal-text-size;
-                    }
-
-                    p {
-                        flex-grow: 1;
-                        text-decoration: none;
-                        color: black;
-                        padding: 10px 15px;
-                        margin: 0 0;
-                        font-size: $normal-text-size;
-                        font-family: sans-serif;
-                    }
-
-                    button {
-                        flex-grow: 1;
-                        color: black;
-                        padding: 10px 15px;
-                        border: none;
-                        font-size: $normal-text-size;
-                        background-color: whitesmoke;
-                    }
-                }
-            }
+            
         }
 
         .content-wrapper {
-            min-height: 75vh;
+            flex-grow: 2;
             width: 100%;
             position: relative;
             top: 0;
@@ -206,7 +99,7 @@ body {
 
 
         .footer-wrapper {
-            min-height: 10vh;
+            flex-grow: 1;
             width: 100%;
             background-color: bisque;
             display: flex;
@@ -215,6 +108,7 @@ body {
 
             h1 {
                 font-size: calc(max(2.5vw, 2rem));
+                margin: 15px 0;
             }
         }
 

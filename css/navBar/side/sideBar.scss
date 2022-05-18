@@ -1,0 +1,76 @@
+@mixin sidebar-css {
+    .side-wrapper{
+        position: absolute;
+        left: 0;
+        min-height: 100vh;
+        width: 100vw;
+        overflow: visible;
+
+        .modal-shadow {
+            height: 100%;
+            width: 100%;
+            background-color: black;
+            opacity: 0.6;
+            position: absolute;
+            left: 0;
+            z-index: 3;
+        }
+
+        .side-menu-wrapper {
+            width: calc(max(150px, 15vw));
+            height: 100%;
+            position: absolute;
+            left: 0;
+            z-index: 4;
+            overflow: hidden;
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            transition: width 300ms;
+
+            &.collapse{
+                width: 0;
+            }
+
+            nav {
+                display: flex;
+                flex-direction: column;
+
+                a {
+                    border-bottom: 1px solid lightgrey;
+                    flex-grow: 1;
+                    text-decoration: none;
+                    color: black;
+                    padding: 12.5px 10px;
+                    font-size: $normal-text-size;
+                }
+
+                p {
+                    border-bottom: 1px solid lightgrey;
+                    flex-grow: 1;
+                    text-decoration: none;
+                    color: black;
+                    padding: 12.5px 10px;
+                    margin: 0 0;
+                    font-size: $normal-text-size;
+                    font-family: sans-serif;
+                }
+
+                button {
+                    flex-grow: 1;
+                    color: black;
+                    padding: 12.5px 10px;
+                    border: none;
+                    border-bottom: 1px solid lightgrey;
+                    font-size: $normal-text-size;
+                    text-align: justify;
+                    background-color: white;
+                }
+            }
+
+            @media only screen and (min-width: 700px) {
+                display: none;
+            }
+        }
+    }
+}

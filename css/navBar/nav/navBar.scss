@@ -1,0 +1,50 @@
+@mixin navBar-css {
+    .header-menu-wrapper {
+        position: relative;
+        top: 0;
+        left: 0;
+        flex-grow: 0;
+        background-color: whitesmoke;
+
+        @media only screen and (min-width: 700px) {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        @media only screen and (max-width: 700px) {
+            display: none;
+        }
+
+        nav {
+            display: flex;
+
+            a {
+                flex-grow: 1;
+                text-decoration: none;
+                color: black;
+                padding: 10px 15px;
+                font-size: $normal-text-size;
+            }
+
+            p {
+                flex-grow: 1;
+                text-decoration: none;
+                color: black;
+                padding: 10px 15px;
+                margin: 0 0;
+                font-size: $normal-text-size;
+                font-family: sans-serif;
+            }
+
+            button {
+                flex-grow: 1;
+                color: black;
+                padding: 10px 15px;
+                border: none;
+                font-size: $normal-text-size;
+                background-color: whitesmoke;
+            }
+        }
+    }
+}

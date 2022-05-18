@@ -19,11 +19,11 @@ const fetchContent = async (link) => {
 }
 
 const makeSideMenuShadow = () => {
-    const body = document.getElementsByTagName('body')[0];
+    const side = document.getElementById('side-wrapper');
     const shadow = document.createElement('div');
     shadow.id = "side-menu-shadow";
     shadow.classList.add('modal-shadow');
-    body.insertAdjacentElement('afterbegin', shadow);
+    side.insertAdjacentElement('afterbegin', shadow);
     stopSroll();
 
     shadow.addEventListener('click', (e) => {
@@ -35,25 +35,14 @@ const makeSideMenuShadow = () => {
     });
 }
 
-const setSideMenuShadowPos = () =>{
-    const sideMenuShadow = document.getElementById('side-menu-shadow');
-    sideMenuShadow.style.top = (window.scrollY)+"px";
-} 
-
-
-const setSideMenuPos = () =>{
-    const sideMenu = document.getElementById('side-menu');
-    sideMenu.style.top = (window.scrollY)+"px";
+const setSide = () =>{
+    const side = document.getElementById('side-wrapper');
+    side.style.top = (window.scrollY)+"px";
 } 
 
 const stopSroll = () => {
     const body = document.getElementsByTagName('body')[0];
     body.classList.toggle('stop-scroll');
-}
-
-const setSideMenu = () => {
-    setSideMenuShadowPos();
-    setSideMenuPos();
 }
 
 
@@ -71,17 +60,17 @@ const setUsername = () => {
 }
 
 const showLoggedNavContent = async () => {
-    const navArea = document.getElementById("header-wrapper");
-    const sideArea = document.getElementById("main-wrapper");
-    navArea.appendChild(await getNav("logged"));
-    sideArea.insertAdjacentElement("afterbegin", await getSide("logged"));
+    const header = document.getElementById("header-wrapper");
+    const side = document.getElementById("side-wrapper");
+    header.appendChild(await getNav("logged"));
+    side.insertAdjacentElement("afterbegin", await getSide("logged"));
 }
 
 const showNormalNavContent = async () => {
-    const navArea = document.getElementById("header-wrapper");
-    const sideArea = document.getElementById("main-wrapper");
-    navArea.appendChild(await getNav("normal"));
-    sideArea.insertAdjacentElement("afterbegin",await getSide("normal"));
+    const header = document.getElementById("header-wrapper");
+    const side = document.getElementById("side-wrapper");
+    header.appendChild(await getNav("normal"));
+    side.insertAdjacentElement("afterbegin",await getSide("normal"));
 }
 
 const setSidemenuExpandEvent = () => {
@@ -89,7 +78,7 @@ const setSidemenuExpandEvent = () => {
     sideMenuExpandButton.addEventListener('click', (e)=>{
         e.preventDefault();
         makeSideMenuShadow();
-        setSideMenu();
+        setSide();
         toggleSideMenu();
     });
 }
@@ -110,11 +99,6 @@ const setNav = async (status) => {
         addNavRedirectEvent();
     }
     
-}
-
-export const showNav = async (status) =>{
-    await setNav(status);
-    addNavRedirectEvent();
 }
 
 const getNav = async (nav) => {
@@ -171,4 +155,9 @@ const getLoggedNav = async () => {
     wrapper.id = "header-menu";
     wrapper.innerHTML =  content;
     return wrapper;
+}
+
+export const showNav = async (status) =>{
+    await setNav(status);
+    addNavRedirectEvent();
 }
