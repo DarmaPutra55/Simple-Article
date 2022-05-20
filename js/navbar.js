@@ -1,3 +1,5 @@
+//Handle sidebar and navbar logic. Will only be used on simple.js and router.js
+
 import { logout }  from '/js/logout.js';
 import { getCookieUsername } from '/js/getUsername.js';
 import { addNavRedirectEvent } from '/js/router.js';
@@ -34,11 +36,6 @@ const makeSideMenuShadow = () => {
         }
     });
 }
-
-const setSide = () =>{
-    const side = document.getElementById('side-wrapper');
-    side.style.top = (window.scrollY)+"px";
-} 
 
 const stopSroll = () => {
     const body = document.getElementsByTagName('body')[0];
@@ -78,7 +75,7 @@ const setSidemenuExpandEvent = () => {
     sideMenuExpandButton.addEventListener('click', (e)=>{
         e.preventDefault();
         makeSideMenuShadow();
-        setSide();
+        setSide((window.scrollY)+"px");
         toggleSideMenu();
     });
 }
@@ -161,3 +158,8 @@ export const showNav = async (status) =>{
     await setNav(status);
     addNavRedirectEvent();
 }
+
+export const setSide = (position) =>{
+    const side = document.getElementById('side-wrapper');
+    side.style.top = position;
+} 

@@ -1,4 +1,10 @@
+//Handle logout logic. Will only be used on navbar.js
+
 import DBOperation from '/js/db.js';
+
+const deleteUsernameCookies = () => {
+    document.cookie = "username=''; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+}
 
 export const logout = async () => {
     const db = new DBOperation();
@@ -13,8 +19,4 @@ export const logout = async () => {
     else{
         alert("Logout failed!");
     }
-}
-
-const deleteUsernameCookies = () => {
-    document.cookie = "username=''; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
 }

@@ -1,3 +1,5 @@
+//Handle all server request.
+
 export default class DBOperation {
     fetchArticle = async (id = null) => {
         try {

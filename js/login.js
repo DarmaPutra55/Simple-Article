@@ -1,3 +1,5 @@
+//Handle login logic. Will only be used on navbar.js
+
 import DBOperation from "/js/db.js";
 
 //Login Start

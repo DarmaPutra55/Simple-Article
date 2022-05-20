@@ -1,3 +1,5 @@
+//Handle article creation and editing.
+
 import DBOperation from "/js/db.js";
 
 export default class ArticleEditor{

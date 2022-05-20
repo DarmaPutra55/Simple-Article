@@ -1,6 +1,6 @@
 @mixin login-scss {
     .login-menu-wrapper{
-        height: 75vh;
+        min-height: 200px;
         width: 100%;
         display: flex;
         justify-content: center;

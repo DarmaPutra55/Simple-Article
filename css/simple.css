@@ -2,7 +2,7 @@ body,
 html {
   margin: 0 0;
   max-width: 100vw;
-  min-height: calc(max(100vh, 600px));
+  min-height: calc(max(100vh, 650px));
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
@@ -106,7 +106,7 @@ body .side-wrapper .side-menu-wrapper nav button {
 }
 
 body .main-wrapper {
-  min-height: calc(max(100vh, 600px));
+  min-height: calc(max(100vh, 650px));
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -276,6 +276,7 @@ body .main-wrapper .content-wrapper {
   position: relative;
   top: 0;
   left: 0;
+  padding: 15px 0;
 }
 
 body .main-wrapper .content-wrapper .main-article {
@@ -451,7 +452,6 @@ body .main-wrapper .content-wrapper .main-article .content-box .content-submenu-
 body .main-wrapper .content-wrapper .article-content-wrapper {
   min-height: 200px;
   width: 100%;
-  margin: 15px 0;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -590,7 +590,7 @@ body .main-wrapper .content-wrapper .article-content-wrapper .article-content-bo
 }
 
 body .main-wrapper .content-wrapper .login-menu-wrapper {
-  height: 75vh;
+  min-height: 200px;
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;

@@ -1,37 +1,11 @@
+//Responsible for handling web page change, will only be used in simple.js, navbar.js and sub-article.js
+
 import { getMainContent as articleViewContent, showArticle } from "/js/article.js";
 import { getMainContent as articleEditorContent, checkURLParameter, showArticleEditorEdit, showArticleEditor, getURLParameter } from "/js/article-editor.js";
 import { getContent as articleRegisterContent, setUpRegister } from "/js/register.js";
 import { getContent as articleLoginContent, setUpLogin } from "/js/login.js";
 import { cekCookiesUsername } from "/js/getUsername.js";
-
-export const addNavRedirectEvent = () => {
-    const menuNav = document.getElementById('header-menu');
-    const sideMenuNav = document.getElementById('side-menu');
-
-    for(let mainNav of menuNav.children){
-        for(let childNav of mainNav.children){
-            if(childNav.tagName === "A"){
-                redirectEvent(childNav);
-            }
-        }
-    }
-
-    for(let mainNav of sideMenuNav.children){
-        for(let childNav of mainNav.children){
-            if(childNav.tagName === "A"){
-                redirectEvent(childNav);
-            }
-        }
-    }
-}
-
-export const redirectEvent = (element) =>{
-    element.addEventListener('click', (e) => {
-        e.preventDefault();
-        window.history.pushState("", {}, e.target.href);
-        showContent();
-    });
-}
+import { setSide } from "/js/navbar.js";
 
 const getUrl = ()=>{
     const link = window.location.pathname.split('/');
@@ -71,17 +45,6 @@ const showRegisterContent = async () => {
     setUpRegister()
 }
 
-export const showContent = async () => {
-    if(cekCookiesUsername()){
-        showLoggedContent();
-        return "";
-    }
-    
-    showNormalContent();
-
-    //alert(getUrl());
-}
-
 const showLoggedContent = async () => {
     if(getUrl().includes("tambah")){
         await showTambahContent();
@@ -111,4 +74,46 @@ export const addWindowHistoryEvent = () =>{
         e.preventDefault();
         showContent();
     });
+}
+
+export const addNavRedirectEvent = () => {
+    const menuNav = document.getElementById('header-menu');
+    const sideMenuNav = document.getElementById('side-menu');
+
+    for(let mainNav of menuNav.children){
+        for(let childNav of mainNav.children){
+            if(childNav.tagName === "A"){
+                redirectEvent(childNav);
+            }
+        }
+    }
+
+    for(let mainNav of sideMenuNav.children){
+        for(let childNav of mainNav.children){
+            if(childNav.tagName === "A"){
+                redirectEvent(childNav);
+            }
+        }
+    }
+}
+
+export const redirectEvent = (element) =>{
+    element.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.history.pushState("", {}, e.target.href);
+        showContent();
+    });
+}
+
+export const showContent = async () => {
+    setSide(0); //Reset side-menu poisition each time user switch page.
+    window.scrollTo(0, 0); //Reset view back to the top each time user switch page.
+    if(cekCookiesUsername()){
+        showLoggedContent();
+        return "";
+    }
+    
+    showNormalContent();
+
+    //alert(getUrl());
 }

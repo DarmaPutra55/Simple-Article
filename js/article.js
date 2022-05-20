@@ -1,3 +1,5 @@
+//Handle showing article and all article logic.
+
 import SubMenu from "/js/sub-article.js";
 import DBOperation from "/js/db.js";
 import { cekCookiesUsername } from "/js/getUsername.js";

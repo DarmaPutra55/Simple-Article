@@ -1,6 +1,8 @@
+//Handle registration logic. Will only be used on navbar.js
+
 import DBOperation from "/js/db.js";
 
-//Login Start
+//Register Start
 const setRegisterButtonEvent = ()=>{
     const registerMenuUsername = document.getElementById('register-menu-username');
     const registerMenuPassword = document.getElementById('register-menu-password');
@@ -61,4 +63,4 @@ export const setUpRegister = ()=>{
     setRegisterButtonEvent();
     setRegisterButtonClearEvent();
 }
-//Login End
+//Register End

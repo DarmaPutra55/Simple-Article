@@ -1,3 +1,5 @@
+//Handle sub-menu for the article. Will only be used on article.js
+
 import { redirectEvent } from "/js/router.js"
 import DBOperation from "/js/db.js";
 
