@@ -9,7 +9,7 @@ import { setSide } from "/js/navbar.js";
 
 const getUrl = ()=>{
     const link = window.location.pathname.split('/');
-    if(link.length > 2){
+    if(link.length > 2){ //To handle the Tambah menu because it has 3 '/' -> simplePHPFetch/[tambah]/42 return the 'tambah'
         return link[link.length - 2];
     }
     return link[link.length - 1];

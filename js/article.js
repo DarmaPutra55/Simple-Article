@@ -95,6 +95,11 @@ class Article {
     }
 }
 
+const refreshArticle = async () => {
+    document.getElementById('main-box').innerHTML = '';
+    await showArticle();
+}
+
 export const showArticle = async () => {
     try{
         const dbOperation = new DBOperation();
@@ -115,11 +120,6 @@ export const showArticle = async () => {
     catch(err){
         console.log("Error: "+err);
     }
-}
-
-const refreshArticle = async () => {
-    document.getElementById('main-box').innerHTML = '';
-    await showArticle();
 }
 
 export const getMainContent = async () => {
