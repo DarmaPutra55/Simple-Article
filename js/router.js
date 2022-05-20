@@ -1,6 +1,6 @@
 //Responsible for handling web page change, will only be used in simple.js, navbar.js and sub-article.js
 
-import { getMainContent as articleViewContent, showArticle } from "/js/article.js";
+import { getContent as articleViewContent, showArticleList } from "/js/article-list.js";
 import { getMainContent as articleEditorContent, checkURLParameter, showArticleEditorEdit, showArticleEditor, getURLParameter } from "/js/article-editor.js";
 import { getContent as articleRegisterContent, setUpRegister } from "/js/register.js";
 import { getContent as articleLoginContent, setUpLogin } from "/js/login.js";
@@ -32,7 +32,7 @@ const showTambahContent = async () => {
 
 const showMainContent = async () => {
     await setUpMainView(articleViewContent);
-    await showArticle();
+    await showArticleList();
 }
 
 const showLoginContent = async () => {

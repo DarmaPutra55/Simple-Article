@@ -1,12 +1,10 @@
 //Handle showing article and all article logic.
 
 import SubMenu from "/js/sub-article.js";
-import DBOperation from "/js/db.js";
-import { cekCookiesUsername } from "/js/getUsername.js";
 
-class Article {
+export default class Article {
     constructor(articleId, header, article) {
-        this.mainBoxArea = document.getElementById('main-box');
+        //this.mainBoxArea = document.getElementById('main-box');
         this.mainBox = document.createElement('div');
         this.mainHeader = document.createElement('div');
         this.mainArticle = document.createElement('div');
@@ -34,7 +32,7 @@ class Article {
         this.articleText.innerHTML = article;
     }
 
-    addArticle = async () => {
+    makeArticle = () => {
         this.mainHeader.appendChild(this.headerTextWrapper);
         
         this.headerTextWrapper.appendChild(this.headerText);
@@ -44,10 +42,12 @@ class Article {
         this.mainBox.appendChild(this.mainHeader);
         this.mainBox.appendChild(this.mainArticle);
         this.mainBox.appendChild(this.aritcleIdHolder);
-        this.mainBoxArea.appendChild(this.mainBox);
+        
+        return this.mainBox;
+        //this.mainBoxArea.appendChild(this.mainBox);
     }
 
-    addSubmenu = (DeleteCallback) => {
+    addSubmenu = () => {
         this.onTrans = false;
         this.headerButtonWrapper = document.createElement('div');
         this.headerButton = document.createElement('button');
@@ -59,13 +59,15 @@ class Article {
         this.headerButtonWrapper.classList.add('content-header-button');
 
         this.headerButtonIcon.classList.add('fa', 'fa-solid', 'fa-ellipsis-vertical', 'fa-2x', 'icon-button-rotate-back');
-            this.submenu = new SubMenu();
-            this.submenu.addSubmenu(this.mainBox);
-            this.submenu.setSubmenuPosition(this.headerButtonWrapper);
-            this.submenu.setDeleteButtonEvent(this.aritcleIdHolder.value, DeleteCallback);
-            this.submenu.setEditEvent(this.aritcleIdHolder.value);
-            this.setExpandButtonEvent();
-            this.setContentBoxResizeEvent();
+        
+        //Make the submenu
+        this.submenu = new SubMenu();
+        this.submenu.addSubmenu(this.mainBox);
+        this.submenu.setSubmenuPosition(this.headerButtonWrapper);
+        this.submenu.setDeleteButtonEvent(this.aritcleIdHolder.value, this.mainBox);
+        this.submenu.setEditEvent(this.aritcleIdHolder.value);
+        this.setExpandButtonEvent();
+        this.setContentBoxResizeEvent();
     }
 
     setExpandButtonEvent = () => {
@@ -93,37 +95,4 @@ class Article {
         this.headerButtonIcon.classList.toggle('icon-button-rotate-click');
         this.headerButtonIcon.classList.toggle('icon-button-rotate-back');
     }
-}
-
-const refreshArticle = async () => {
-    document.getElementById('main-box').innerHTML = '';
-    await showArticle();
-}
-
-export const showArticle = async () => {
-    try{
-        const dbOperation = new DBOperation();
-        const articleArray = await dbOperation.fetchArticle();
-        const mainBox = document.getElementById('main-box');
-        //let newArticle = articleArray.filter(el => el.ArticleHeader.includes("Test"));
-        if(articleArray !== null){
-            mainBox.innerHTML = "";
-            for (const value of articleArray) {
-                const article = new Article(value.ArticleID, value.ArticleHeader, value.ArticleText);
-                article.addArticle();
-                if(cekCookiesUsername()){
-                    article.addSubmenu(refreshArticle);
-                }
-            }
-        }
-    }
-    catch(err){
-        console.log("Error: "+err);
-    }
-}
-
-export const getMainContent = async () => {
-    const response = await fetch('/view/article.html');
-    const text = await response.text();
-    return text;
 }

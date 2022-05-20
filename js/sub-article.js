@@ -45,12 +45,12 @@ export default class SubMenu {
         subMenu.classList.toggle('content-submenu-close');
     }
 
-    setDeleteButtonEvent = async (ArticleID, DeleteCallback) => {
+    setDeleteButtonEvent = async (articleID, parentDiv) => {
         this.articleDeleteButton.addEventListener('click', async (e) => {
             e.preventDefault();
             const dbOperation = new DBOperation();
-            const dbOperationResult = await dbOperation.deleteArticle(ArticleID);
-            await DeleteCallback();
+            const dbOperationResult = await dbOperation.deleteArticle(articleID);
+            parentDiv.remove();
             if(dbOperationResult.status === "ok"){
                 alert('Data sucessfully deleted!');
             }
