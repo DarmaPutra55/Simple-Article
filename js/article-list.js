@@ -31,7 +31,14 @@ class ArticleList {
     addArticleToList = async () => {
         try{
             const dbOperation = new DBOperation();
-            const articleArray = await dbOperation.fetchArticle();
+            const tempArr = await dbOperation.fetchArticle();
+            const articleArray = tempArr.map(element => {
+                if(element.ArticleText.length > 400) {
+                    element.ArticleText = element.ArticleText.slice(0, 400);
+                }
+
+                return element;
+            });
 
             if(articleArray !== null){
                 for (const value of articleArray) {
