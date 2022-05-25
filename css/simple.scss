@@ -93,9 +93,14 @@ body {
             left: 0;
             padding: 15px 0;
 
-            @include main-article-scss;
-            @include article-editor-scss;
-            @include login-scss;
+            .main-content{
+                display: flex;
+                flex-direction: column;
+                
+                @include main-article-scss;
+                @include article-editor-scss;
+                @include login-scss;
+            }
         }
 
 

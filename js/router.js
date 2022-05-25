@@ -65,7 +65,7 @@ const showNormalContent = async () => {
     }
 
     else{
-        showMainContent();
+        await showMainContent();
     }
 }
 

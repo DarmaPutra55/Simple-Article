@@ -6,11 +6,26 @@ class ArticleList {
 
     constructor(){
         this.mainArray = [];
-        this.viewArray = this.mainArray;
+        this.viewArray = [];
+    }
+
+    setSearchBar = () => {
+        const searhBar = document.getElementById("search-form");
+        const searchText = document.getElementById("search-bar-text");
+        searhBar.addEventListener("submit", (e)=>{
+            e.preventDefault();
+            if(!(searchText.value).trim()){
+                this.refreshArticle();
+                return;
+            }
+
+            this.searchArticle((searchText.value).trim());
+        });
     }
 
     setArticle = async () => {
         await this.addArticleToList();
+        this.viewArray = this.mainArray;
     }
     
     addArticleToList = async () => {
@@ -33,29 +48,39 @@ class ArticleList {
         }
     }
 
-    getAllArticle = () =>{
-        return this.mainArray;
+    searchArticle = (title) => {
+        this.viewArray = this.mainArray.filter(element => {
+            const headerContainer = element.childNodes[0].childNodes[0].childNodes[0];
+            const headerText = headerContainer.textContent;
+            if(headerText.toLowerCase().startsWith(title.toLowerCase())){
+                return element;
+            }
+        });
+        this.fillList();
     }
 
-    refreshArticle = async () => {
-        document.getElementById('main-box').innerHTML = '';
-        await showArticle();
+    refreshArticle = () => {
+        this.viewArray = this.mainArray;
+        this.fillList();
     }
-    
-}
 
- export const showArticleList = async () => {
-    try{
+    fillList = () => {
         const mainBox = document.getElementById('main-box');
-        const articleList = new ArticleList();
-        await articleList.setArticle();
-        const articleListArray = articleList.getAllArticle();
-
         mainBox.innerHTML = "";
 
-        for(const value of articleListArray){
+        for(const value of this.viewArray){
             mainBox.appendChild(value);
         }
+    }
+}
+
+export const showArticleList = async () => {
+    try{
+        const articleList = new ArticleList();
+        await articleList.setArticle();
+        articleList.setSearchBar();
+        articleList.fillList();
+       
         //let newArticle = articleArray.filter(el => el.ArticleHeader.includes("Test"));
     }
 

@@ -5,6 +5,7 @@
         left: 0;
         flex-grow: 0;
         background-color: whitesmoke;
+        font-family: sans-serif;
 
         @media only screen and (min-width: 700px) {
             display: flex;
@@ -34,7 +35,6 @@
                 padding: 10px 15px;
                 margin: 0 0;
                 font-size: $normal-text-size;
-                font-family: sans-serif;
             }
 
             button {

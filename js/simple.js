@@ -20,10 +20,9 @@ const pageStart = async () =>{
     }
 
     await showNav(cekCookiesUsername());
-    showContent().then(()=>{
-        addWindowHistoryEvent();
-        body[0].classList.toggle('hide');
-    });
+    await showContent()
+    addWindowHistoryEvent();
+    body[0].classList.toggle('hide');
 }
 
 pageStart();
