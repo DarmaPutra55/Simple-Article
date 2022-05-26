@@ -2,7 +2,7 @@
 
 import { getContent as articleViewContent, showArticleList } from "/js/article-list.js";
 import { getContent as articleEditorContent, showArticleEditorEdit, showArticleEditor } from "/js/article-editor.js";
-import { getContent as articleReadContent } from "/js/article-read.js";
+import { getContent as articleReadContent, setUpArticleRead } from "/js/article-read.js";
 import { getContent as articleRegisterContent, setUpRegister } from "/js/register.js";
 import { getContent as articleLoginContent, setUpLogin } from "/js/login.js";
 import { cekCookiesUsername } from "/js/getUsername.js";
@@ -45,6 +45,7 @@ const showTambahContent = async () => {
 }
 
 const showMainContent = async () => {
+    //alert("Fired");
     await setUpMainView(articleViewContent);
     await showArticleList();
 }
@@ -61,6 +62,7 @@ const showRegisterContent = async () => {
 
 const showReadContent = async () => {
     await setUpMainView(articleReadContent);
+    setUpArticleRead(getURLParameter());
 }
 
 const showLoggedContent = async () => {
@@ -103,6 +105,7 @@ export const addWindowHistoryEvent = () =>{
 }
 
 export const addNavRedirectEvent = () => {
+    //alert("Fired");
     const menuNav = document.getElementById('header-menu');
     const sideMenuNav = document.getElementById('side-menu');
 
@@ -140,6 +143,4 @@ export const showContent = async () => {
     }
     
     showNormalContent();
-
-    //alert(getUrl());
 }

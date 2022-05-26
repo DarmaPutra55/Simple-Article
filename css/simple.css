@@ -374,6 +374,7 @@ body .main-wrapper .content-wrapper .main-content .main-article .content-box .co
   font-size: 1.75rem;
   text-align: center;
   margin: 10px 0;
+  word-break: break-word;
 }
 
 @media only screen and (min-width: 500px) {
@@ -460,6 +461,7 @@ body .main-wrapper .content-wrapper .main-content .main-article .content-box .co
           flex-direction: column;
   width: 100%;
   border: 1px solid lightgrey;
+  background-color: white;
 }
 
 body .main-wrapper .content-wrapper .main-content .main-article .content-box .content-submenu-wrapper .content-submenu a {
@@ -531,9 +533,10 @@ body .main-wrapper .content-wrapper .main-content .article-content-wrapper .arti
   text-align: center;
 }
 
-body .main-wrapper .content-wrapper .main-content .article-content-wrapper .article-content-box .article-read-box p {
+body .main-wrapper .content-wrapper .main-content .article-content-wrapper .article-content-box .article-read-box pre {
   font-size: 1.2rem;
   text-align: justify;
+  white-space: pre-wrap;
 }
 
 body .main-wrapper .content-wrapper .main-content .article-content-wrapper {

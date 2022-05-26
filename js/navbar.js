@@ -156,7 +156,7 @@ const getLoggedNav = async () => {
 
 export const showNav = async (status) =>{
     await setNav(status);
-    addNavRedirectEvent();
+    //addNavRedirectEvent();
 }
 
 export const setSide = (position) =>{

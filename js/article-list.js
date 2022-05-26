@@ -44,10 +44,10 @@ class ArticleList {
             if(articleArray !== null){
                 for (const value of articleArray) {
                     const article = new Article(value.ArticleID, value.ArticleHeader, value.ArticleText);
+                    this.mainArray.push(article.makeArticle());
                     if(cekCookiesUsername()){
                         article.addSubmenu();
                     }
-                    this.mainArray.push(article.makeArticle());
                 }
             }
         }

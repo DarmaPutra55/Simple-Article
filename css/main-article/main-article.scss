@@ -48,10 +48,12 @@
                         font-size: $normal-header-size;
                         text-align: center;
                         margin: 10px 0;
+                        word-break: break-word;
                     }
                 }
 
                 .content-header-button {
+                    //Adjust so that the button wont be absolute in mobile to prevent button overlap with title text.
                     @media only screen and (min-width: 500px) {
                         position: absolute;
                         top: 0;
@@ -117,6 +119,7 @@
                     flex-direction: column;
                     width: 100%;
                     border: 1px solid lightgrey;
+                    background-color: white;
 
                     a {
                         padding: 5px 5px;

@@ -30,7 +30,6 @@ export default class DBOperation {
     fetchAllArticle = async () =>{
         const response = await fetch("/php/fetch.php");
         const data = await response.json();
-        console.log(data);
         return data;
     }
 

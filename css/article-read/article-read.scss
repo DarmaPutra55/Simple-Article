@@ -21,9 +21,10 @@
                     text-align: center;
                 }
 
-                p{
+                pre{
                     font-size: $normal-text-size;
                     text-align: justify;
+                    white-space: pre-wrap;
                 }
             }
         }
