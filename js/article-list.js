@@ -32,9 +32,10 @@ class ArticleList {
         try{
             const dbOperation = new DBOperation();
             const tempArr = await dbOperation.fetchArticle();
+            //alert("Fired");
             const articleArray = tempArr.map(element => {
                 if(element.ArticleText.length > 400) {
-                    element.ArticleText = element.ArticleText.slice(0, 400);
+                    element.ArticleText = element.ArticleText.slice(0, 400) + "...";
                 }
 
                 return element;

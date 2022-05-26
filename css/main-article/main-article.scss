@@ -8,6 +8,7 @@
             width: $contentSize; 
 
             input[type=text]{
+                font-size: $normal-text-size;
                 flex-grow: 1;
                 margin-right: 20px;
             }
@@ -87,10 +88,16 @@
                 height: fit-content;
                 width: 100%;
 
-                p {
+                pre {
                     font-size: $normal-text-size;
                     text-align: justify;
                     margin: 15px;
+                    white-space: pre-wrap;
+                }
+
+                a {
+                    text-decoration: none;
+                    margin-left: 10px;
                 }
             }
 

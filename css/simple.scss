@@ -1,5 +1,6 @@
 @import 'main-article/main-article.scss';
 @import 'article-editor/article-editor.scss';
+@import 'article-read/article-read.scss';
 @import 'login/login.scss';
 @import 'navBar/side/sideBar.scss';
 @import 'navBar/nav/navBar.scss';
@@ -98,6 +99,7 @@ body {
                 flex-direction: column;
                 
                 @include main-article-scss;
+                @include article-read-scss;
                 @include article-editor-scss;
                 @include login-scss;
             }

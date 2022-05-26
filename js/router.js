@@ -1,7 +1,8 @@
 //Responsible for handling web page change, will only be used in simple.js, navbar.js and sub-article.js
 
 import { getContent as articleViewContent, showArticleList } from "/js/article-list.js";
-import { getMainContent as articleEditorContent, checkURLParameter, showArticleEditorEdit, showArticleEditor, getURLParameter } from "/js/article-editor.js";
+import { getContent as articleEditorContent, showArticleEditorEdit, showArticleEditor } from "/js/article-editor.js";
+import { getContent as articleReadContent } from "/js/article-read.js";
 import { getContent as articleRegisterContent, setUpRegister } from "/js/register.js";
 import { getContent as articleLoginContent, setUpLogin } from "/js/login.js";
 import { cekCookiesUsername } from "/js/getUsername.js";
@@ -13,6 +14,19 @@ const getUrl = ()=>{
         return link[link.length - 2];
     }
     return link[link.length - 1];
+}
+
+const checkURLParameter = () =>{
+    const url = window.location.pathname.split('/');
+    if(url.length > 2){
+        return true;
+    }
+    return false;
+}
+
+const getURLParameter = () => {
+    const url = window.location.pathname.split('/');
+    return url[url.length  - 1];
 }
 
 const setUpMainView = async (content) => {
@@ -45,9 +59,17 @@ const showRegisterContent = async () => {
     setUpRegister()
 }
 
+const showReadContent = async () => {
+    await setUpMainView(articleReadContent);
+}
+
 const showLoggedContent = async () => {
     if(getUrl().includes("tambah")){
         await showTambahContent();
+    }
+
+    else if(getUrl().includes("read")){
+        await showReadContent();
     }
 
     else{
@@ -58,6 +80,10 @@ const showLoggedContent = async () => {
 const showNormalContent = async () => {
     if(getUrl().includes("login")){
         await showLoginContent();
+    }
+
+    else if(getUrl().includes("read")){
+        await showReadContent();
     }
     
     else if(getUrl().includes("register")){

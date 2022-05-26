@@ -1,6 +1,7 @@
 //Handle showing article and all article logic.
 
 import SubMenu from "/js/sub-article.js";
+import { redirectEvent } from "/js/router.js"
 
 export default class Article {
     constructor(articleId, header, article) {
@@ -9,10 +10,9 @@ export default class Article {
         this.mainHeader = document.createElement('div');
         this.mainArticle = document.createElement('div');
         this.headerTextWrapper = document.createElement('div');
-        
         this.headerText = document.createElement('h1');
-        
-        this.articleText = document.createElement('p');
+        this.articleText = document.createElement('pre');
+        this.articleRead = document.createElement('a');
         this.aritcleIdHolder = document.createElement('input');
 
         this.mainBox.classList.add('content-box');
@@ -27,9 +27,18 @@ export default class Article {
         
         this.aritcleIdHolder.value = articleId;
 
+        this.articleRead.textContent = "Read";
+
+        this.setReadEvenet(articleId);
+
         this.headerText.innerHTML = header;
 
         this.articleText.innerHTML = article;
+    }
+
+    setReadEvenet = (ArticleID) => {
+        this.articleRead.href = "/read/"+ArticleID; 
+        redirectEvent(this.articleRead);
     }
 
     makeArticle = () => {
@@ -37,8 +46,9 @@ export default class Article {
         
         this.headerTextWrapper.appendChild(this.headerText);
 
+        this.articleText.appendChild(this.articleRead);
         this.mainArticle.appendChild(this.articleText);
-
+    
         this.mainBox.appendChild(this.mainHeader);
         this.mainBox.appendChild(this.mainArticle);
         this.mainBox.appendChild(this.aritcleIdHolder);

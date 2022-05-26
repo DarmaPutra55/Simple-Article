@@ -109,7 +109,7 @@ export default class ArticleEditor{
     }
 }
 
-export const getMainContent = async() =>{
+export const getContent = async() =>{
     const response = await fetch("/view/article-editor.html");
     const result = response.text();
     return result;
@@ -124,17 +124,4 @@ export const showArticleEditorEdit = async (id) => {
     const articleEditor = new ArticleEditor();
     await articleEditor.setArticleEditorValue(id);
     articleEditor.showArticle();
-}
-
-export const checkURLParameter = () =>{
-    const url = window.location.pathname.split('/');
-    if(url.length > 2){
-        return true;
-    }
-    return false;
-}
-
-export const getURLParameter = () => {
-    const url = window.location.pathname.split('/');
-    return url[url.length  - 1];
 }
