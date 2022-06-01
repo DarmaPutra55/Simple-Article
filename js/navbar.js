@@ -20,18 +20,10 @@ const fetchContent = async (link) => {
     return result;
 }
 
-const makeSideMenuShadow = () => {
-    const side = document.getElementById('side-wrapper');
-    const shadow = document.createElement('div');
-    shadow.id = "side-menu-shadow";
-    shadow.classList.add('modal-shadow');
-    side.insertAdjacentElement('afterbegin', shadow);
-    stopSroll();
-
-    shadow.addEventListener('click', (e) => {
+const setSideMenuEvent = () => {
+    const side = document.getElementById("side-wrapper");
+    side.addEventListener('click', (e) => {
         if(e.target.classList.contains('modal-shadow')){
-            shadow.remove();  
-            stopSroll();
             toggleSideMenu();
         }
     });
@@ -45,7 +37,10 @@ const stopSroll = () => {
 
 const toggleSideMenu = () => {
     const sideMenu = document.getElementById('side-menu');
+    const shadow = document.getElementById('shadow');
     sideMenu.classList.toggle('collapse');
+    shadow.classList.toggle("hide");  
+    stopSroll();
 }
 
 const setUsername = () => {
@@ -72,9 +67,9 @@ const showNormalNavContent = async () => {
 
 const setSidemenuExpandEvent = () => {
     const sideMenuExpandButton = document.getElementById('side-menu-expand-button');
+    setSideMenuEvent();
     sideMenuExpandButton.addEventListener('click', (e)=>{
-        e.preventDefault();
-        makeSideMenuShadow();
+        e.preventDefault(); 
         setSide((window.scrollY)+"px");
         toggleSideMenu();
     });

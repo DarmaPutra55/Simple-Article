@@ -120,9 +120,7 @@ body .main-wrapper {
 }
 
 body .main-wrapper .header-wrapper {
-  -webkit-box-flex: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
+  min-height: 15vh;
   width: 100%;
   background-color: white;
   position: -webkit-sticky;
@@ -271,9 +269,7 @@ body .main-wrapper .header-wrapper .side-menu-expand-button-wrapper .side-menu-e
 }
 
 body .main-wrapper .content-wrapper {
-  -webkit-box-flex: 2;
-      -ms-flex-positive: 2;
-          flex-grow: 2;
+  min-height: 90vh;
   width: 100%;
   position: relative;
   top: 0;
@@ -828,9 +824,7 @@ body .main-wrapper .content-wrapper .main-content .login-menu-wrapper .login-men
 }
 
 body .main-wrapper .footer-wrapper {
-  -webkit-box-flex: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
+  min-height: 10vh;
   width: 100%;
   background-color: bisque;
   display: -webkit-box;
