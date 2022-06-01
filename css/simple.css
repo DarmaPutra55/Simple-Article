@@ -11,6 +11,10 @@ body.stop-scroll {
   overflow-y: hidden;
 }
 
+body.hide {
+  display: none;
+}
+
 body .side-wrapper {
   position: absolute;
   left: 0;
@@ -30,6 +34,10 @@ body .side-wrapper .modal-shadow {
   position: absolute;
   left: 0;
   z-index: 3;
+}
+
+body .side-wrapper .modal-shadow.hide {
+  display: none;
 }
 
 body .side-wrapper .side-menu-wrapper {
@@ -275,6 +283,36 @@ body .main-wrapper .content-wrapper {
   top: 0;
   left: 0;
   padding: 15px 0;
+}
+
+body .main-wrapper .content-wrapper .loading {
+  height: 90vh;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 200;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+body .main-wrapper .content-wrapper .loading.hide {
+  display: none;
+}
+
+body .main-wrapper .content-wrapper .loading h1 {
+  font-size: 1.75rem;
 }
 
 body .main-wrapper .content-wrapper .main-content {
@@ -841,9 +879,5 @@ body .main-wrapper .footer-wrapper {
 body .main-wrapper .footer-wrapper h1 {
   font-size: calc(max(2.5vw, 2rem));
   margin: 15px 0;
-}
-
-.hide {
-  display: none;
 }
 /*# sourceMappingURL=simple.css.map */

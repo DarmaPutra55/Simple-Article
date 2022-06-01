@@ -7,6 +7,7 @@ import { getContent as articleRegisterContent, setUpRegister } from "/js/registe
 import { getContent as articleLoginContent, setUpLogin } from "/js/login.js";
 import { cekCookiesUsername } from "/js/getUsername.js";
 import { setSide } from "/js/navbar.js";
+import { toggleLoading } from "/js/loading.js";
 
 const getUrl = ()=>{
     const link = window.location.pathname.split('/');
@@ -98,9 +99,9 @@ const showNormalContent = async () => {
 }
 
 export const addWindowHistoryEvent = () =>{
-    window.addEventListener('popstate', (e)=>{
+    window.addEventListener('popstate', async (e)=>{
         e.preventDefault();
-        showContent();
+        await showContent();
     });
 }
 
@@ -127,20 +128,23 @@ export const addNavRedirectEvent = () => {
 }
 
 export const redirectEvent = (element) =>{
-    element.addEventListener('click', (e) => {
+    element.addEventListener('click', async (e) => {
         e.preventDefault();
         window.history.pushState("", {}, e.target.href);
-        showContent();
+        await showContent();
     });
 }
 
 export const showContent = async () => {
     setSide(0); //Reset side-menu poisition each time user switch page.
     window.scrollTo(0, 0); //Reset view back to the top each time user switch page.
+    toggleLoading();
     if(cekCookiesUsername()){
         showLoggedContent();
+        toggleLoading();
         return "";
     }
     
     showNormalContent();
+    toggleLoading();
 }

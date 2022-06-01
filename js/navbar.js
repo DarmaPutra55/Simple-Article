@@ -23,9 +23,7 @@ const fetchContent = async (link) => {
 const setSideMenuEvent = () => {
     const side = document.getElementById("side-wrapper");
     side.addEventListener('click', (e) => {
-        if(e.target.classList.contains('modal-shadow')){
-            toggleSideMenu();
-        }
+        toggleSideMenu();
     });
 }
 

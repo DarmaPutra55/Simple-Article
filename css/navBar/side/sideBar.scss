@@ -17,6 +17,10 @@
             position: absolute;
             left: 0;
             z-index: 3;
+
+            &.hide{
+                display: none;
+            }
         }
 
         .side-menu-wrapper {
