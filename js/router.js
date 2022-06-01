@@ -63,7 +63,7 @@ const showRegisterContent = async () => {
 
 const showReadContent = async () => {
     await setUpMainView(articleReadContent);
-    setUpArticleRead(getURLParameter());
+    await setUpArticleRead(getURLParameter());
 }
 
 const showLoggedContent = async () => {
@@ -140,11 +140,11 @@ export const showContent = async () => {
     window.scrollTo(0, 0); //Reset view back to the top each time user switch page.
     toggleLoading();
     if(cekCookiesUsername()){
-        showLoggedContent();
+        await showLoggedContent();
         toggleLoading();
         return "";
     }
     
-    showNormalContent();
+    await showNormalContent();
     toggleLoading();
 }
