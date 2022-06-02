@@ -46,7 +46,7 @@ class ArticleList {
                     const article = new Article(value.ArticleID, value.ArticleHeader, value.ArticleText);
                     this.mainArray.push(article.makeArticle());
                     if(cekCookiesUsername()){
-                        article.addSubmenu();
+                        article.makeSubmenu(this.deleteArticle);
                     }
                 }
             }
@@ -70,6 +70,11 @@ class ArticleList {
     refreshArticle = () => {
         this.viewArray = this.mainArray;
         this.fillList();
+    }
+
+    deleteArticle = (targetElement) => {
+        this.mainArray = this.mainArray.filter(element => element !== targetElement);
+        this.refreshArticle();
     }
 
     fillList = () => {

@@ -57,7 +57,7 @@ export default class Article {
         //this.mainBoxArea.appendChild(this.mainBox);
     }
 
-    addSubmenu = () => {
+    makeSubmenu = (deleteCallback) => {
         this.onTrans = false;
         this.headerButtonWrapper = document.createElement('div');
         this.headerButton = document.createElement('button');
@@ -74,7 +74,7 @@ export default class Article {
         this.submenu = new SubMenu();
         this.submenu.addSubmenu(this.mainBox);
         this.submenu.setSubmenuPosition(this.headerButtonWrapper);
-        this.submenu.setDeleteButtonEvent(this.aritcleIdHolder.value, this.mainBox);
+        this.submenu.setDeleteButtonEvent(this.aritcleIdHolder.value, this.mainBox, deleteCallback);
         this.submenu.setEditEvent(this.aritcleIdHolder.value);
         this.setExpandButtonEvent();
         this.setContentBoxResizeEvent();
