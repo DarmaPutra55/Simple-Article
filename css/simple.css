@@ -130,7 +130,7 @@ body .main-wrapper {
 body .main-wrapper .header-wrapper {
   min-height: 15vh;
   width: 100%;
-  background-color: white;
+  background-color: lightcyan;
   position: -webkit-sticky;
   position: sticky;
   z-index: 2;
@@ -158,12 +158,20 @@ body .main-wrapper .header-wrapper .header-text-wrapper {
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  background-color: lightcoral;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  padding-left: 15px;
+}
+
+@media only screen and (min-width: 700px) {
+  body .main-wrapper .header-wrapper .header-text-wrapper {
+    padding-left: 0px;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
 }
 
 body .main-wrapper .header-wrapper .header-text-wrapper .header-text {
@@ -173,6 +181,7 @@ body .main-wrapper .header-wrapper .header-text-wrapper .header-text {
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
+  color: white;
 }
 
 body .main-wrapper .header-wrapper .header-text-wrapper .header-text h1 {
@@ -266,7 +275,7 @@ body .main-wrapper .header-wrapper .side-menu-expand-button-wrapper .side-menu-e
       align-self: center;
   height: 50px;
   width: 50px;
-  background-color: white;
+  background-color: lightcoral;
   border: none;
 }
 

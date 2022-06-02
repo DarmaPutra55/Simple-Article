@@ -4,23 +4,10 @@ import { redirectEvent } from "/js/router.js"
 import DBOperation from "/js/db.js";
 
 export default class SubMenu {
-    constructor() {
-        this.articleSubMenuWrapper = document.createElement('div');
-        this.articleSubMenu = document.createElement('div');
-        this.articleEdit = document.createElement('a');
-        this.articleDeleteButton = document.createElement('button');
-
-        this.articleSubMenuWrapper.classList.add('content-submenu-wrapper', 'content-submenu-close');
-
-        this.articleSubMenu.classList.add('content-submenu');
-
-        this.articleEdit.textContent = "Edit";
-        this.articleDeleteButton.textContent = "Delete";
-
-        this.articleSubMenu.appendChild(this.articleEdit);
-        this.articleSubMenu.appendChild(this.articleDeleteButton);
-
-        this.articleSubMenuWrapper.appendChild(this.articleSubMenu);
+    constructor(submenuTemplate) {
+        this.articleSubMenuWrapper = submenuTemplate.getElementsByClassName('content-submenu-wrapper')[0];
+        this.articleEdit = submenuTemplate.getElementsByClassName('edit-link')[0];
+        this.articleDeleteButton = submenuTemplate.getElementsByClassName('delete-button')[0];;
     }
 
     addSubmenu = (parentDiv) => {

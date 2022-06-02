@@ -4,74 +4,48 @@ import SubMenu from "/js/sub-article.js";
 import { redirectEvent } from "/js/router.js"
 
 export default class Article {
-    constructor(articleId, header, article) {
+    constructor(articleTemplate, articleId, header, article) {
         //this.mainBoxArea = document.getElementById('main-box');
-        this.mainBox = document.createElement('div');
-        this.mainHeader = document.createElement('div');
-        this.mainArticle = document.createElement('div');
-        this.headerTextWrapper = document.createElement('div');
-        this.headerText = document.createElement('h1');
-        this.articleText = document.createElement('pre');
-        this.articleRead = document.createElement('a');
-        this.aritcleIdHolder = document.createElement('input');
-
-        this.mainBox.classList.add('content-box');
-
-        this.mainHeader.classList.add('content-header');
-
-        this.mainArticle.classList.add('content-body');
-
-        this.headerTextWrapper.classList.add('content-header-text');
-
-        this.aritcleIdHolder.type = "hidden";
+        this.mainBox = articleTemplate.getElementsByClassName("content-box")[0];
+        this.mainHeader = articleTemplate.getElementsByClassName("content-header")[0];
+        this.mainArticle = articleTemplate.getElementsByClassName("content-body")[0];
+        this.headerText = articleTemplate.getElementsByClassName("content-header-text-h1")[0];
+        this.articleText = articleTemplate.getElementsByTagName("pre")[0];
+        this.aritcleIdHolder = articleTemplate.getElementsByName("idHiddenHolder")[0];
         
+        this.articleRead = articleTemplate.createElement("a");
+        this.articleRead.innerHTML = "Read";
+
         this.aritcleIdHolder.value = articleId;
 
-        this.articleRead.textContent = "Read";
-
-        this.setReadEvenet(articleId);
+        this.setReadEvent(articleId);
 
         this.headerText.innerHTML = header;
 
         this.articleText.innerHTML = article;
+        this.articleText.appendChild(this.articleRead);
     }
 
-    setReadEvenet = (ArticleID) => {
+    setReadEvent = (ArticleID) => {
         this.articleRead.href = "/read/"+ArticleID; 
         redirectEvent(this.articleRead);
     }
 
     makeArticle = () => {
-        this.mainHeader.appendChild(this.headerTextWrapper);
-        
-        this.headerTextWrapper.appendChild(this.headerText);
-
-        this.articleText.appendChild(this.articleRead);
-        this.mainArticle.appendChild(this.articleText);
-    
-        this.mainBox.appendChild(this.mainHeader);
-        this.mainBox.appendChild(this.mainArticle);
-        this.mainBox.appendChild(this.aritcleIdHolder);
-        
         return this.mainBox;
         //this.mainBoxArea.appendChild(this.mainBox);
     }
 
-    makeSubmenu = (deleteCallback) => {
+    makeSubmenu = (submenuTemplate, deleteCallback) => {
         this.onTrans = false;
-        this.headerButtonWrapper = document.createElement('div');
-        this.headerButton = document.createElement('button');
-        this.headerButtonIcon = document.createElement('i');
+        this.headerButtonWrapper = submenuTemplate.getElementsByClassName("content-header-button")[0];
+        this.headerButton = submenuTemplate.getElementsByClassName('submenu-button')[0];
+        this.headerButtonIcon = submenuTemplate.getElementsByClassName('submenu-icon')[0];
 
-        this.headerButton.appendChild(this.headerButtonIcon);
-        this.headerButtonWrapper.appendChild(this.headerButton);
         this.mainHeader.appendChild(this.headerButtonWrapper);
-        this.headerButtonWrapper.classList.add('content-header-button');
-
-        this.headerButtonIcon.classList.add('fa', 'fa-solid', 'fa-ellipsis-vertical', 'fa-2x', 'icon-button-rotate-back');
         
         //Make the submenu
-        this.submenu = new SubMenu();
+        this.submenu = new SubMenu(submenuTemplate);
         this.submenu.addSubmenu(this.mainBox);
         this.submenu.setSubmenuPosition(this.headerButtonWrapper);
         this.submenu.setDeleteButtonEvent(this.aritcleIdHolder.value, this.mainBox, deleteCallback);

@@ -42,11 +42,19 @@ class ArticleList {
             });
 
             if(articleArray !== null){
+                const parser = new DOMParser();
+                const responseArticle = await fetch("/view/article.html");
+                const responseSubmenu = await fetch("/view/article-submenu.html");
+                const articleTemplateBase = parser.parseFromString(await responseArticle.text(), "text/html");
+                const submenuTemplateBase = parser.parseFromString(await responseSubmenu.text(), "text/html");
                 for (const value of articleArray) {
-                    const article = new Article(value.ArticleID, value.ArticleHeader, value.ArticleText);
+                    const articleTemplate = articleTemplateBase.cloneNode(true);
+                    const submenuTemplate = submenuTemplateBase.cloneNode(true);
+                    //console.log(articleTemplate);
+                    const article = new Article(articleTemplate, value.ArticleID, value.ArticleHeader, value.ArticleText);
                     this.mainArray.push(article.makeArticle());
                     if(cekCookiesUsername()){
-                        article.makeSubmenu(this.deleteArticle);
+                        article.makeSubmenu(submenuTemplate, this.deleteArticle);
                     }
                 }
             }
@@ -58,7 +66,7 @@ class ArticleList {
 
     searchArticle = (title) => {
         this.viewArray = this.mainArray.filter(element => {
-            const headerContainer = element.childNodes[0].childNodes[0].childNodes[0];
+            const headerContainer = element.childNodes[1].childNodes[1].childNodes[1];
             const headerText = headerContainer.textContent;
             if(headerText.toLowerCase().startsWith(title.toLowerCase())){
                 return element;
@@ -103,7 +111,7 @@ export const showArticleList = async () => {
 }
 
 export const getContent = async () => {
-    const response = await fetch('/view/article.html');
+    const response = await fetch('/view/article-list.html');
     const text = await response.text();
     return text;
 }
