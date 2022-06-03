@@ -13,7 +13,7 @@ export default class Article {
         this.articleText = articleTemplate.getElementsByTagName("pre")[0];
         this.mainFooter = articleTemplate.getElementsByClassName("content-footer")[0];
         this.aritcleIdHolder = articleTemplate.getElementsByName("idHiddenHolder")[0];
-
+ 
         const uploadDateText = this.mainFooter.childNodes[1];
         const authorText = this.mainFooter.childNodes[3];
         

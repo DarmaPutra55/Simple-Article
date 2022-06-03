@@ -60,7 +60,7 @@ class ArticleList {
             }
         }
         catch(err){
-            console.log("Error: "+err);
+            console.error("Error occured: "+err);
         }
     }
 
@@ -106,7 +106,7 @@ export const showArticleList = async () => {
     }
 
     catch(err){
-        console.log("Error: "+err);
+        console.error("Error occured: "+err);
     }
 }
 

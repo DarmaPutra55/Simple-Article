@@ -33,6 +33,22 @@ export default class DBOperation {
         return data;
     }
 
+    fetchComment = async (id) => {
+        try{
+            const commentFormData = new FormData();
+            commentFormData.append("articleID", id);
+            const response = await fetch("/php/fetchComment.php", {
+                method: "POST",
+                body: commentFormData,
+        });
+            const data = await response.json();
+            return data;
+        }
+        catch(err){
+            console.error("Error occured: "+err);
+        }
+    }
+
     deleteArticle = async (articleID) => {
         try {
             let data = new FormData();
@@ -46,7 +62,7 @@ export default class DBOperation {
         }
 
         catch (err) {
-            alert("Error has occured: " + err);
+            console.error("Error occured: "+err);
         }
     }
 
@@ -67,7 +83,7 @@ export default class DBOperation {
         }
 
         catch (err) {
-            alert("Error has occured: " + err);
+            console.error("Error occured: "+err);
         }
     }
 
@@ -89,7 +105,7 @@ export default class DBOperation {
         }
 
         catch (err) {
-            alert("Error has occured: " + err);
+            console.error("Error occured: "+err);
         }
     }
 
@@ -109,7 +125,7 @@ export default class DBOperation {
         }
 
         catch(err){
-            alert("Error has occured: " + err);
+            console.error("Error occured: "+err);
         }
     }
 
@@ -120,7 +136,7 @@ export default class DBOperation {
             return result;
         }
         catch(err){
-            alert("Error has occored: " + err);
+            console.error("Error occured: "+err);
         }
     }
 
@@ -140,7 +156,7 @@ export default class DBOperation {
         }
 
         catch(err){
-            alert("Error has occured: " + err);
+            console.error("Error occured: "+err);
         }
     }
 
@@ -151,7 +167,7 @@ export default class DBOperation {
             return result; 
         }
         catch(err){
-            alert("Error has occured: " + err);
+            console.error("Error occured: "+err);
         }
     }
 

@@ -625,6 +625,60 @@ body .main-wrapper .content-wrapper .main-content .article-content-wrapper .arti
   white-space: pre-wrap;
 }
 
+body .main-wrapper .content-wrapper .main-content .article-comment-wrapper {
+  margin-top: 20px;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+body .main-wrapper .content-wrapper .main-content .article-comment-wrapper .article-comment-area {
+  height: 100%;
+  width: calc(min(1100px, 100%));
+}
+
+body .main-wrapper .content-wrapper .main-content .article-comment-wrapper .article-comment-area .article-comment {
+  width: calc(min(500px, 80%));
+  margin: 20px 0;
+  padding: 10px 20px;
+  -webkit-box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+          box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+body .main-wrapper .content-wrapper .main-content .article-comment-wrapper .article-comment-area .article-comment h1 {
+  font-size: 1.75rem;
+  padding: 10px 0;
+  margin: 0 0;
+  text-align: justify;
+}
+
+body .main-wrapper .content-wrapper .main-content .article-comment-wrapper .article-comment-area .article-comment pre {
+  font-size: 1.2rem;
+  padding: 10px 0;
+  margin: 0 0;
+  text-align: justify;
+  white-space: pre-wrap;
+}
+
+body .main-wrapper .content-wrapper .main-content .article-comment-wrapper .article-comment-area .article-comment p {
+  font-size: 1.2rem;
+  padding: 10px 0;
+  margin: 0 0;
+  text-align: justify;
+  border-top: 1px solid lightgrey;
+}
+
 body .main-wrapper .content-wrapper .main-content .article-content-wrapper {
   min-height: 200px;
   width: 100%;

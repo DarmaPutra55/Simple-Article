@@ -1,10 +1,30 @@
 
 import DBOperation from "/js/db.js";
+import Comment from "/js/comment.js";
 
 const fetchArticle = async(id) =>{
     const db = new DBOperation();
     const result = await db.fetchArticle(id);
     return result;
+}
+
+const fetchComment = async(id) =>{
+    const db = new DBOperation();
+    const result = await db.fetchComment(id);
+    return result;
+}
+
+const setUpComment = async(id) =>{
+    const parser = new DOMParser();
+    const commentArea = document.getElementById("article-comment-area");
+    const commentArray = await fetchComment(id);
+    const responseComment = await fetch("/view/article-comment.html");
+    const commentTemplateBase = parser.parseFromString(await responseComment.text(), "text/html");
+    for(const value of commentArray){
+        const commentTemplate = commentTemplateBase.cloneNode(true);
+        const comment = new Comment(commentTemplate, value.CommentText, value.Username, value.CommentDate);
+        commentArea.appendChild(comment.getComment());
+    }
 }
 
 const setArticleReadText = async(articleTitle, articleText) => {
@@ -21,7 +41,7 @@ const setArticleContent = async(id) =>{
         setArticleReadText(fetchedArticle[0].ArticleHeader, fetchedArticle[0].ArticleText);
     }
     catch(err){
-        console.log(err);
+        console.error(err);
     }
 }
 
@@ -33,4 +53,5 @@ export const getContent = async() =>{
 
 export const setUpArticleRead = async(id) =>{
     await setArticleContent(id);
+    await setUpComment(id);
 }
