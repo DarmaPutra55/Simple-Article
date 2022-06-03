@@ -51,7 +51,7 @@ class ArticleList {
                     const articleTemplate = articleTemplateBase.cloneNode(true);
                     const submenuTemplate = submenuTemplateBase.cloneNode(true);
                     //console.log(articleTemplate);
-                    const article = new Article(articleTemplate, value.ArticleID, value.ArticleHeader, value.ArticleText);
+                    const article = new Article(articleTemplate, value.ArticleID, value.ArticleHeader, value.ArticleText, value.UploadDate, value.Author);
                     this.mainArray.push(article.makeArticle());
                     if(cekCookiesUsername()){
                         article.makeSubmenu(submenuTemplate, this.deleteArticle);

@@ -36,7 +36,7 @@
 
     private function fetchSingleArticle(int $id){
       $connection = $this->connectDB();
-      $statement = $connection->prepare('SELECT articleheader as ArticleHeader, articletext as ArticleText FROM tb_article WHERE id=?');
+      $statement = $connection->prepare('SELECT articleheader as ArticleHeader, articletext as ArticleText, upload_date as UploadDate, uploader as Author FROM tb_article WHERE id=?');
       $statement->bind_param("i", $id);
       $statement->execute();
       return $statement->get_result();
@@ -44,7 +44,7 @@
 
     private function fetchAllArticle(){
       $connection = $this->connectDB();
-      $statement = $connection->prepare('SELECT id as ArticleID, articleheader as ArticleHeader, articletext as ArticleText FROM tb_article');
+      $statement = $connection->prepare('SELECT id as ArticleID, articleheader as ArticleHeader, articletext as ArticleText, upload_date as UploadDate, uploader as Author FROM tb_article');
       $statement->execute();
       return $statement->get_result();
     }

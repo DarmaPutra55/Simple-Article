@@ -4,14 +4,18 @@ import SubMenu from "/js/sub-article.js";
 import { redirectEvent } from "/js/router.js"
 
 export default class Article {
-    constructor(articleTemplate, articleId, header, article) {
+    constructor(articleTemplate, articleId, header, article, uploadDate, author) {
         //this.mainBoxArea = document.getElementById('main-box');
         this.mainBox = articleTemplate.getElementsByClassName("content-box")[0];
         this.mainHeader = articleTemplate.getElementsByClassName("content-header")[0];
         this.mainArticle = articleTemplate.getElementsByClassName("content-body")[0];
         this.headerText = articleTemplate.getElementsByClassName("content-header-text-h1")[0];
         this.articleText = articleTemplate.getElementsByTagName("pre")[0];
+        this.mainFooter = articleTemplate.getElementsByClassName("content-footer")[0];
         this.aritcleIdHolder = articleTemplate.getElementsByName("idHiddenHolder")[0];
+
+        const uploadDateText = this.mainFooter.childNodes[1];
+        const authorText = this.mainFooter.childNodes[3];
         
         this.articleRead = articleTemplate.createElement("a");
         this.articleRead.innerHTML = "Read";
@@ -24,6 +28,9 @@ export default class Article {
 
         this.articleText.innerHTML = article;
         this.articleText.appendChild(this.articleRead);
+
+        uploadDateText.innerHTML = "Uploaded: "+uploadDate;
+        authorText.innerHTML = "Author: "+author;
     }
 
     setReadEvent = (ArticleID) => {
