@@ -48,7 +48,7 @@ export default class Article {
         //Make the submenu
         this.submenu = new SubMenu(submenuTemplate);
         this.submenu.setSubmenuPosition();
-        this.submenu.setDeleteButtonEvent(this.aritcleIdHolder.value, this.mainBox, deleteCallback, "articel");
+        this.submenu.setDeleteButtonEvent(this.aritcleIdHolder.value, null, this.mainBox, deleteCallback);
         this.submenu.setEditEvent(this.aritcleIdHolder.value);
         this.submenu.setExpandButtonEvent();
         this.submenu.setContentBoxResizeEvent(this.mainBox);

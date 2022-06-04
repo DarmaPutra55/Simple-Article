@@ -2,7 +2,8 @@
     "version": 3,
     "mappings": "",
     "sources": [
-        "article-read.scss"
+        "article-read.scss",
+        "../submenu/submenu.scss"
     ],
     "names": [],
     "file": "article-read.css"

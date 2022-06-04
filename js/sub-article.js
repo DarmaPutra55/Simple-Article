@@ -12,9 +12,7 @@ export default class SubMenu {
 
         this.articleSubMenuWrapper = submenuTemplate.getElementsByClassName('content-submenu-wrapper')[0];
         this.articleEdit = submenuTemplate.getElementsByClassName('edit-link')[0];
-        this.articleDeleteButton = submenuTemplate.getElementsByClassName('delete-button')[0];
-        
-        this.subMenu = this.articleSubMenuWrapper;
+        this.articleDeleteButton = submenuTemplate.getElementsByClassName('delete-button')[0]; 
     }
 
     addSubmenu = (parentDiv) => {
@@ -26,30 +24,30 @@ export default class SubMenu {
     }
 
     setSubmenuPosition = () => {
-        this.subMenu.style.right = getComputedStyle(this.headerButtonWrapper).width;
+        this.articleSubMenuWrapper.style.right = getComputedStyle(this.headerButtonWrapper).width;
     }
 
     setSubmenuAnimation = () => {
-        if (getComputedStyle(this.subMenu).display === 'hidden') {
-            this.subMenu.style.display = 'block';
+        if (getComputedStyle(this.articleSubMenuWrapper).display === 'hidden') {
+            this.articleSubMenuWrapper.style.display = 'block';
         }
         else {
-            this.subMenu.style.display = 'hidden';
+            this.articleSubMenuWrapper.style.display = 'hidden';
         }
 
-        this.subMenu.classList.toggle('content-submenu-expand');
-        this.subMenu.classList.toggle('content-submenu-close');
+        this.articleSubMenuWrapper.classList.toggle('content-submenu-expand');
+        this.articleSubMenuWrapper.classList.toggle('content-submenu-close');
     }
 
-    setDeleteButtonEvent = async (articleID, parentDiv, deleteCallback, mode) => { //deleteCallback come from article-list.js but passed throught article.js
+    setDeleteButtonEvent = async (articleID, commentID, parentDiv, deleteCallback) => { //deleteCallback come from article-list.js but passed throught article.js
         this.articleDeleteButton.addEventListener('click', async (e) => {
             e.preventDefault();
             let dbOperationResult;
-            if(mode === "articel"){
+            if(articleID ===  null){
                 dbOperationResult = await this.deleteArticle(articleID);
             }
             else{
-                
+                dbOperationResult = await this.deleteComment(commentID)
             }
             deleteCallback(parentDiv);
             //parentDiv.remove();
@@ -62,6 +60,12 @@ export default class SubMenu {
     deleteArticle = async (articleID) => {
         const dbOperation = new DBOperation();
         const dbOperationResult = await dbOperation.deleteArticle(articleID);
+        return dbOperationResult;
+    }
+
+    deleteComment = async (commentID) => {
+        const dbOperation = new DBOperation();
+        const dbOperationResult = await dbOperation.deleteComment(commentID);
         return dbOperationResult;
     }
 

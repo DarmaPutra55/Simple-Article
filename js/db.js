@@ -66,6 +66,22 @@ export default class DBOperation {
         }
     }
 
+    delteComment = async (commentID) => {
+        try{
+            let data = new FormData();
+            data.append('CommentID', commentID);
+            const response = await fetch('/php/comment/delete.php', {
+                method: 'POST',
+                body: data
+            });
+            const result = await response.json();
+            return result;
+        }
+        catch(err){
+            console.error("Error occured: "+err);
+        }
+    }
+
     uploadArticle = async (articleTitle, articleContent, date) =>{
         try{
             let uploadFormData = new FormData();

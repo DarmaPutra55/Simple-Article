@@ -1,3 +1,5 @@
+@import '../submenu/submenu.scss';
+
 @mixin article-read-scss {
     .article-content-wrapper{
         min-height: 200px;
@@ -44,9 +46,14 @@
             
             .article-comment{
                 width: calc(min(500px, 80%));
+                position: relative;
+                top: 0;
+                right: 0;
                 margin: 20px 0;
                 padding: 10px 20px;
                 box-shadow: $shadow;
+
+                @include submenu-scss;
 
                 h1{
                     font-size: $normal-header-size;

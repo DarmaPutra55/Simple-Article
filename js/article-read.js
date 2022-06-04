@@ -19,10 +19,13 @@ const setUpComment = async(id) =>{
     const commentArea = document.getElementById("article-comment-area");
     const commentArray = await fetchComment(id);
     const responseComment = await fetch("/view/article-comment.html");
+    const responseSubmenu = await fetch("/view/submenu.html");
     const commentTemplateBase = parser.parseFromString(await responseComment.text(), "text/html");
+    const submenuTemplateBase = parser.parseFromString(await responseSubmenu.text(), "text/html");
     for(const value of commentArray){
         const commentTemplate = commentTemplateBase.cloneNode(true);
-        const comment = new Comment(commentTemplate, value.CommentText, value.Username, value.CommentDate);
+        const submenuTemplate = submenuTemplateBase.cloneNode(true);
+        const comment = new Comment(commentTemplate, submenuTemplate, value.CommentText, value.Username, value.CommentDate);
         commentArea.appendChild(comment.getComment());
     }
 }

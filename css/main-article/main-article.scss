@@ -1,3 +1,4 @@
+@import '../submenu/submenu.scss';
 @mixin main-article-scss {
     .search-bar-wrapper{
         display: flex; 
@@ -34,6 +35,8 @@
             display: flex;
             flex-direction: column;
 
+            @include submenu-scss;
+
             .content-header {
                 min-height: fit-content;
                 width: 100%;
@@ -52,38 +55,6 @@
                     }
                 }
 
-                .content-header-button {
-                    //Adjust so that the button wont be absolute in mobile to prevent button overlap with title text.
-                    @media only screen and (min-width: 500px) {
-                        position: absolute;
-                        top: 0;
-                        right: 0;
-                    }
-
-                    @media only screen and (max-width: 500px) {
-                        flex: 0;
-                    }
-
-                    button {
-                        background-color: white;
-                        width: calc(max(50px, 3.75vw));
-                        height: calc(max(50px, 3.75vw));
-                        border: none;
-
-                        .icon-button-rotate-click {
-                            transform: rotate(90deg);
-                        }
-
-                        .icon-button-rotate-back {
-                            transform: rotate(0deg);
-                        }
-
-                        i {
-                            transition: all 200ms;
-
-                        }
-                    }
-                }
             }
 
             .content-body {
@@ -125,56 +96,6 @@
                     font-size: $normal-text-size;
                     margin: 10px 0;
                 }
-            }
-
-            .content-submenu-wrapper {
-                padding: 0 10px;
-                display: hidden;
-                position: absolute;
-                overflow: hidden;
-                top: 0;
-                height: fit-content;
-                margin: 10px 0;
-                width: fit-content;
-                transition: max-height 200ms;
-
-                .content-submenu {
-                    display: flex;
-                    flex-direction: column;
-                    width: 100%;
-                    border: $border;
-                    background-color: white;
-
-                    a {
-                        padding: 5px 5px;
-                        width: 100%;
-                        height: fit-content;
-                        color: black;
-                        font-size: $normal-text-size;
-                        font-family: sans-serif;
-                        text-align: justify;
-                        text-decoration: none;
-                    }
-
-                    button {
-                        padding: 5px 5px;
-                        width: 100%;
-                        height: fit-content;
-                        background-color: white;
-                        border: none;
-                        font-family: sans-serif;
-                        font-size: $normal-text-size;
-                        text-align: justify;
-                    }
-                }
-            }
-
-            .content-submenu-expand {
-                max-height: 200px;
-            }
-
-            .content-submenu-close {
-                max-height: 0px;
             }
         }
     }

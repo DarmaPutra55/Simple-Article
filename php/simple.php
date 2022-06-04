@@ -72,6 +72,13 @@
       $statement->execute();
     }
 
+    public function deleteComment(int $comment_id){
+      $connection = $this->connectDB();
+      $statement = $connection->prepare("DELETE FROM tb_comment WHERE id_comment = ?");
+      $statement->bind_param("i", $comment_id);
+      $statement->execute();
+    }
+
     public function updateArticle(int $article_id, string $article_header, string $article_text, string $date, string $uploader){
       $connection = $this->connectDB();
       $statement = $connection->prepare("UPDATE tb_article SET articleheader = ?, articletext = ?, upload_date = ?, uploader = ? WHERE id = ?");
