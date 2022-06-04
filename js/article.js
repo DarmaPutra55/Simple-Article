@@ -44,46 +44,17 @@ export default class Article {
     }
 
     makeSubmenu = (submenuTemplate, deleteCallback) => {
-        this.onTrans = false;
-        this.headerButtonWrapper = submenuTemplate.getElementsByClassName("content-header-button")[0];
-        this.headerButton = submenuTemplate.getElementsByClassName('submenu-button')[0];
-        this.headerButtonIcon = submenuTemplate.getElementsByClassName('submenu-icon')[0];
 
-        this.mainHeader.appendChild(this.headerButtonWrapper);
-        
         //Make the submenu
         this.submenu = new SubMenu(submenuTemplate);
-        this.submenu.addSubmenu(this.mainBox);
-        this.submenu.setSubmenuPosition(this.headerButtonWrapper);
-        this.submenu.setDeleteButtonEvent(this.aritcleIdHolder.value, this.mainBox, deleteCallback);
+        this.submenu.setSubmenuPosition();
+        this.submenu.setDeleteButtonEvent(this.aritcleIdHolder.value, this.mainBox, deleteCallback, "articel");
         this.submenu.setEditEvent(this.aritcleIdHolder.value);
-        this.setExpandButtonEvent();
-        this.setContentBoxResizeEvent();
+        this.submenu.setExpandButtonEvent();
+        this.submenu.setContentBoxResizeEvent(this.mainBox);
+        this.submenu.addSubmenu(this.mainBox);
+        this.submenu.addSubmenuButton(this.mainHeader);
     }
 
-    setExpandButtonEvent = () => {
-        this.headerButton.addEventListener("click", () => {
-            if (!this.onTrans) {
-                this.onTrans = true;
-                this.setIconAnnimation();
-                this.submenu.setSubmenuAnimation();
-
-                this.headerButtonIcon.addEventListener('transitionend', () => {
-                    this.onTrans = false;
-                }, { once: true })
-            }
-        })
-    }
-
-    setContentBoxResizeEvent = () => {
-        const resize = new ResizeObserver(() => {
-            this.submenu.setSubmenuPosition(this.headerButtonWrapper);
-        })
-        resize.observe(this.mainBox);
-    }
-
-    setIconAnnimation = () => {
-        this.headerButtonIcon.classList.toggle('icon-button-rotate-click');
-        this.headerButtonIcon.classList.toggle('icon-button-rotate-back');
-    }
+    
 }

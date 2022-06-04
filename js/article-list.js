@@ -41,23 +41,26 @@ class ArticleList {
                 return element;
             });
 
-            if(articleArray !== null){
-                const parser = new DOMParser();
-                const responseArticle = await fetch("/view/article.html");
-                const responseSubmenu = await fetch("/view/article-submenu.html");
-                const articleTemplateBase = parser.parseFromString(await responseArticle.text(), "text/html");
-                const submenuTemplateBase = parser.parseFromString(await responseSubmenu.text(), "text/html");
-                for (const value of articleArray) {
-                    const articleTemplate = articleTemplateBase.cloneNode(true);
-                    const submenuTemplate = submenuTemplateBase.cloneNode(true);
-                    //console.log(articleTemplate);
-                    const article = new Article(articleTemplate, value.ArticleID, value.ArticleHeader, value.ArticleText, value.UploadDate, value.Author);
-                    this.mainArray.push(article.makeArticle());
-                    if(cekCookiesUsername()){
-                        article.makeSubmenu(submenuTemplate, this.deleteArticle);
-                    }
+            if(articleArray === null){
+                return;
+            }
+
+            const parser = new DOMParser();
+            const responseArticle = await fetch("/view/article.html");
+            const responseSubmenu = await fetch("/view/submenu.html");
+            const articleTemplateBase = parser.parseFromString(await responseArticle.text(), "text/html");
+            const submenuTemplateBase = parser.parseFromString(await responseSubmenu.text(), "text/html");
+            for (const value of articleArray) {
+                const articleTemplate = articleTemplateBase.cloneNode(true);
+                const submenuTemplate = submenuTemplateBase.cloneNode(true);
+                //console.log(articleTemplate);
+                const article = new Article(articleTemplate, value.ArticleID, value.ArticleHeader, value.ArticleText, value.UploadDate, value.Author);
+                this.mainArray.push(article.makeArticle());
+                if(cekCookiesUsername()){
+                    article.makeSubmenu(submenuTemplate, this.deleteArticle);
                 }
             }
+            
         }
         catch(err){
             console.error("Error occured: "+err);
