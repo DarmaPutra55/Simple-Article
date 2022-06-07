@@ -17,6 +17,11 @@ class CommentList {
     addCommentToList = async(id) =>{
         const parser = new DOMParser();
         const commentArray = await this.fetchComment(id);
+        
+        if(commentArray === null){
+            return;
+        }
+        
         const responseComment = await fetch("/view/article-comment.html");
         const responseSubmenu = await fetch("/view/submenu.html");
         const commentTemplateBase = parser.parseFromString(await responseComment.text(), "text/html");
@@ -37,7 +42,7 @@ class CommentList {
         this.viewArray = this.mainArray;
     }
 
-    refreshComment= () => {
+    refreshComment = () => {
         this.viewArray = this.mainArray;
         this.fillList();
     }
@@ -57,11 +62,70 @@ class CommentList {
     }
 }
 
+//Start Insert Comment
+
+const insertComment = async (commentID) => {
+    const commentText = document.getElementById("article-create-textarea");
+    const commentTextTrimmed = commentText.value.trim();
+    
+    if(commentTextTrimmed === ""){
+        return;
+    }
+
+    const db = new DBOperation();
+    const result = await db.insertComment(commentID, commentTextTrimmed, getDateNow());
+    if(result.status === "ok"){
+        alert("Comment Uploaded");
+    }
+}
+
+const clearComment = () => {
+    const commentText = document.getElementById("article-create-textarea");
+    commentText.value = "";
+}
+
+const submitButtonEvent = async (submitCallback) => {
+    const commentInputButton = document.getElementById("comment-submit-button");
+    const articleID = document.getElementById("read-article-id");
+    commentInputButton.addEventListener("click", (e)=>{
+        e.preventDefault();
+        insertComment(articleID.value);
+        clearComment();
+        submitCallback();
+    });
+}
+
+const clearButtonEvent = () => {
+    const commentClearButton = document.getElementById("comment-clear-button");
+    commentClearButton.addEventListener('click', (e)=>{
+        e.preventDefault();
+        clearComment();
+    });
+}
+
+const setInsertComment = async (submitCallback) => {
+    await submitButtonEvent(submitCallback);
+    clearButtonEvent();
+}
+
+const getDateNow = () => {
+    let date = new Date();
+    let today = date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
+    return today;
+}
+
+//End Insert Comment
+
 export const showCommentList = async (articleID) => {
     try{
         const commentList = new CommentList();
         await commentList.setComment(articleID);
         commentList.fillList();
+
+        await setInsertComment(async ()=>{
+            await commentList.setComment(articleID);
+            commentList.fillList();
+        });
        
         //let newArticle = articleArray.filter(el => el.ArticleHeader.includes("Test"));
     }

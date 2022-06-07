@@ -33,22 +33,6 @@ export default class DBOperation {
         return data;
     }
 
-    fetchComment = async (id) => {
-        try{
-            const commentFormData = new FormData();
-            commentFormData.append("articleID", id);
-            const response = await fetch("/php/comment/fetchComment.php", {
-                method: "POST",
-                body: commentFormData,
-        });
-            const data = await response.json();
-            return data;
-        }
-        catch(err){
-            console.error("Error occured: "+err);
-        }
-    }
-
     deleteArticle = async (articleID) => {
         try {
             let data = new FormData();
@@ -62,22 +46,6 @@ export default class DBOperation {
         }
 
         catch (err) {
-            console.error("Error occured: "+err);
-        }
-    }
-
-    deleteComment = async (commentID) => {
-        try{
-            let data = new FormData();
-            data.append('CommentID', commentID);
-            const response = await fetch('/php/comment/deleteComment.php', {
-                method: 'POST',
-                body: data
-            });
-            const result = await response.json();
-            return result;
-        }
-        catch(err){
             console.error("Error occured: "+err);
         }
     }
@@ -186,5 +154,56 @@ export default class DBOperation {
             console.error("Error occured: "+err);
         }
     }
+
+    fetchComment = async (id) => {
+        try{
+            const commentFormData = new FormData();
+            commentFormData.append("articleID", id);
+            const response = await fetch("/php/comment/fetchComment.php", {
+                method: "POST",
+                body: commentFormData,
+        });
+            const data = await response.json();
+            return data;
+        }
+        catch(err){
+            console.error("Error occured: "+err);
+        }
+    }
+
+    insertComment = async(articleID, commentContent, date) => {
+        try{
+            let commentFormData = new FormData();
+            commentFormData.append('articleID', articleID);
+            commentFormData.append('commentContent', commentContent);
+            commentFormData.append('date', date);
+            const response = await fetch('/php/comment/insertComment.php', {
+                method: 'POST',
+                body: commentFormData
+            });
+            const result = await response.json();
+            return result;
+        }
+        catch(err){
+            console.error("Error occured: "+err);
+        }
+    }
+    
+    deleteComment = async (commentID) => {
+        try{
+            let data = new FormData();
+            data.append('CommentID', commentID);
+            const response = await fetch('/php/comment/deleteComment.php', {
+                method: 'POST',
+                body: data
+            });
+            const result = await response.json();
+            return result;
+        }
+        catch(err){
+            console.error("Error occured: "+err);
+        }
+    }
+
 
 }

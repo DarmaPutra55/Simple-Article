@@ -49,15 +49,6 @@
       return $statement->get_result();
     }
 
-    public function fetchComment($id){
-      $connection = $this->connectDB();
-      $statement = $connection->prepare('SELECT id_comment as CommentID, comment as CommentText, username as Username, comment_date as CommentDate FROM tb_comment WHERE id_article =?');
-      $statement->bind_param("i", $id);
-      $statement->execute();
-      $result = $statement->get_result();
-      return $result->fetch_all(MYSQLI_ASSOC);
-    }
-
     public function insertArticle(string $article_header, string $article_text, string $date, string $uploader){
       $connection = $this->connectDB();
       $statement = $connection->prepare("INSERT INTO tb_article(articleheader, articletext, upload_date, uploader) VALUES(?, ?, ?, ?)");
@@ -72,17 +63,33 @@
       $statement->execute();
     }
 
-    public function deleteComment(int $comment_id){
-      $connection = $this->connectDB();
-      $statement = $connection->prepare("DELETE FROM tb_comment WHERE id_comment = ?");
-      $statement->bind_param("i", $comment_id);
-      $statement->execute();
-    }
-
     public function updateArticle(int $article_id, string $article_header, string $article_text, string $date, string $uploader){
       $connection = $this->connectDB();
       $statement = $connection->prepare("UPDATE tb_article SET articleheader = ?, articletext = ?, upload_date = ?, uploader = ? WHERE id = ?");
       $statement->bind_param('ssssi', $article_header, $article_text, $date, $uploader, $article_id);
+      $statement->execute();
+    }
+
+    public function fetchComment($id){
+      $connection = $this->connectDB();
+      $statement = $connection->prepare('SELECT id_comment as CommentID, comment as CommentText, username as Username, comment_date as CommentDate FROM tb_comment WHERE id_article =?');
+      $statement->bind_param("i", $id);
+      $statement->execute();
+      $result = $statement->get_result();
+      return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function insertComment(int $article_id, string $comment_text, string $uploader, string $date){
+      $connection = $this->connectDB();
+      $statement = $connection->prepare("INSERT INTO tb_comment(id_article, comment, username, comment_date) VALUES(?, ?, ?, ?)");
+      $statement->bind_param('isss', $article_id, $comment_text, $uploader, $date);
+      $statement->execute();
+    }
+
+    public function deleteComment(int $comment_id){
+      $connection = $this->connectDB();
+      $statement = $connection->prepare("DELETE FROM tb_comment WHERE id_comment = ?");
+      $statement->bind_param("i", $comment_id);
       $statement->execute();
     }
 
