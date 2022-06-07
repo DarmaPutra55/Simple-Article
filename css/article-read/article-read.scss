@@ -36,9 +36,15 @@
         margin-top: 20px;
         width: 100%;
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
+
+        .aritcle-create-wrapper{
+            height: 100%;
+            width: $contentSize;
+            box-shadow: $shadow;
+        }
 
         .article-comment-area{
             height: 100%;

@@ -1,5 +1,5 @@
 <?php 
-    include_once('simple.php');
+    include_once('../simple.php');
     $comment_id = $_POST['CommentID'];
     $result;
 

@@ -1,22 +1,23 @@
 import SubMenu from "/js/sub-article.js";
 
 export default class Comment {
-    constructor(commentTemplate, submenuTemplate, comment, username, uploadDate) {
+    constructor(commentTemplate, commentID, comment, username, uploadDate) {
         this.commentBox = commentTemplate.getElementsByClassName("article-comment")[0];
         this.commentText = commentTemplate.getElementsByClassName("comment-text")[0];
         this.usernameText = commentTemplate.getElementsByClassName("comment-username")[0];
         this.uploadDateText = commentTemplate.getElementsByClassName("comment-date")[0];
+        this.commentIDBox = commentTemplate.getElementsByClassName("comment-id")[0];
 
         this.commentText.innerHTML = comment;
         this.usernameText.innerHTML = username;
         this.uploadDateText.innerHTML = "Date: "+uploadDate;
-        this.setComment(submenuTemplate);
+        this.commentIDBox.value = commentID;
     }
 
-    setComment = (submenuTemplate) => {
+    makeSubmenu = (submenuTemplate, deleteCallback) => {
         this.submenu = new SubMenu(submenuTemplate);
         this.submenu.setSubmenuPosition();
-        this.submenu.setDeleteButtonEvent(null, null, this.commentBox, ()=>{return;}); //replace with deleteCallback later
+        this.submenu.setDeleteButtonEvent(this.commentIDBox.value, this.commentBox, deleteCallback, "comment"); //replace with deleteCallback later
         this.submenu.setEditEvent(2);
         this.submenu.setExpandButtonEvent();
         this.submenu.setContentBoxResizeEvent(this.commentBox);

@@ -27,11 +27,16 @@ class ArticleList {
         await this.addArticleToList();
         this.viewArray = this.mainArray;
     }
+
+    fetchArticle = async() => {
+        const dbOperation = new DBOperation();
+        const result = await dbOperation.fetchArticle();
+        return result;
+    }
     
     addArticleToList = async () => {
         try{
-            const dbOperation = new DBOperation();
-            const tempArr = await dbOperation.fetchArticle();
+            const tempArr = await this.fetchArticle();
             //alert("Fired");
             const articleArray = tempArr.map(element => {
                 if(element.ArticleText.length > 400) {
@@ -52,13 +57,13 @@ class ArticleList {
             const submenuTemplateBase = parser.parseFromString(await responseSubmenu.text(), "text/html");
             for (const value of articleArray) {
                 const articleTemplate = articleTemplateBase.cloneNode(true);
-                const submenuTemplate = submenuTemplateBase.cloneNode(true);
                 //console.log(articleTemplate);
                 const article = new Article(articleTemplate, value.ArticleID, value.ArticleHeader, value.ArticleText, value.UploadDate, value.Author);
-                this.mainArray.push(article.makeArticle());
                 if(cekCookiesUsername()){
+                    const submenuTemplate = submenuTemplateBase.cloneNode(true);
                     article.makeSubmenu(submenuTemplate, this.deleteArticle);
                 }
+                this.mainArray.push(article.makeArticle());
             }
             
         }

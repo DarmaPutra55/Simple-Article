@@ -10,7 +10,7 @@
 
     try{
         $db = new Database();
-        $db->updateArticle($article_id, $article_header, $article_text, $uploader, $update_date);
+        $db->updateArticle($article_id, $article_header, $article_text, $update_date, $uploader);
         $result = json_encode(array("status" => "ok"));
     }
     catch(Exception $error){

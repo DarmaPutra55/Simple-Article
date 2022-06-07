@@ -1,5 +1,5 @@
 <?php
-    include_once('simple.php');
+    include_once('../simple.php');
     $article_id = $_POST['articleID'];
     $result;
 

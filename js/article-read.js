@@ -1,34 +1,13 @@
 
 import DBOperation from "/js/db.js";
-import Comment from "/js/comment.js";
-
+import { showCommentList } from "/js/comment-list.js";
 const fetchArticle = async(id) =>{
     const db = new DBOperation();
     const result = await db.fetchArticle(id);
     return result;
 }
 
-const fetchComment = async(id) =>{
-    const db = new DBOperation();
-    const result = await db.fetchComment(id);
-    return result;
-}
 
-const setUpComment = async(id) =>{
-    const parser = new DOMParser();
-    const commentArea = document.getElementById("article-comment-area");
-    const commentArray = await fetchComment(id);
-    const responseComment = await fetch("/view/article-comment.html");
-    const responseSubmenu = await fetch("/view/submenu.html");
-    const commentTemplateBase = parser.parseFromString(await responseComment.text(), "text/html");
-    const submenuTemplateBase = parser.parseFromString(await responseSubmenu.text(), "text/html");
-    for(const value of commentArray){
-        const commentTemplate = commentTemplateBase.cloneNode(true);
-        const submenuTemplate = submenuTemplateBase.cloneNode(true);
-        const comment = new Comment(commentTemplate, submenuTemplate, value.CommentText, value.Username, value.CommentDate);
-        commentArea.appendChild(comment.getComment());
-    }
-}
 
 const setArticleReadText = async(articleTitle, articleText) => {
     const articleReadHeader = document.getElementById("article-title");
@@ -56,5 +35,5 @@ export const getContent = async() =>{
 
 export const setUpArticleRead = async(id) =>{
     await setArticleContent(id);
-    await setUpComment(id);
+    await showCommentList(id);
 }

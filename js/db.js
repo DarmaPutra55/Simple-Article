@@ -37,7 +37,7 @@ export default class DBOperation {
         try{
             const commentFormData = new FormData();
             commentFormData.append("articleID", id);
-            const response = await fetch("/php/fetchComment.php", {
+            const response = await fetch("/php/comment/fetchComment.php", {
                 method: "POST",
                 body: commentFormData,
         });
@@ -66,11 +66,11 @@ export default class DBOperation {
         }
     }
 
-    delteComment = async (commentID) => {
+    deleteComment = async (commentID) => {
         try{
             let data = new FormData();
             data.append('CommentID', commentID);
-            const response = await fetch('/php/comment/delete.php', {
+            const response = await fetch('/php/comment/deleteComment.php', {
                 method: 'POST',
                 body: data
             });

@@ -39,15 +39,15 @@ export default class SubMenu {
         this.articleSubMenuWrapper.classList.toggle('content-submenu-close');
     }
 
-    setDeleteButtonEvent = async (articleID, commentID, parentDiv, deleteCallback) => { //deleteCallback come from article-list.js but passed throught article.js
+    setDeleteButtonEvent = async (id, parentDiv, deleteCallback, mode) => { //deleteCallback come from article-list.js but passed throught article.js
         this.articleDeleteButton.addEventListener('click', async (e) => {
             e.preventDefault();
             let dbOperationResult;
-            if(articleID ===  null){
-                dbOperationResult = await this.deleteArticle(articleID);
+            if(mode ===  "article"){
+                dbOperationResult = await this.deleteArticle(id);
             }
             else{
-                dbOperationResult = await this.deleteComment(commentID)
+                dbOperationResult = await this.deleteComment(id)
             }
             deleteCallback(parentDiv);
             //parentDiv.remove();
