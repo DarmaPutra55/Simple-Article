@@ -54,6 +54,10 @@ const commentList = {
         this.fillList();
     },
 
+    emptyList : function() {
+        this.mainArray = [];
+    },
+
     deleteComment : function (targetElement){
         this.mainArray = this.mainArray.filter(element => element !== targetElement);
         this.refreshComment();
@@ -71,7 +75,7 @@ const commentList = {
 
 //Start Insert Comment
 
-const insertComment = async (commentID) => {
+const insertComment = async (articleID) => {
     const commentText = document.getElementById("article-create-textarea");
     const commentTextTrimmed = commentText.value.trim();
     
@@ -80,24 +84,51 @@ const insertComment = async (commentID) => {
     }
 
     const db = new DBOperation();
-    const result = await db.insertComment(commentID, commentTextTrimmed, getDateNow());
+    const result = await db.insertComment(articleID, commentTextTrimmed, getDateNow());
     if(result.status === "ok"){
         alert("Comment Uploaded");
     }
 }
 
+const updateComment = async () => {
+    const commentText = document.getElementById("article-create-textarea");
+    const commentEditID = document.getElementById("comment-edit-id");
+    const commentTextTrimmed = commentText.value.trim();
+    
+    if(commentTextTrimmed === ""){
+        return;
+    }
+
+    const db = new DBOperation();
+    const result = await db.updateComment(commentEditID.value, commentTextTrimmed, getDateNow());
+    if(result.status === "ok"){
+        alert("Comment Updated");
+    }
+}
+
 const clearComment = () => {
+    const commentEditID = document.getElementById("comment-edit-id");
     const commentText = document.getElementById("article-create-textarea");
     commentText.value = "";
+    commentEditID.value = "";
 }
 
 const submitButtonEvent = async () => {
+    const commentEditID = document.getElementById("comment-edit-id");
     const commentInputButton = document.getElementById("comment-submit-button");
     const articleID = document.getElementById("read-article-id");
     commentInputButton.addEventListener("click", async (e) =>{
         e.preventDefault();
-        await insertComment(articleID.value);
+
+        if(!commentEditID.value){
+            await insertComment(articleID.value);
+        }
+        else{
+            await updateComment();
+        }
+
         clearComment();
+        commentList.emptyList();
         await commentList.setComment(articleID.value);
         commentList.refreshComment();
     });

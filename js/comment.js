@@ -18,7 +18,14 @@ export default class Comment {
         this.submenu = new SubMenu(submenuTemplate);
         this.submenu.setSubmenuPosition();
         this.submenu.setDeleteButtonEvent(this.commentIDBox.value, this.commentBox, deleteCallback, "comment"); //replace with deleteCallback later
-        this.submenu.setEditEvent(2);
+        this.submenu.setEditEventComment(()=>{
+            const commentText = document.getElementById("article-create-textarea");
+            const commentID = document.getElementById("comment-edit-id");
+            commentText.textContent = "";
+            commentID.value = "";
+            commentText.textContent = this.commentText.textContent;
+            commentID.value = this.commentIDBox.value
+        });
         this.submenu.setExpandButtonEvent();
         this.submenu.setContentBoxResizeEvent(this.commentBox);
         this.submenu.addSubmenu(this.commentBox);

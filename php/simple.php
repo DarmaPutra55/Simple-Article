@@ -93,6 +93,13 @@
       $statement->execute();
     }
 
+    public function updateComment(int $id_comment, string $comment_text, string $uploader, string $date){
+      $connection = $this->connectDB();
+      $statement = $connection->prepare("UPDATE tb_comment SET comment = ?, username = ?, comment_date = ? WHERE id_comment = ?");
+      $statement->bind_param('sssi', $comment_text, $uploader, $date, $id_comment);
+      $statement->execute();
+    }
+
     public function checkUser(string $username, string $password = null){
       if($password === null){
         $result = $this->checkUserRegister($username);

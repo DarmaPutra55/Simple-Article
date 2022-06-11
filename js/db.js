@@ -184,6 +184,7 @@ export default class DBOperation {
             const result = await response.json();
             return result;
         }
+
         catch(err){
             console.error("Error occured: "+err);
         }
@@ -200,10 +201,28 @@ export default class DBOperation {
             const result = await response.json();
             return result;
         }
+
         catch(err){
             console.error("Error occured: "+err);
         }
     }
 
-
+    updateComment = async (commentID, commentContent, date) => {
+        try{
+            let commentFormData = new FormData();
+            commentFormData.append('commentID', commentID);
+            commentFormData.append('commentText', commentContent);
+            commentFormData.append('date', date);
+            const response = await fetch('/php/comment/updateComment.php', {
+                method: 'POST',
+                body: commentFormData
+            });
+            const result = await response.json();
+            return result;
+        }
+        
+        catch(err){
+            console.error("Error occured: "+err);
+        }
+    }
 }

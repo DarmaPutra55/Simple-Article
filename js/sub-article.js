@@ -74,6 +74,12 @@ export default class SubMenu {
         redirectEvent(this.articleEdit);
     }
 
+    setEditEventComment = (editCallback) =>{
+        this.articleEdit.addEventListener('click', (e)=>{
+            editCallback();
+        });
+    }
+
     setExpandButtonEvent = () => {
         this.headerButton.addEventListener("click", () => {
             if (!this.onTrans) {
