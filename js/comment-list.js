@@ -2,57 +2,64 @@ import Comment from "/js/comment.js";
 import DBOperation from "/js/db.js";
 import { cekCookiesUsername } from "/js/getUsername.js";
 
-class CommentList {
-    constructor(){
-        this.mainArray = [];
-        this.viewArray = [];
-    }
+const commentList = {
+    mainArray : [],
+    viewArray : [],
 
-    fetchComment = async(id) =>{
+    setTemplate : async function () {
+        const parser = new DOMParser();
+        const responseComment = await fetch("/view/article-comment.html");
+        const responseSubmenu = await fetch("/view/submenu.html");
+        this.commentTemplateBase = parser.parseFromString(await responseComment.text(), "text/html");
+        this.submenuTemplateBase = parser.parseFromString(await responseSubmenu.text(), "text/html");
+    },
+
+    fetchComment : async function (id){
         const db = new DBOperation();
         const result = await db.fetchComment(id);
         return result;
-    }
+    },
     
-    addCommentToList = async(id) =>{
-        const parser = new DOMParser();
+    makeList : async function (id){
+        
         const commentArray = await this.fetchComment(id);
         
         if(commentArray === null){
             return;
         }
         
-        const responseComment = await fetch("/view/article-comment.html");
-        const responseSubmenu = await fetch("/view/submenu.html");
-        const commentTemplateBase = parser.parseFromString(await responseComment.text(), "text/html");
-        const submenuTemplateBase = parser.parseFromString(await responseSubmenu.text(), "text/html");
         for(const value of commentArray){
-            const commentTemplate = commentTemplateBase.cloneNode(true);
-            const comment = new Comment(commentTemplate, value.CommentID, value.CommentText, value.Username, value.CommentDate);
-            if(cekCookiesUsername()){
-                const submenuTemplate = submenuTemplateBase.cloneNode(true);
-                comment.makeSubmenu(submenuTemplate, this.deleteComment);
-            }
-            this.mainArray.push(comment.getComment());
+            this.addCommentToList(this.commentTemplateBase, this.submenuTemplateBase, value.CommentID, value.CommentText, value.Username, value.CommentDate);
         }
-    }
+            
+    },
 
-    setComment = async (articleID) => {
-        await this.addCommentToList(articleID);
+    addCommentToList : function (commentTemplateBase, submenuTemplateBase, CommentID, CommentText, Username, CommentDate){
+        const commentTemplate = commentTemplateBase.cloneNode(true);
+        const comment = new Comment(commentTemplate, CommentID, CommentText, Username, CommentDate);
+        if(cekCookiesUsername()){
+            const submenuTemplate = submenuTemplateBase.cloneNode(true);
+            comment.makeSubmenu(submenuTemplate, this.deleteComment.bind(this));
+        }
+        this.mainArray.push(comment.getComment());
+    },
+
+    setComment : async function (articleID){
+        await this.makeList(articleID);
         this.viewArray = this.mainArray;
-    }
+    },
 
-    refreshComment = () => {
+    refreshComment : function() {
         this.viewArray = this.mainArray;
         this.fillList();
-    }
+    },
 
-    deleteComment = (targetElement) => {
+    deleteComment : function (targetElement){
         this.mainArray = this.mainArray.filter(element => element !== targetElement);
         this.refreshComment();
-    }
+    },
 
-    fillList = () => {
+    fillList : function() {
         const mainBox = document.getElementById('article-comment-area');
         mainBox.innerHTML = "";
 
@@ -84,14 +91,15 @@ const clearComment = () => {
     commentText.value = "";
 }
 
-const submitButtonEvent = async (submitCallback) => {
+const submitButtonEvent = async () => {
     const commentInputButton = document.getElementById("comment-submit-button");
     const articleID = document.getElementById("read-article-id");
-    commentInputButton.addEventListener("click", (e)=>{
+    commentInputButton.addEventListener("click", async (e) =>{
         e.preventDefault();
-        insertComment(articleID.value);
+        await insertComment(articleID.value);
         clearComment();
-        submitCallback();
+        await commentList.setComment(articleID.value);
+        commentList.refreshComment();
     });
 }
 
@@ -103,8 +111,8 @@ const clearButtonEvent = () => {
     });
 }
 
-const setInsertComment = async (submitCallback) => {
-    await submitButtonEvent(submitCallback);
+const setInsertComment = async () => {
+    await submitButtonEvent();
     clearButtonEvent();
 }
 
@@ -118,14 +126,10 @@ const getDateNow = () => {
 
 export const showCommentList = async (articleID) => {
     try{
-        const commentList = new CommentList();
+        await commentList.setTemplate();
         await commentList.setComment(articleID);
         commentList.fillList();
-
-        await setInsertComment(async ()=>{
-            await commentList.setComment(articleID);
-            commentList.fillList();
-        });
+        await setInsertComment();
        
         //let newArticle = articleArray.filter(el => el.ArticleHeader.includes("Test"));
     }
