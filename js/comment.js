@@ -21,9 +21,9 @@ export default class Comment {
         this.submenu.setEditEventComment(()=>{
             const commentText = document.getElementById("article-create-textarea");
             const commentID = document.getElementById("comment-edit-id");
-            commentText.textContent = "";
+            commentText.value = "";
             commentID.value = "";
-            commentText.textContent = this.commentText.textContent;
+            commentText.value = this.commentText.textContent;
             commentID.value = this.commentIDBox.value
         });
         this.submenu.setExpandButtonEvent();

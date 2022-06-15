@@ -31,6 +31,30 @@ body {
 
     @include sidebar-css;
     
+    .loading{
+        height: 100vh; 
+        width: 100%;
+        position: fixed; 
+        top: 0; 
+        left: 0;
+        opacity: 0.8;
+        z-index: 200;  
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        background-color: #FFFFFF;
+
+        &.hide{
+            display: none;
+        }
+
+        h1{
+            font-size: $normal-header-size;
+            //align-self: center;
+        }
+    }
+
     .main-wrapper {
         min-height: calc(max(100vh, 650px));
         width: 100%;
@@ -109,28 +133,6 @@ body {
             left: 0;
             padding: 15px 0;
 
-            .loading{
-                height: 90vh; 
-                width: 100%;
-                position: absolute; 
-                top: 0; 
-                left: 0;
-                z-index: 200;  
-                display: flex;
-                flex-direction: row;
-                justify-content: center;
-                align-items: center;
-                background-color: #FFFFFF;
-
-                &.hide{
-                    display: none;
-                }
-
-                h1{
-                    font-size: $normal-header-size;
-                    //align-self: center;
-                }
-            }
 
             .main-content{
                 display: flex;

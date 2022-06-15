@@ -42,17 +42,24 @@ export default class SubMenu {
     setDeleteButtonEvent = async (id, parentDiv, deleteCallback, mode) => { //deleteCallback come from article-list.js but passed throught article.js
         this.articleDeleteButton.addEventListener('click', async (e) => {
             e.preventDefault();
-            let dbOperationResult;
-            if(mode ===  "article"){
-                dbOperationResult = await this.deleteArticle(id);
+            try{
+                toggleLoading();
+                let dbOperationResult;
+                if(mode ===  "article"){
+                    dbOperationResult = await this.deleteArticle(id);
+                }
+                else{
+                    dbOperationResult = await this.deleteComment(id)
+                }
+                deleteCallback(parentDiv);
+                //parentDiv.remove();
+                if(dbOperationResult.status === "ok"){
+                    alert('Data sucessfully deleted!');
+                }
+                toggleLoading();
             }
-            else{
-                dbOperationResult = await this.deleteComment(id)
-            }
-            deleteCallback(parentDiv);
-            //parentDiv.remove();
-            if(dbOperationResult.status === "ok"){
-                alert('Data sucessfully deleted!');
+            catch(err){
+                console.error("Error occured: "+err);
             }
         });
     }
@@ -76,6 +83,7 @@ export default class SubMenu {
 
     setEditEventComment = (editCallback) =>{
         this.articleEdit.addEventListener('click', (e)=>{
+            e.preventDefault();
             editCallback();
         });
     }

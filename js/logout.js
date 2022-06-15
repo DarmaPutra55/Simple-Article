@@ -7,16 +7,21 @@ const deleteUsernameCookies = () => {
 }
 
 export const logout = async () => {
-    const db = new DBOperation();
-    const result = await db.logoutUser();
+    try{
+        const db = new DBOperation();
+        const result = await db.logoutUser();
 
-    if(result.success === "ok"){
-        deleteUsernameCookies();
-        alert("Logout success!");
-        window.location.href = "/index";
+        if(result.success === "ok"){
+            deleteUsernameCookies();
+            alert("Logout success!");
+            window.location.href = "/index";
+        }
+
+        else{
+            alert("Logout failed!");
+        }
     }
-
-    else{
-        alert("Logout failed!");
+    catch(err){
+        console.error("Error occured: "+err);
     }
 }

@@ -1,6 +1,7 @@
 import DBOperation from "/js/db.js";
 import Article from "/js/article.js";
 import { cekCookiesUsername } from "/js/getUsername.js";
+import { toggleLoading } from "/js/loading.js";
 
 class ArticleList {
 

@@ -1,17 +1,23 @@
 import Comment from "/js/comment.js";
 import DBOperation from "/js/db.js";
 import { cekCookiesUsername } from "/js/getUsername.js";
+import { toggleLoading } from "/js/loading.js";
 
 const commentList = {
     mainArray : [],
     viewArray : [],
 
     setTemplate : async function () {
-        const parser = new DOMParser();
-        const responseComment = await fetch("/view/article-comment.html");
-        const responseSubmenu = await fetch("/view/submenu.html");
-        this.commentTemplateBase = parser.parseFromString(await responseComment.text(), "text/html");
-        this.submenuTemplateBase = parser.parseFromString(await responseSubmenu.text(), "text/html");
+        try{
+            const parser = new DOMParser();
+            const responseComment = await fetch("/view/article-comment.html");
+            const responseSubmenu = await fetch("/view/submenu.html");
+            this.commentTemplateBase = parser.parseFromString(await responseComment.text(), "text/html");
+            this.submenuTemplateBase = parser.parseFromString(await responseSubmenu.text(), "text/html");
+        }
+        catch(err){
+            console.error("Error occured: "+err);
+        }
     },
 
     fetchComment : async function (id){
@@ -21,15 +27,20 @@ const commentList = {
     },
     
     makeList : async function (id){
-        
-        const commentArray = await this.fetchComment(id);
-        
-        if(commentArray === null){
-            return;
+        try{
+            const commentArray = await this.fetchComment(id);
+            
+            if(commentArray === null){
+                return;
+            }
+            
+            for(const value of commentArray){
+                this.addCommentToList(this.commentTemplateBase, this.submenuTemplateBase, value.CommentID, value.CommentText, value.Username, value.CommentDate);
+            }
         }
-        
-        for(const value of commentArray){
-            this.addCommentToList(this.commentTemplateBase, this.submenuTemplateBase, value.CommentID, value.CommentText, value.Username, value.CommentDate);
+
+        catch(err){
+            console.error("Error occured: "+err);
         }
             
     },
@@ -76,33 +87,44 @@ const commentList = {
 //Start Insert Comment
 
 const insertComment = async (articleID) => {
-    const commentText = document.getElementById("article-create-textarea");
-    const commentTextTrimmed = commentText.value.trim();
-    
-    if(commentTextTrimmed === ""){
-        return;
+    try{
+        const commentText = document.getElementById("article-create-textarea");
+        const commentTextTrimmed = commentText.value.trim();
+        
+        if(commentTextTrimmed === ""){
+            return;
+        }
+
+        const db = new DBOperation();
+        const result = await db.insertComment(articleID, commentTextTrimmed, getDateNow());
+        if(result.status === "ok"){
+            alert("Comment Uploaded");
+        }
     }
 
-    const db = new DBOperation();
-    const result = await db.insertComment(articleID, commentTextTrimmed, getDateNow());
-    if(result.status === "ok"){
-        alert("Comment Uploaded");
+    catch(err){
+        console.error("Error occured: "+err);
     }
 }
 
 const updateComment = async () => {
-    const commentText = document.getElementById("article-create-textarea");
-    const commentEditID = document.getElementById("comment-edit-id");
-    const commentTextTrimmed = commentText.value.trim();
-    
-    if(commentTextTrimmed === ""){
-        return;
-    }
+    try{
+        const commentText = document.getElementById("article-create-textarea");
+        const commentEditID = document.getElementById("comment-edit-id");
+        const commentTextTrimmed = commentText.value.trim();
+        
+        if(commentTextTrimmed === ""){
+            return;
+        }
 
-    const db = new DBOperation();
-    const result = await db.updateComment(commentEditID.value, commentTextTrimmed, getDateNow());
-    if(result.status === "ok"){
-        alert("Comment Updated");
+        const db = new DBOperation();
+        const result = await db.updateComment(commentEditID.value, commentTextTrimmed, getDateNow());
+        if(result.status === "ok"){
+            alert("Comment Updated");
+        }
+    }
+    catch(err){
+        console.log("Error occured: "+err);
     }
 }
 
@@ -120,6 +142,7 @@ const submitButtonEvent = async () => {
     commentInputButton.addEventListener("click", async (e) =>{
         e.preventDefault();
 
+        toggleLoading();
         if(!commentEditID.value){
             await insertComment(articleID.value);
         }
@@ -131,6 +154,7 @@ const submitButtonEvent = async () => {
         commentList.emptyList();
         await commentList.setComment(articleID.value);
         commentList.refreshComment();
+        toggleLoading();
     });
 }
 

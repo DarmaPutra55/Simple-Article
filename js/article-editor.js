@@ -1,6 +1,7 @@
 //Handle article creation and editing.
 
 import DBOperation from "/js/db.js";
+import { toggleLoading } from "/js/loading.js";
 
 export default class ArticleEditor{
     constructor(){
@@ -13,20 +14,32 @@ export default class ArticleEditor{
         this.addArticleEditorEvent();
     }
 
-    setArticleEditorText = (articleID, articleTitle, articleText) =>{
-        this.articleIDInput.value = articleID;
-        this.articleTitleInput.value = articleTitle;
-        this.articleTextInput.value = articleText;
+    setArticleEditorEdit = async (articleID) =>{
+        try{
+            const article = await this.fetchArticle(articleID);
+            
+            if(article === null){
+                alert("Article not found!");
+                return;
+            }
+
+            this.articleIDInput.value = articleID;
+            this.articleTitleInput.value = article[0].ArticleHeader;
+            this.articleTextInput.value = article[0].ArticleText;
+        }
+        catch(err){
+            console.error(err);
+        }
     }
 
     submitArticle = async (articleTitle, articleText, id="") => {
         try{
             if(id !== ""){
-                this.updateArticle(id, articleTitle, articleText);
+                await this.updateArticle(id, articleTitle, articleText);
                 this.clearArticle();
             }
             else{
-                this.addArticle(articleTitle, articleText);
+                await this.addArticle(articleTitle, articleText);
                 this.clearArticle();
             }
         }
@@ -56,22 +69,29 @@ export default class ArticleEditor{
         this.articleTextInput.value = "";
     }
 
-    addArticleEditorEvent = () =>{
-        this.addSubmitButtonEvent();
+    addArticleEditorEvent = async () =>{
+        await this.addSubmitButtonEvent();
         this.addClearButtonEvent();
     }
 
-    addSubmitButtonEvent = () => {
-        this.articleSubmitButton.addEventListener('click', (e)=>{
+    addSubmitButtonEvent = async () => {
+        this.articleSubmitButton.addEventListener('click', async (e)=>{
             e.preventDefault();
-            const trimmedArticleTitle = (this.articleTitleInput.value).trim();
-            const trimmedArticleText = (this.articleTextInput.value).trim();
-            if(trimmedArticleTitle == "" || trimmedArticleText == ""){
-                alert("Please fill the form first!");
-                return;
+            try{
+                toggleLoading();
+                const trimmedArticleTitle = (this.articleTitleInput.value).trim();
+                const trimmedArticleText = (this.articleTextInput.value).trim();
+                if(trimmedArticleTitle == "" || trimmedArticleText == ""){
+                    alert("Please fill the form first!");
+                    return;
+                }
+                
+                await this.submitArticle(trimmedArticleTitle, trimmedArticleText, this.articleIDInput.value);
+                toggleLoading();
             }
-
-            this.submitArticle(trimmedArticleTitle, trimmedArticleText, this.articleIDInput.value);
+            catch(err){
+                console.error("Error occured: "+err);
+            }
         });
     }
 
@@ -92,17 +112,7 @@ export default class ArticleEditor{
         this.articleWrapper.classList.toggle("hide");
     }
 
-    setArticleEditorValue = async(id) =>{
-        try{
-            const fetchedArticle = await this.fetchArticle(id);
-            this.setArticleEditorText(id, fetchedArticle[0].ArticleHeader, fetchedArticle[0].ArticleText);
-        }
-        catch(err){
-            console.log(err);
-        }
-    }
-
-    fetchArticle = async(id) =>{
+    fetchArticle = async (id) =>{
         const db = new DBOperation();
         const result = await db.fetchArticle(id);
         return result;
@@ -122,6 +132,6 @@ export const showArticleEditor = () => {
 
 export const showArticleEditorEdit = async (id) => {
     const articleEditor = new ArticleEditor();
-    await articleEditor.setArticleEditorValue(id);
+    await articleEditor.setArticleEditorEdit(id);
     articleEditor.showArticle();
 }
