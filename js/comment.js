@@ -7,6 +7,7 @@ export default class Comment {
         this.usernameText = commentTemplate.getElementsByClassName("comment-username")[0];
         this.uploadDateText = commentTemplate.getElementsByClassName("comment-date")[0];
         this.commentIDBox = commentTemplate.getElementsByClassName("comment-id")[0];
+        this.usernameContainer = commentTemplate.getElementsByClassName("comment-username-container")[0];
 
         this.commentText.innerHTML = comment;
         this.usernameText.innerHTML = username;
@@ -19,7 +20,7 @@ export default class Comment {
         this.submenu.setSubmenuPosition();
         this.submenu.setDeleteButtonEvent(this.commentIDBox.value, this.commentBox, deleteCallback, "comment"); //replace with deleteCallback later
         this.submenu.setEditEventComment(()=>{
-            const commentText = document.getElementById("article-create-textarea");
+            const commentText = document.getElementById("comment-create-textarea");
             const commentID = document.getElementById("comment-edit-id");
             commentText.value = "";
             commentID.value = "";
@@ -29,7 +30,7 @@ export default class Comment {
         this.submenu.setExpandButtonEvent();
         this.submenu.setContentBoxResizeEvent(this.commentBox);
         this.submenu.addSubmenu(this.commentBox);
-        this.submenu.addSubmenuButton(this.commentBox);
+        this.submenu.addSubmenuButton(this.usernameContainer);
     }
 
     getComment = () =>{

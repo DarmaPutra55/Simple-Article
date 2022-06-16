@@ -59,6 +59,7 @@ export default class SubMenu {
                 toggleLoading();
             }
             catch(err){
+                toggleLoading();
                 console.error("Error occured: "+err);
             }
         });

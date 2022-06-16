@@ -90,6 +90,7 @@ export default class ArticleEditor{
                 toggleLoading();
             }
             catch(err){
+                toggleLoading();
                 console.error("Error occured: "+err);
             }
         });

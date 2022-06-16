@@ -109,7 +109,7 @@ const insertComment = async (articleID) => {
 
 const updateComment = async () => {
     try{
-        const commentText = document.getElementById("article-create-textarea");
+        const commentText = document.getElementById("comment-create-textarea");
         const commentEditID = document.getElementById("comment-edit-id");
         const commentTextTrimmed = commentText.value.trim();
         
@@ -130,7 +130,7 @@ const updateComment = async () => {
 
 const clearComment = () => {
     const commentEditID = document.getElementById("comment-edit-id");
-    const commentText = document.getElementById("article-create-textarea");
+    const commentText = document.getElementById("comment-create-textarea");
     commentText.value = "";
     commentEditID.value = "";
 }
