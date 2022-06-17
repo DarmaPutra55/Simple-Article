@@ -8,8 +8,8 @@
     $result;
 
     try{
-        $db = new Database();
-        $db->updateComment($commentID, $commentContent, $uploader, $date);
+        $comment = new Comment();
+        $comment->update($commentID, $commentContent, $uploader, $date);
         $result = json_encode(array("status" => "ok"));
     }
 

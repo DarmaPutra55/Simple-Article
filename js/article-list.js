@@ -1,6 +1,6 @@
 import DBOperation from "/js/db.js";
 import Article from "/js/article.js";
-import { cekCookiesUsername } from "/js/getUsername.js";
+import { getCookieUsername } from "/js/getUsername.js";
 
 class ArticleList {
 
@@ -59,7 +59,7 @@ class ArticleList {
                 const articleTemplate = articleTemplateBase.cloneNode(true);
                 //console.log(articleTemplate);
                 const article = new Article(articleTemplate, value.ArticleID, value.ArticleHeader, value.ArticleText, value.UploadDate, value.Author);
-                if(cekCookiesUsername()){
+                if(getCookieUsername() === value.Author){
                     const submenuTemplate = submenuTemplateBase.cloneNode(true);
                     article.makeSubmenu(submenuTemplate, this.deleteArticle);
                 }

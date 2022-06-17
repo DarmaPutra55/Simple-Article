@@ -1,6 +1,6 @@
 <?php
     session_start();
-    include_once('session-logic.php');
+    include_once('../session-logic.php');
     $username = $_POST['username'];
     $password = $_POST['password'];
     $result;

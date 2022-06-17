@@ -18,7 +18,7 @@ export default class DBOperation {
     fetchSingleArticle = async (id) =>{
         let articlFormData = new FormData();
         articlFormData.append("aricleID", id);
-        const response = await fetch("/php/fetch.php", {
+        const response = await fetch("/php/article/fetch.php", {
             method: "POST",
             body: articlFormData,
         });
@@ -28,7 +28,7 @@ export default class DBOperation {
     }
 
     fetchAllArticle = async () =>{
-        const response = await fetch("/php/fetch.php");
+        const response = await fetch("/php/article/fetch.php");
         const data = await response.json();
         return data;
     }
@@ -37,7 +37,7 @@ export default class DBOperation {
         try {
             let data = new FormData();
             data.append('ArticleID', articleID);
-            const response = await fetch('/php/delete.php', {
+            const response = await fetch('/php/article/delete.php', {
                 method: 'POST',
                 body: data
             });
@@ -57,7 +57,7 @@ export default class DBOperation {
             uploadFormData.append("articleContent", articleContent);
             uploadFormData.append("date", date);
 
-            const response = await fetch('/php/insert.php', {
+            const response = await fetch('/php/article/insert.php', {
                 method: 'POST',
                 body: uploadFormData
             });
@@ -79,7 +79,7 @@ export default class DBOperation {
             updateFormData.append("articleContent", articleContent);
             updateFormData.append("date", date);
 
-            const response = await fetch('/php/update.php', {
+            const response = await fetch('/php/article/update.php', {
                 method: 'POST',
                 body: updateFormData
             });
@@ -99,7 +99,7 @@ export default class DBOperation {
         loginFormData.append('password', password);
 
         try{
-            const response = await fetch('/php/login.php', {
+            const response = await fetch('/php/user/login.php', {
                 method: 'Post',
                 body: loginFormData
             });
@@ -115,7 +115,7 @@ export default class DBOperation {
 
     logoutUser = async () => {
         try{
-            const response = await fetch('/php/logout.php');
+            const response = await fetch('/php/user/logout.php');
             const result = await response.json();
             return result;
         }
@@ -130,7 +130,7 @@ export default class DBOperation {
         registerFormData.append('password', password);
 
         try{
-            const response = await fetch('/php/register.php', {
+            const response = await fetch('/php/user/register.php', {
                 method: 'Post',
                 body: registerFormData
             });
@@ -159,7 +159,7 @@ export default class DBOperation {
         try{
             const commentFormData = new FormData();
             commentFormData.append("articleID", id);
-            const response = await fetch("/php/comment/fetchComment.php", {
+            const response = await fetch("/php/comment/fetch.php", {
                 method: "POST",
                 body: commentFormData,
         });
@@ -177,7 +177,7 @@ export default class DBOperation {
             commentFormData.append('articleID', articleID);
             commentFormData.append('commentContent', commentContent);
             commentFormData.append('date', date);
-            const response = await fetch('/php/comment/insertComment.php', {
+            const response = await fetch('/php/comment/insert.php', {
                 method: 'POST',
                 body: commentFormData
             });
@@ -194,7 +194,7 @@ export default class DBOperation {
         try{
             let data = new FormData();
             data.append('CommentID', commentID);
-            const response = await fetch('/php/comment/deleteComment.php', {
+            const response = await fetch('/php/comment/delete.php', {
                 method: 'POST',
                 body: data
             });
@@ -213,7 +213,7 @@ export default class DBOperation {
             commentFormData.append('commentID', commentID);
             commentFormData.append('commentText', commentContent);
             commentFormData.append('date', date);
-            const response = await fetch('/php/comment/updateComment.php', {
+            const response = await fetch('/php/comment/update.php', {
                 method: 'POST',
                 body: commentFormData
             });

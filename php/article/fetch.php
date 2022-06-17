@@ -1,11 +1,14 @@
 <?php
     include_once('../simple.php');
-    $article_id = $_POST['articleID'];
+    $aricleID = null;
+    if(isset($_POST['aricleID'])){
+        $aricleID = $_POST['aricleID'];
+    }
     $result;
-
+    
     try{
-        $db = new Database();
-        $result = json_encode($db->fetchComment($article_id));
+        $article = new Article();
+        $result = json_encode($article->fetch($aricleID));
     }
     catch(Exception $error){
         $result = json_encode(array("status" => "error"));

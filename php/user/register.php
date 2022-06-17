@@ -1,17 +1,17 @@
 <?php
     session_start();
-    include_once('simple.php');
-    include_once('session-logic.php');
+    include_once('../simple.php');
+    include_once('../session-logic.php');
     $username = $_POST['username'];
     $password = $_POST['password'];
     $result;
 
     try{
-        $db = new Database();
+        $user = new User();
         $session = new Session();
 
-        if(!$db->checkUser($username)){
-            $db->registerUser($username, $password);
+        if(!$user->checkUser($username)){
+            $user->register($username, $password);
             $session->logIn($username, $password);
             $result = json_encode(array('success'=>'ok'));
         }

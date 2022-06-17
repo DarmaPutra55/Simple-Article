@@ -1,12 +1,11 @@
-<?php 
-    include_once('simple.php');
-    $article_id = $_POST['ArticleID'];
+<?php
+    include_once('../simple.php');
+    $article_id = $_POST['articleID'];
     $result;
 
     try{
-        $db = new Database();
-        $db->deleteArticle($article_id);
-        $result = json_encode(array("status" => "ok"));
+        $comment = new Comment();
+        $result = json_encode($comment->fetch($article_id));
     }
     catch(Exception $error){
         $result = json_encode(array("status" => "error"));

@@ -1,6 +1,6 @@
 <?php 
     session_start();
-    include_once ('simple.php');
+    include_once ('../simple.php');
     $articleTitle = $_POST['articleTitle'];
     $articleContent = $_POST['articleContent'];
     $date = $_POST['date'];
@@ -8,8 +8,8 @@
     $result;
 
     try{
-        $db = new Database();
-        $db->insertArticle($articleTitle, $articleContent, $date, $uploader);
+        $article = new Article();
+        $article->insert($articleTitle, $articleContent, $date, $uploader);
         $result = json_encode(array("status" => "ok"));
     }
     catch(Exception $error){

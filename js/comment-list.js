@@ -1,6 +1,6 @@
 import Comment from "/js/comment.js";
 import DBOperation from "/js/db.js";
-import { cekCookiesUsername } from "/js/getUsername.js";
+import { getCookieUsername } from "/js/getUsername.js";
 import { toggleLoading } from "/js/loading.js";
 
 const commentList = {
@@ -48,7 +48,7 @@ const commentList = {
     addCommentToList : function (commentTemplateBase, submenuTemplateBase, CommentID, CommentText, Username, CommentDate){
         const commentTemplate = commentTemplateBase.cloneNode(true);
         const comment = new Comment(commentTemplate, CommentID, CommentText, Username, CommentDate);
-        if(cekCookiesUsername()){
+        if(getCookieUsername() === Username){
             const submenuTemplate = submenuTemplateBase.cloneNode(true);
             comment.makeSubmenu(submenuTemplate, this.deleteComment.bind(this));
         }
@@ -88,7 +88,7 @@ const commentList = {
 
 const insertComment = async (articleID) => {
     try{
-        const commentText = document.getElementById("article-create-textarea");
+        const commentText = document.getElementById("comment-create-textarea");
         const commentTextTrimmed = commentText.value.trim();
         
         if(commentTextTrimmed === ""){
@@ -181,6 +181,7 @@ const getDateNow = () => {
 
 export const showCommentList = async (articleID) => {
     try{
+        commentList.emptyList();
         await commentList.setTemplate();
         await commentList.setComment(articleID);
         commentList.fillList();

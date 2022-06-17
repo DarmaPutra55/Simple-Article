@@ -2,6 +2,7 @@
 
 import { redirectEvent } from "/js/router.js"
 import DBOperation from "/js/db.js";
+import { toggleLoading } from "/js/loading.js";
 
 export default class SubMenu {
     constructor(submenuTemplate) {
