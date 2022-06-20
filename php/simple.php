@@ -71,7 +71,7 @@
     }
   }
 
-  class Article extends DatabaseConnector{
+  class Article extends DatabaseConnector{ //Handle CRUD operation for Article table
 
     public function fetch(?int $id){
       if($id === null){
@@ -125,7 +125,7 @@
     }
   }
 
-  class Comment extends DatabaseConnector {
+  class Comment extends DatabaseConnector { //Handle CRUD operation for Comment table
 
     public function fetch($id){
       $connection = $this->connectDB();
@@ -158,7 +158,7 @@
     }
   }
 
-  class User extends DatabaseConnector {
+  class User extends DatabaseConnector { //Handle database operation involving user table
 
     public function checkUser(string $username, string $password = null){
       if($password === null){

@@ -1,6 +1,7 @@
 
 import DBOperation from "/js/db.js";
 import { showCommentList } from "/js/comment-list.js";
+import { cekCookiesUsername } from "/js/getUsername.js";
 
 const fetchArticle = async(id) =>{
     const db = new DBOperation();
@@ -28,6 +29,23 @@ const setArticleContent = async(id) =>{
     }
 }
 
+const setCommentEditor = async () =>{
+    const commentEditorWrapper = document.getElementById("comment-create-wrapper");
+    commentEditorWrapper.innerHTML = await getCommentEditor();
+}
+
+const getCommentEditor = async () =>{
+    try{
+        const response = await fetch("/view/comment-editor.html");
+        const content = await response.text();
+        return content;
+    }
+
+    catch(err){
+        console.error("Error occured: "+err);
+    }
+}
+
 export const getContent = async() =>{
     const response = await fetch("/view/article-read.html");
     const result = response.text();
@@ -36,5 +54,8 @@ export const getContent = async() =>{
 
 export const setUpArticleRead = async(id) =>{
     await setArticleContent(id);
+    if(cekCookiesUsername()){
+        await setCommentEditor();
+    }
     await showCommentList(id);
 }

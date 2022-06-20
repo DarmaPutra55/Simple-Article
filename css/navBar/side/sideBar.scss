@@ -50,6 +50,11 @@
                     color: black;
                     padding: 12.5px 10px;
                     font-size: $normal-text-size;
+
+                    &:hover{
+                        background-color: grey;
+                        color: white;
+                    }
                 }
 
                 p {
@@ -71,11 +76,12 @@
                     font-size: $normal-text-size;
                     text-align: justify;
                     background-color: white;
-                }
-            }
 
-            @media only screen and (min-width: 700px) {
-                display: none;
+                    &:hover{
+                        background-color: grey;
+                        color: white;
+                    }
+                }
             }
         }
     }

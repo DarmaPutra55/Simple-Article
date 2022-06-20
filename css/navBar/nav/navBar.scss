@@ -26,6 +26,11 @@
                 color: black;
                 padding: 10px 15px;
                 font-size: $normal-text-size;
+
+                &:hover{
+                    background-color: grey;
+                    color: white;
+                }
             }
 
             p {
@@ -44,6 +49,11 @@
                 border: none;
                 font-size: $normal-text-size;
                 background-color: whitesmoke;
+
+                &:hover{
+                    background-color: grey;
+                    color: white;
+                }
             }
         }
     }
