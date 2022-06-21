@@ -87,28 +87,21 @@ const commentList = {
 //Start Insert Comment
 
 const insertComment = async (articleID) => {
-    try{
-        const commentText = document.getElementById("comment-create-textarea");
-        const commentTextTrimmed = commentText.value.trim();
+    const commentText = document.getElementById("comment-create-textarea");
+    const commentTextTrimmed = commentText.value.trim();
         
-        if(commentTextTrimmed === ""){
-            return;
-        }
+    if(commentTextTrimmed === ""){
+        return;
+     }
 
-        const db = new DBOperation();
-        const result = await db.insertComment(articleID, commentTextTrimmed, getDateNow());
-        if(result.status === "ok"){
-            alert("Comment Uploaded");
-        }
-    }
-
-    catch(err){
-        console.error("Error occured: "+err);
-    }
+    const db = new DBOperation();
+    const result = await db.insertComment(articleID, commentTextTrimmed, getDateNow());
+    if(result.status === "ok"){
+        alert("Comment Uploaded");
+     }
 }
 
 const updateComment = async () => {
-    try{
         const commentText = document.getElementById("comment-create-textarea");
         const commentEditID = document.getElementById("comment-edit-id");
         const commentTextTrimmed = commentText.value.trim();
@@ -122,10 +115,6 @@ const updateComment = async () => {
         if(result.status === "ok"){
             alert("Comment Updated");
         }
-    }
-    catch(err){
-        console.log("Error occured: "+err);
-    }
 }
 
 const clearComment = () => {
@@ -141,20 +130,25 @@ const submitButtonEvent = async () => {
     const articleID = document.getElementById("read-article-id");
     commentInputButton.addEventListener("click", async (e) =>{
         e.preventDefault();
-
-        toggleLoading();
-        if(!commentEditID.value){
-            await insertComment(articleID.value);
+        try{
+            toggleLoading();
+            if(!commentEditID.value){
+                await insertComment(articleID.value);
+            }
+            else{
+                await updateComment();
+            }
+    
+            clearComment();
+            commentList.emptyList();
+            await commentList.setComment(articleID.value);
+            commentList.refreshComment();
+            toggleLoading();
         }
-        else{
-            await updateComment();
+        catch(err){
+            toggleLoading();
+            console.error("Error occured: "+err);
         }
-
-        clearComment();
-        commentList.emptyList();
-        await commentList.setComment(articleID.value);
-        commentList.refreshComment();
-        toggleLoading();
     });
 }
 

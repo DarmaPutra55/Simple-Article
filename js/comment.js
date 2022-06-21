@@ -21,11 +21,13 @@ export default class Comment {
         this.submenu.setDeleteButtonEvent(this.commentIDBox.value, this.commentBox, deleteCallback, "comment"); //replace with deleteCallback later
         this.submenu.setEditEventComment(()=>{
             const commentText = document.getElementById("comment-create-textarea");
-            const commentID = document.getElementById("comment-edit-id");
+            const commentID = document.getElementById("comment-edit-id"); 
+            const commentEditor = document.getElementById("comment-create-wrapper");
             commentText.value = "";
             commentID.value = "";
             commentText.value = this.commentText.textContent;
             commentID.value = this.commentIDBox.value
+            commentEditor.scrollIntoView({behavior: 'smooth'});
         });
         this.submenu.setExpandButtonEvent();
         this.submenu.setContentBoxResizeEvent(this.commentBox);

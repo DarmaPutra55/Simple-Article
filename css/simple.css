@@ -660,6 +660,9 @@ body .main-wrapper .content-wrapper .main-content .article-comment-wrapper {
 }
 
 body .main-wrapper .content-wrapper .main-content .article-comment-wrapper .comment-create-wrapper {
+  position: relative;
+  top: 0;
+  left: 0;
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;

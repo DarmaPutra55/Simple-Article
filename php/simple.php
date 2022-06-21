@@ -192,10 +192,10 @@
       return $resultRaw->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function register(string $username, string $password){
+    public function register(string $username, string $password, $role = 'user'){
       $connection = $this->connectDB();
-      $statement = $connection->prepare("INSERT INTO tb_user(username, password) VALUES(?, ?)");
-      $statement->bind_param("ss", $username, $password);
+      $statement = $connection->prepare("INSERT INTO tb_user(username, role, password) VALUES(?, ?, ?)");
+      $statement->bind_param("sss", $username, $role, $password);
       $statement->execute();
     }
   }

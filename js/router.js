@@ -136,15 +136,21 @@ export const redirectEvent = (element) =>{
 }
 
 export const showContent = async () => {
-    setSide(0); //Reset side-menu poisition each time user switch page.
-    window.scrollTo(0, 0); //Reset view back to the top each time user switch page.
-    toggleLoading();
-    if(cekCookiesUsername()){
-        await showLoggedContent();
+    try{
+        setSide(0); //Reset side-menu poisition each time user switch page.
+        window.scrollTo(0, 0); //Reset view back to the top each time user switch page.
         toggleLoading();
-        return "";
+        if(cekCookiesUsername()){
+            await showLoggedContent();
+            toggleLoading();
+            return "";
+        }
+        
+        await showNormalContent();
+        toggleLoading();
     }
-    
-    await showNormalContent();
-    toggleLoading();
+    catch(err){
+        toggleLoading();
+        console.error("Error occured: "+err);
+    }
 }
