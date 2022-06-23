@@ -1,5 +1,5 @@
 <?php
-  class Database{
+  /*class Database{
     //private string $request = $_SERVER['REQUEST_METHOD'];
 
     public $host;
@@ -52,18 +52,25 @@
     private function createTbArticle(){
 
     }
-    */
-  }
+  } */
 
-  abstract class DatabaseConnector {
-    protected $db;
+  abstract class Database {
+    protected $host;
+    protected $username;
+    protected $password;
+    protected $database;
 
-    public function __construct(){
-      $this->db = new Database();
+    public function __construct()
+    {
+      $this->host = 'localhost';
+      $this->username = 'root';
+      $this->password = '';
+      $this->database = 'dummy_db';
+      //$this->checkDb();
     }
 
     protected function connectDB(){
-      $connection = new mysqli($this->db->host, $this->db->username, $this->db->password, $this->db->database);
+      $connection = new mysqli($this->host, $this->username, $this->password, $this->database);
       if($connection->connect_errno){
         die("Error: ".$connection->connect_error);
       }
@@ -71,7 +78,7 @@
     }
   }
 
-  class Article extends DatabaseConnector{ //Handle CRUD operation for Article table
+  class Article extends Database{ //Handle CRUD operation for Article table
 
     public function fetch(?int $id){
       if($id === null){
@@ -125,7 +132,7 @@
     }
   }
 
-  class Comment extends DatabaseConnector { //Handle CRUD operation for Comment table
+  class Comment extends Database { //Handle CRUD operation for Comment table
 
     public function fetch($id){
       $connection = $this->connectDB();
@@ -158,7 +165,7 @@
     }
   }
 
-  class User extends DatabaseConnector { //Handle database operation involving user table
+  class User extends Database { //Handle database operation involving user table
 
     public function checkUser(string $username, string $password = null){
       if($password === null){

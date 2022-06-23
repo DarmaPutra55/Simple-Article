@@ -5,6 +5,7 @@ import { getContent as articleEditorContent, showArticleEditorEdit, showArticleE
 import { getContent as articleReadContent, setUpArticleRead } from "/js/article-read.js";
 import { getContent as articleRegisterContent, setUpRegister } from "/js/register.js";
 import { getContent as articleLoginContent, setUpLogin } from "/js/login.js";
+import { getContent as articleAboutUsContent }  from "/js/about-us.js";
 import { cekCookiesUsername } from "/js/getUsername.js";
 import { setSide } from "/js/navbar.js";
 import { toggleLoading } from "/js/loading.js";
@@ -66,6 +67,10 @@ const showReadContent = async () => {
     await setUpArticleRead(getURLParameter());
 }
 
+const showAboutUsContent = async () => {
+    await setUpMainView(articleAboutUsContent);
+}
+
 const showLoggedContent = async () => {
     if(getUrl().includes("tambah")){
         await showTambahContent();
@@ -73,6 +78,10 @@ const showLoggedContent = async () => {
 
     else if(getUrl().includes("read")){
         await showReadContent();
+    }
+
+    else if(getUrl().includes("about")){
+        await showAboutUsContent();
     }
 
     else{
@@ -87,6 +96,10 @@ const showNormalContent = async () => {
 
     else if(getUrl().includes("read")){
         await showReadContent();
+    }
+
+    else if(getUrl().includes("about")){
+        await showAboutUsContent();
     }
     
     else if(getUrl().includes("register")){
