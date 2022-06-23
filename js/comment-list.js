@@ -171,10 +171,16 @@ const getDateNow = () => {
     return today;
 }
 
+const setScroll = () =>{
+    const header = document.getElementById("header-wrapper");
+    const headerHeight = parseInt(window.getComputedStyle(header).height) + 20 + "px";
+    document.getElementById("comment-create-wrapper").style.scrollMarginTop = headerHeight;
+}
 //End Insert Comment
 
 export const showCommentList = async (articleID) => {
     try{
+        setScroll();
         commentList.emptyList();
         await commentList.setTemplate();
         await commentList.setComment(articleID);
