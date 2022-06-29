@@ -6,6 +6,7 @@ import { getContent as articleReadContent, setUpArticleRead } from "/js/article-
 import { getContent as articleRegisterContent, setUpRegister } from "/js/register.js";
 import { getContent as articleLoginContent, setUpLogin } from "/js/login.js";
 import { getContent as articleAboutUsContent }  from "/js/about-us.js";
+import { getContent as articleContactContent } from "/js/contact.js";
 import { cekCookiesUsername } from "/js/getUsername.js";
 import { setSide } from "/js/navbar.js";
 import { toggleLoading } from "/js/loading.js";
@@ -57,6 +58,10 @@ const showLoginContent = async () => {
     setUpLogin();
 } 
 
+const showContactContent = async () => {
+    await setUpMainView(articleContactContent); 
+}
+
 const showRegisterContent = async () => {
     await setUpMainView(articleRegisterContent);
     setUpRegister()
@@ -74,6 +79,10 @@ const showAboutUsContent = async () => {
 const showLoggedContent = async () => {
     if(getUrl().includes("tambah")){
         await showTambahContent();
+    }
+
+    else if(getUrl().includes("contact")){
+        await showContactContent();
     }
 
     else if(getUrl().includes("read")){
@@ -96,6 +105,10 @@ const showNormalContent = async () => {
 
     else if(getUrl().includes("read")){
         await showReadContent();
+    }
+
+    else if(getUrl().includes("contact")){
+        await showContactContent();
     }
 
     else if(getUrl().includes("about")){

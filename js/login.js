@@ -9,24 +9,29 @@ const setLoginButtonEvent = ()=>{
     const loginMenuPassword = document.getElementById('login-menu-password');
     const loginMenuButton = document.getElementById('login-menu-button');
     loginMenuButton.addEventListener('click', async (e)=> {
-        e.preventDefault();
-        const trimmedUsername = (loginMenuUsername.value).trim();
-        const trimmedPassword = (loginMenuPassword.value).trim();
-        
-        if(trimmedUsername =="" || trimmedPassword == ""){
-            alert("Please fill the form first!");
-            return;
-        }
+        try{
+            e.preventDefault();
+            const trimmedUsername = (loginMenuUsername.value).trim();
+            const trimmedPassword = (loginMenuPassword.value).trim();
+            
+            if(trimmedUsername =="" || trimmedPassword == ""){
+                alert("Please fill the form first!");
+                return;
+            }
 
-        const db = new DBOperation();
-        const result = await db.loginUser(loginMenuUsername.value, loginMenuPassword.value);
-        if(result.success === "ok"){
-            alert("Login sucess!");
-            window.location.href = "/index";
-        }
+            const db = new DBOperation();
+            const result = await db.loginUser(loginMenuUsername.value, loginMenuPassword.value);
+            if(result.success === "ok"){
+                alert("Login sucess!");
+                window.location.href = "/index";
+            }
 
-        else{
-            alert("Login failed!");
+            else{
+                alert("Login failed!");
+            }
+        }
+        catch(err){
+            console.error("Error occured: "+err);
         }
     });
 }

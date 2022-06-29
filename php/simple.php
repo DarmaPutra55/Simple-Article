@@ -105,7 +105,7 @@
 
     private function fetchAllArticle(){
       $connection = $this->connectDB();
-      $statement = $connection->prepare('SELECT id as ArticleID, articleheader as ArticleHeader, articletext as ArticleText, upload_date as UploadDate, uploader as Author FROM tb_article');
+      $statement = $connection->prepare('SELECT id as ArticleID, articleheader as ArticleHeader, articletext as ArticleText, upload_date as UploadDate, uploader as Author FROM tb_article ORDER BY upload_date');
       $statement->execute();
       return $statement->get_result();
     }
@@ -136,7 +136,7 @@
 
     public function fetch($id){
       $connection = $this->connectDB();
-      $statement = $connection->prepare('SELECT id_comment as CommentID, comment as CommentText, username as Username, comment_date as CommentDate FROM tb_comment WHERE id_article =?');
+      $statement = $connection->prepare('SELECT id_comment as CommentID, comment as CommentText, username as Username, comment_date as CommentDate FROM tb_comment WHERE id_article =? ORDER BY comment_date');
       $statement->bind_param("i", $id);
       $statement->execute();
       $result = $statement->get_result();
