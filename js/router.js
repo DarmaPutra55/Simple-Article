@@ -6,7 +6,7 @@ import { getContent as articleReadContent, setUpArticleRead } from "/js/article-
 import { getContent as articleRegisterContent, setUpRegister } from "/js/register.js";
 import { getContent as articleLoginContent, setUpLogin } from "/js/login.js";
 import { getContent as articleAboutUsContent }  from "/js/about-us.js";
-import { getContent as articleContactContent } from "/js/contact.js";
+import { getContent as articleContactContent, setContact } from "/js/contact.js";
 import { cekCookiesUsername } from "/js/getUsername.js";
 import { setSide } from "/js/navbar.js";
 import { toggleLoading } from "/js/loading.js";
@@ -59,7 +59,8 @@ const showLoginContent = async () => {
 } 
 
 const showContactContent = async () => {
-    await setUpMainView(articleContactContent); 
+    await setUpMainView(articleContactContent);
+    await setContact(); 
 }
 
 const showRegisterContent = async () => {

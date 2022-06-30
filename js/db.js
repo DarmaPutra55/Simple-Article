@@ -225,4 +225,24 @@ export default class DBOperation {
             console.error("Error occured: "+err);
         }
     }
+
+    sendMail = async (email, title, content) => {
+        try{
+            let mailFormData = new FormData();
+            mailFormData.append('emailSender', email);
+            mailFormData.append('emailTitle', title);
+            mailFormData.append('emailContent', content);
+            const response = await fetch('/php/mail/sendMail.php', {
+                method: 'POST',
+                body: mailFormData
+            });
+
+            const result = await response.text();
+            return result;
+        }
+        
+        catch(err){
+            console.error("Error occured: "+err);
+        }
+    }
 }

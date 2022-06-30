@@ -27,20 +27,20 @@
 
         public function sendEmail(){
             try{
-                $mail = new PHPMailer(true);;
-
+                $mail = $this->mail;
                 $mail->isSMTP();                                            //Send using SMTP
                 $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
                 $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
                 $mail->Username   = 'absoluteneos@gmail.com';                     //SMTP username
-                $mail->Password   = 'absoluteruler95';                               //SMTP password
+                $mail->Password   = 'ckmpnlsfzgsyktlf';                               //SMTP password
                 $mail->Port = 587;
                 //Set sistem enkripsi untuk menggunakan - ssl (deprecated) atau tls
                 $mail->SMTPSecure = 'tls';     
-                $mail->SMTPDebug = 3;                             //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+                //$mail->SMTPDebug = 3;                             //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
                 //Recipients
-                $mail->setFrom($this->emailSender, 'Tester');
+                $mail->setFrom("absoluteneos@gmail.com", 'Tester');
+                $mail->addReplyTo($this->emailSender);
                 $mail->addAddress('jojoisbizzare@gmail.com');               //Name is optional
 
                 //Content
