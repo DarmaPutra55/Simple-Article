@@ -3,13 +3,23 @@
 
 <head>
     <title>Simple PHP Fetch</title>
-    <link href="/simplePHPFetch/css/simple.css" type="text/css" rel="stylesheet">
-    <link rel="stylesheet" href="/simplePHPFetch/dependencies/fontawesome-free-6.1.1-web/css/all.min.css" type="text/css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/css/simple.css" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="/dependencies/fontawesome-free-6.1.1-web/css/all.min.css" type="text/css">
+    <meta charset="UTF-8">
+    <meta name="description" content="Simple Artikel">
+    <meta name="keywords" content="Artikel">
+    <meta name="author" content="Darma Putra">
+    <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body class="hide">
+    <div class="side-wrapper" id="side-wrapper">
+        <div id="shadow" class="modal-shadow hide"></div>
+    </div>
     <div class="main-wrapper" id="main-wrapper">
+        <div class="loading hide" id="loading-box">
+            <h1>Loading...</h1>
+        </div>
         <div class="header-wrapper" id="header-wrapper">
             <div class="header-text-wrapper">
                 <div class="header-text">
@@ -31,7 +41,7 @@
             </div>
         </div>
     </div>
-    <script src="/simplePHPFetch/js/simple.js" type="module"></script>
+    <script src="/js/simple.js" type="module"></script>
 </body>
 
 </html>

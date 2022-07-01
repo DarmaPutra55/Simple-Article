@@ -1,6 +1,10 @@
-import { logout }  from '/simplePHPFetch/js/logout.js';
+//Handle sidebar and navbar logic. Will only be used on simple.js and router.js
 
-export const addLogoutEvent = () => {
+import { logout }  from '/js/logout.js';
+import { getCookieUsername } from '/js/getUsername.js';
+import { addNavRedirectEvent } from '/js/router.js';
+
+const addLogoutEvent = () => {
     const logoutButton = document.getElementsByClassName("logout-button");
     for(let element of logoutButton){
         element.addEventListener('click', (e)=> {
@@ -16,58 +20,78 @@ const fetchContent = async (link) => {
     return result;
 }
 
-export const makeSideMenuShadow = () => {
-    const body = document.getElementsByTagName('body')[0];
-    const shadow = document.createElement('div');
-    shadow.id = "side-menu-shadow";
-    shadow.classList.add('modal-shadow');
-    body.insertAdjacentElement('afterbegin', shadow);
-    stopSroll();
-
-    shadow.addEventListener('click', (e) => {
-        if(e.target.classList.contains('modal-shadow')){
-            shadow.remove();  
-            stopSroll();
-            toggleSideMenu();
-        }
+const setSideMenuEvent = () => {
+    const side = document.getElementById("side-wrapper");
+    side.addEventListener('click', (e) => {
+        toggleSideMenu();
     });
 }
-
-const setSideMenuShadowPos = () =>{
-    const sideMenuShadow = document.getElementById('side-menu-shadow');
-    sideMenuShadow.style.top = (window.scrollY)+"px";
-} 
-
-
-const setSideMenuPos = () =>{
-    const sideMenu = document.getElementById('side-menu');
-    sideMenu.style.top = (window.scrollY)+"px";
-} 
 
 const stopSroll = () => {
     const body = document.getElementsByTagName('body')[0];
     body.classList.toggle('stop-scroll');
 }
 
-export const setSideMenu = () => {
-    setSideMenuShadowPos();
-    setSideMenuPos();
-}
 
-
-export const toggleSideMenu = () => {
+const toggleSideMenu = () => {
     const sideMenu = document.getElementById('side-menu');
+    const shadow = document.getElementById('shadow');
     sideMenu.classList.toggle('collapse');
+    shadow.classList.toggle("hide");  
+    stopSroll();
 }
 
-export const setUsername = (username) => {
+const setUsername = () => {
     const usernameText = document.getElementsByClassName('username-text');
+    const username = getCookieUsername();
     for(let element of usernameText){
         element.textContent = username;
     }
 }
 
-export const getNav = async (nav) => {
+const showLoggedNavContent = async () => {
+    const header = document.getElementById("header-wrapper");
+    const side = document.getElementById("side-wrapper");
+    header.appendChild(await getNav("logged"));
+    side.insertAdjacentElement("afterbegin", await getSide("logged"));
+}
+
+const showNormalNavContent = async () => {
+    const header = document.getElementById("header-wrapper");
+    const side = document.getElementById("side-wrapper");
+    header.appendChild(await getNav("normal"));
+    side.insertAdjacentElement("afterbegin",await getSide("normal"));
+}
+
+const setSidemenuExpandEvent = () => {
+    const sideMenuExpandButton = document.getElementById('side-menu-expand-button');
+    setSideMenuEvent();
+    sideMenuExpandButton.addEventListener('click', (e)=>{
+        e.preventDefault(); 
+        setSide((window.scrollY)+"px");
+        toggleSideMenu();
+    });
+}
+
+
+const setNav = async (status) => {
+    setSidemenuExpandEvent();
+
+    if(status){
+        await showLoggedNavContent();
+        setUsername();
+        addLogoutEvent();
+        addNavRedirectEvent();
+    }
+
+    else{
+        await showNormalNavContent();
+        addNavRedirectEvent();
+    }
+    
+}
+
+const getNav = async (nav) => {
     if(nav === "normal"){
         return await getNormalNav();
     }
@@ -76,7 +100,7 @@ export const getNav = async (nav) => {
     }
 }
 
-export const getSide = async (nav) => {
+const getSide = async (nav) => {
     if(nav === "normal"){
         return await getNormalSide();
     }
@@ -86,7 +110,7 @@ export const getSide = async (nav) => {
 }
 
 const getNormalNav = async () => {
-    const content = await fetchContent("/simplePHPFetch/view/navbar/normalNavBar.html");
+    const content = await fetchContent("/view/navBar/normalNavBar.html");
     const wrapper = document.createElement('div');
     wrapper.classList.add('header-menu-wrapper');
     wrapper.id = "header-menu";
@@ -95,7 +119,7 @@ const getNormalNav = async () => {
 }
 
 const getNormalSide = async () => {
-    const content = await fetchContent("/simplePHPFetch/view/navbar/normalSideBar.html");
+    const content = await fetchContent("/view/navBar/normalSideBar.html");
     const wrapper = document.createElement('div');
     wrapper.classList.add('side-menu-wrapper', 'collapse');
     wrapper.id = "side-menu";
@@ -105,7 +129,7 @@ const getNormalSide = async () => {
 }
 
 const getLoggedSide = async () => {
-    const content = await fetchContent("/simplePHPFetch/view/navbar/loggedSideBar.html");
+    const content = await fetchContent("/view/navBar/loggedSideBar.html");
     const wrapper = document.createElement('div');
     wrapper.classList.add('side-menu-wrapper', 'collapse');
     wrapper.id = "side-menu";
@@ -115,10 +139,20 @@ const getLoggedSide = async () => {
 }
 
 const getLoggedNav = async () => {
-    const content = await fetchContent("/simplePHPFetch/view/navbar/loggedNavBar.html");
+    const content = await fetchContent("/view/navBar/loggedNavBar.html");
     const wrapper = document.createElement('div');
     wrapper.classList.add('header-menu-wrapper');
     wrapper.id = "header-menu";
     wrapper.innerHTML =  content;
     return wrapper;
 }
+
+export const showNav = async (status) =>{
+    await setNav(status);
+    //addNavRedirectEvent();
+}
+
+export const setSide = (position) =>{
+    const side = document.getElementById('side-wrapper');
+    side.style.top = position;
+} 

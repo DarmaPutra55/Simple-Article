@@ -1,10 +1,125 @@
-import { getMainContent as articleViewContent, showArticle } from "/simplePHPFetch/js/article.js";
-import { getMainContent as articleEditorContent, checkURLParameter, showArticleEditorEdit, showArticleEditor, getURLParameter } from "/simplePHPFetch/js/article-editor.js";
-import { getContent as articleRegisterContent, setUpRegister } from "/simplePHPFetch/js/register.js";
-import { getContent as articleLoginContent, setUpLogin } from "/simplePHPFetch/js/login.js";
-import { getUsername } from "/simplePHPFetch/js/getUsername.js";
+//Responsible for handling web page change, will only be used in simple.js, navbar.js and sub-article.js
+
+import { getContent as articleViewContent, showArticleList } from "/js/article-list.js";
+import { getContent as articleEditorContent, showArticleEditorEdit, showArticleEditor } from "/js/article-editor.js";
+import { getContent as articleReadContent, setUpArticleRead } from "/js/article-read.js";
+import { getContent as articleRegisterContent, setUpRegister } from "/js/register.js";
+import { getContent as articleLoginContent, setUpLogin } from "/js/login.js";
+import { getContent as articleAboutUsContent }  from "/js/about-us.js";
+import { cekCookiesUsername } from "/js/getUsername.js";
+import { setSide } from "/js/navbar.js";
+import { toggleLoading } from "/js/loading.js";
+
+const getUrl = ()=>{
+    const link = window.location.pathname.split('/');
+    if(link.length > 2){ //To handle the Tambah menu because it has 3 '/' -> simplePHPFetch/[tambah]/42 return the 'tambah'
+        return link[link.length - 2];
+    }
+    return link[link.length - 1];
+}
+
+const checkURLParameter = () =>{
+    const url = window.location.pathname.split('/');
+    if(url.length > 2){
+        return true;
+    }
+    return false;
+}
+
+const getURLParameter = () => {
+    const url = window.location.pathname.split('/');
+    return url[url.length  - 1];
+}
+
+const setUpMainView = async (content) => {
+    const mainContentArea = document.getElementById('main-content-area');
+    mainContentArea.innerHTML = await content();
+}
+
+const showTambahContent = async () => {
+    await setUpMainView(articleEditorContent);
+        if(checkURLParameter()){
+            await showArticleEditorEdit(getURLParameter());
+        }
+        else{
+            showArticleEditor();
+        }
+}
+
+const showMainContent = async () => {
+    //alert("Fired");
+    await setUpMainView(articleViewContent);
+    await showArticleList();
+}
+
+const showLoginContent = async () => {
+    await setUpMainView(articleLoginContent);
+    setUpLogin();
+} 
+
+const showRegisterContent = async () => {
+    await setUpMainView(articleRegisterContent);
+    setUpRegister()
+}
+
+const showReadContent = async () => {
+    await setUpMainView(articleReadContent);
+    await setUpArticleRead(getURLParameter());
+}
+
+const showAboutUsContent = async () => {
+    await setUpMainView(articleAboutUsContent);
+}
+
+const showLoggedContent = async () => {
+    if(getUrl().includes("tambah")){
+        await showTambahContent();
+    }
+
+    else if(getUrl().includes("read")){
+        await showReadContent();
+    }
+
+    else if(getUrl().includes("about")){
+        await showAboutUsContent();
+    }
+
+    else{
+        await showMainContent();
+    }
+}
+
+const showNormalContent = async () => {
+    if(getUrl().includes("login")){
+        await showLoginContent();
+    }
+
+    else if(getUrl().includes("read")){
+        await showReadContent();
+    }
+
+    else if(getUrl().includes("about")){
+        await showAboutUsContent();
+    }
+    
+    else if(getUrl().includes("register")){
+        await showRegisterContent();
+    }
+
+    else{
+        await showMainContent();
+    }
+}
+
+export const addWindowHistoryEvent = () =>{
+    window.addEventListener('popstate', async (e)=>{
+        e.preventDefault();
+        await showContent();
+    });
+}
 
 export const addNavRedirectEvent = () => {
+    //alert("Fired");
     const menuNav = document.getElementById('header-menu');
     const sideMenuNav = document.getElementById('side-menu');
 
@@ -26,85 +141,29 @@ export const addNavRedirectEvent = () => {
 }
 
 export const redirectEvent = (element) =>{
-    element.addEventListener('click', (e) => {
+    element.addEventListener('click', async (e) => {
         e.preventDefault();
         window.history.pushState("", {}, e.target.href);
-        showContent();
+        await showContent();
     });
-}
-
-const getUrl = ()=>{
-    const link = window.location.pathname.split('/');
-    if(link.length > 3){
-        return link[link.length - 2];
-    }
-    return link[link.length - 1];
-}
-
-const setUpMainView = async (content) => {
-    const mainContentArea = document.getElementById('main-content-area');
-    mainContentArea.innerHTML = await content();
-}
-
-const showTambahContent = async () => {
-    await setUpMainView(articleEditorContent);
-        if(checkURLParameter()){
-            await showArticleEditorEdit(getURLParameter());
-        }
-        else{
-            showArticleEditor();
-        }
-}
-
-const showMainContent = async () => {
-    await setUpMainView(articleViewContent);
-    await showArticle();
-}
-
-const showLoginContent = async () => {
-    await setUpMainView(articleLoginContent);
-    setUpLogin();
-} 
-
-const showRegisterContent = async () => {
-    await setUpMainView(articleRegisterContent);
-    setUpRegister()
 }
 
 export const showContent = async () => {
-    if(await getUsername() === ""){
-        if(getUrl().includes("login")){
-            await showLoginContent();
+    try{
+        setSide(0); //Reset side-menu poisition each time user switch page.
+        window.scrollTo(0, 0); //Reset view back to the top each time user switch page.
+        toggleLoading();
+        if(cekCookiesUsername()){
+            await showLoggedContent();
+            toggleLoading();
+            return "";
         }
-    
-        else if(getUrl().includes("register")){
-            await showRegisterContent();
-        }
-
-        else{
-            showMainContent();
-        }
+        
+        await showNormalContent();
+        toggleLoading();
     }
-
-    else{
-        showLoggedContent();
+    catch(err){
+        toggleLoading();
+        console.error("Error occured: "+err);
     }
-    //alert(getUrl());
-}
-
-const showLoggedContent = async () => {
-    if(getUrl().includes("tambah")){
-        await showTambahContent();
-    }
-
-    else{
-        await showMainContent();
-    }
-}
-
-export const addWindowHistoryEvent = () =>{
-    window.addEventListener('popstate', (e)=>{
-        e.preventDefault();
-        showContent();
-    });
 }

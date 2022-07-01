@@ -1,6 +1,8 @@
-import DBOperation from "/simplePHPFetch/js/db.js";
+//Handle registration logic. Will only be used on navbar.js
 
-//Login Start
+import DBOperation from "/js/db.js";
+
+//Register Start
 const setRegisterButtonEvent = ()=>{
     const registerMenuUsername = document.getElementById('register-menu-username');
     const registerMenuPassword = document.getElementById('register-menu-password');
@@ -24,7 +26,7 @@ const setRegisterButtonEvent = ()=>{
             else{
                     alert("Login failed!");  
                 }
-            window.location.href = "https://localhost/simplePHPFetch/";
+            window.location.href = "/index";
         }
 
         else if(registerResult.error === "username-exist"){
@@ -52,7 +54,7 @@ const setRegisterButtonClearEvent = () => {
 
 
 export const getContent = async () => {
-    const response = await fetch("/simplePHPFetch/view/register.html");
+    const response = await fetch("/view/register.html");
     const result = await response.text();
     return result;
 }
@@ -61,4 +63,4 @@ export const setUpRegister = ()=>{
     setRegisterButtonEvent();
     setRegisterButtonClearEvent();
 }
-//Login End
+//Register End

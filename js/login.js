@@ -1,4 +1,6 @@
-import DBOperation from "/simplePHPFetch/js/db.js";
+//Handle login logic. Will only be used on navbar.js
+
+import DBOperation from "/js/db.js";
 
 //Login Start
 
@@ -20,7 +22,7 @@ const setLoginButtonEvent = ()=>{
         const result = await db.loginUser(loginMenuUsername.value, loginMenuPassword.value);
         if(result.success === "ok"){
             alert("Login sucess!");
-            window.location.href = "https://localhost/simplePHPFetch/";
+            window.location.href = "/index";
         }
 
         else{
@@ -42,7 +44,7 @@ const setLoginButtonClearEvent = () => {
 }
 
 export const getContent = async () => {
-    const response = await fetch("/simplePHPFetch/view/login.html");
+    const response = await fetch("/view/login.html");
     const result = await response.text();
     return result;
 }
