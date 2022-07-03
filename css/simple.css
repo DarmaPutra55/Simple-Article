@@ -360,6 +360,7 @@ body .main-wrapper .content-wrapper .main-content .search-bar-wrapper {
 }
 
 body .main-wrapper .content-wrapper .main-content .search-bar-wrapper .search-bar {
+  padding: 0 10px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

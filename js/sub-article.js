@@ -57,11 +57,12 @@ export default class SubMenu {
                 if(dbOperationResult.status === "ok"){
                     alert('Data sucessfully deleted!');
                 }
-                toggleLoading();
             }
             catch(err){
-                toggleLoading();
                 console.error("Error occured: "+err);
+            }
+            finally{
+                toggleLoading();
             }
         });
     }

@@ -87,11 +87,12 @@ export default class ArticleEditor{
                 }
                 
                 await this.submitArticle(trimmedArticleTitle, trimmedArticleText, this.articleIDInput.value);
-                toggleLoading();
             }
             catch(err){
-                toggleLoading();
                 console.error("Error occured: "+err);
+            }
+            finally{
+                toggleLoading();
             }
         });
     }

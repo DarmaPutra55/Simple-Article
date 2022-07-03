@@ -143,11 +143,12 @@ const submitButtonEvent = async () => {
             commentList.emptyList();
             await commentList.setComment(articleID.value);
             commentList.refreshComment();
-            toggleLoading();
         }
         catch(err){
-            toggleLoading();
             console.error("Error occured: "+err);
+        }
+        finally{
+            toggleLoading();
         }
     });
 }

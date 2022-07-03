@@ -77,31 +77,17 @@ const showAboutUsContent = async () => {
     await setUpMainView(articleAboutUsContent);
 }
 
-const showLoggedContent = async () => {
-    if(getUrl().includes("tambah")){
+const showWebContent = async (login) => {
+    if(getUrl().includes("tambah") && login){
         await showTambahContent();
     }
 
-    else if(getUrl().includes("contact")){
-        await showContactContent();
+    else if(getUrl().includes("login") && !login){
+         await showLoginContent();
     }
 
-    else if(getUrl().includes("read")){
-        await showReadContent();
-    }
-
-    else if(getUrl().includes("about")){
-        await showAboutUsContent();
-    }
-
-    else{
-        await showMainContent();
-    }
-}
-
-const showNormalContent = async () => {
-    if(getUrl().includes("login")){
-        await showLoginContent();
+    else if(getUrl().includes("register") && !login){
+        await showRegisterContent();
     }
 
     else if(getUrl().includes("read")){
@@ -116,10 +102,6 @@ const showNormalContent = async () => {
         await showAboutUsContent();
     }
     
-    else if(getUrl().includes("register")){
-        await showRegisterContent();
-    }
-
     else{
         await showMainContent();
     }
@@ -168,16 +150,16 @@ export const showContent = async () => {
         window.scrollTo(0, 0); //Reset view back to the top each time user switch page.
         toggleLoading();
         if(cekCookiesUsername()){
-            await showLoggedContent();
-            toggleLoading();
+            await showWebContent(true);
             return "";
         }
         
-        await showNormalContent();
-        toggleLoading();
+        await showWebContent(false);
     }
     catch(err){
-        toggleLoading();
         console.error("Error occured: "+err);
+    }
+    finally{
+        toggleLoading();
     }
 }
