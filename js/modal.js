@@ -1,4 +1,4 @@
-const makeShadow = (modalCloseCallback) => {
+const makeShadow = () => {
     const body = document.getElementsByTagName('body')[0];
     const shadow = document.createElement('div');
     shadow.classList.add('modal-shadow');
@@ -9,7 +9,6 @@ const makeShadow = (modalCloseCallback) => {
         if(e.target.classList.contains('modal-shadow')){
             shadow.remove();  
             stopSroll();
-            modalCloseCallback();
         }
     });
 }

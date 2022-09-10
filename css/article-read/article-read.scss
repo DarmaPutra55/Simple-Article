@@ -1,0 +1,168 @@
+@import '../submenu/submenu.scss';
+
+@mixin article-read-scss {
+    .article-content-wrapper{
+        min-height: 200px;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+
+        .article-content-box{
+            height: 100%;
+            width: $contentSize;
+            
+            .article-read-box{
+                padding: 10px 20px;
+                box-shadow: $shadow;
+
+                h1{
+                    font-size: $normal-header-size;
+                    margin: 10px 0;
+                    text-align: center;
+                }
+
+                pre{
+                    font-size: $normal-text-size;
+                    text-align: justify;
+                    white-space: pre-wrap;
+                }
+            }
+        }
+    }
+
+    
+    .article-comment-wrapper{
+        margin-top: 20px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        .comment-create-wrapper{
+            position: relative;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+    
+            .comment-create{
+                min-height: 200px;
+                width: $contentSize;
+                display: flex;
+                flex-direction: column;
+                box-shadow: $shadow;
+    
+                .comment-create-textarea{
+                    padding: 15px;
+                    @media only screen and (min-width: 700px) {
+                        height: 15vh;
+                    }
+    
+                    @media only screen and (max-width: 700px) {
+                        height: 35vh;
+                    }
+                    
+                    resize: none;
+                    font-size: $normal-text-size;
+                    //background-color: rgb(250, 250, 250);
+                    border: none;
+                }
+    
+                .comment-button-group{
+                    margin: 10px 10px;
+                    display: flex;
+                    
+                    @media only screen and (min-width: 700px) {
+                        flex-direction: row;
+                        justify-content: space-between;
+                    }
+    
+                    @media only screen and (max-width: 700px) {
+                        flex-direction: column;
+                    }
+    
+                    button{
+    
+                        @media only screen and (min-width: 700px) {
+                            width: calc(max(300px, 5vw));
+                            height: 70px;
+                        }
+    
+                        @media only screen and (max-width: 700px) {
+                            width: 100%;
+                            height: 60px;
+                        }
+                        
+                        font-size: $normal-text-size;
+                    }
+    
+                    :nth-child(1){
+                        background-color: lightgreen;
+                        border: none;
+    
+                        @media only screen and (max-width: 700px) {
+                            margin-bottom: 10px;
+                        }
+                    }
+    
+                    :nth-child(2){
+                        background-color: lightcoral;
+                        border: none;
+    
+                        @media only screen and (max-width: 700px) {
+                            margin-top: 10px;
+                        }
+                    }
+                }
+            }           
+        }
+
+        .article-comment-area{
+            height: 100%;
+            width: $contentSize;
+            
+            .article-comment{
+                width: calc(min(500px, 80%));
+                position: relative;
+                top: 0;
+                right: 0;
+                margin: 20px 0;
+                padding: 10px 20px;
+                box-shadow: $shadow;
+
+                @include submenu-scss;
+
+                .comment-username-container{
+                    display: flex;
+
+                    h1{
+                        font-size: $normal-header-size;
+                        padding: 10px 0;
+                        margin: 0 0;
+                        text-align: justify;
+                        flex: 1;
+                    }
+                }
+               
+                pre{
+                    font-size: $normal-text-size;
+                    padding: 10px 0;
+                    margin: 0 0;
+                    text-align: justify;
+                    white-space: pre-wrap;
+                }
+
+                p{
+                    font-size: $small-text-size;
+                    padding: 10px 0;
+                    margin: 0 0;
+                    text-align: justify;
+                    border-top: $border;
+                }
+            }
+        }
+
+    }
+}

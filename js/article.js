@@ -1,126 +1,60 @@
-import SubMenu from "/simplePHPFetch/js/sub-article.js";
-import DBOperation from "/simplePHPFetch/js/db.js";
-import { getUsername } from "/simplePHPFetch/js/getUsername.js";
+//Handle showing article and all article logic.
 
-class Article {
-    constructor(articleId, header, article) {
-        this.mainBoxArea = document.getElementById('main-box');
-        this.mainBox = document.createElement('div');
-        this.mainHeader = document.createElement('div');
-        this.mainArticle = document.createElement('div');
-        this.headerTextWrapper = document.createElement('div');
+import SubMenu from "/js/sub-article.js";
+import { redirectEvent } from "/js/router.js"
+
+export default class Article {
+    constructor(articleTemplate, articleId, header, article, uploadDate, author) {
+        //this.mainBoxArea = document.getElementById('main-box');
+        this.mainBox = articleTemplate.getElementsByClassName("content-box")[0];
+        this.mainHeader = articleTemplate.getElementsByClassName("content-header")[0];
+        this.mainArticle = articleTemplate.getElementsByClassName("content-body")[0];
+        this.headerText = articleTemplate.getElementsByClassName("content-header-text-h1")[0];
+        this.articleText = articleTemplate.getElementsByTagName("pre")[0];
+        this.mainFooter = articleTemplate.getElementsByClassName("content-footer")[0];
+        this.aritcleIdHolder = articleTemplate.getElementsByName("idHiddenHolder")[0];
+ 
+        const uploadDateText = this.mainFooter.childNodes[1];
+        const authorText = this.mainFooter.childNodes[3];
         
-        this.headerText = document.createElement('h1');
-        
-        this.articleText = document.createElement('p');
-        this.aritcleIdHolder = document.createElement('input');
+        this.articleRead = articleTemplate.createElement("a");
+        this.articleRead.innerHTML = "Read";
 
-        this.mainBox.classList.add('content-box');
-
-        this.mainHeader.classList.add('content-header');
-
-        this.mainArticle.classList.add('content-body');
-
-        this.headerTextWrapper.classList.add('content-header-text');
-
-        this.aritcleIdHolder.type = "hidden";
-        
         this.aritcleIdHolder.value = articleId;
+
+        this.setReadEvent(articleId);
 
         this.headerText.innerHTML = header;
 
         this.articleText.innerHTML = article;
+        this.articleText.appendChild(this.articleRead);
+
+        uploadDateText.innerHTML = "Uploaded: "+uploadDate;
+        authorText.innerHTML = "Author: "+author;
     }
 
-    addArticle = async (DeleteCallback) => {
-        this.mainHeader.appendChild(this.headerTextWrapper);
-        
-        this.headerTextWrapper.appendChild(this.headerText);
-
-        this.mainArticle.appendChild(this.articleText);
-
-        this.mainBox.appendChild(this.mainHeader);
-        this.mainBox.appendChild(this.mainArticle);
-        this.mainBox.appendChild(this.aritcleIdHolder);
-        this.mainBoxArea.appendChild(this.mainBox);
-
-        if(await getUsername() !==""){
-            this.setSubmenu(DeleteCallback);
-        }
+    setReadEvent = (ArticleID) => {
+        this.articleRead.href = "/read/"+ArticleID; 
+        redirectEvent(this.articleRead);
     }
 
-    setSubmenu = (DeleteCallback) => {
-        this.onTrans = false;
-        this.headerButtonWrapper = document.createElement('div');
-        this.headerButton = document.createElement('button');
-        this.headerButtonIcon = document.createElement('i');
-
-        this.headerButton.appendChild(this.headerButtonIcon);
-        this.headerButtonWrapper.appendChild(this.headerButton);
-        this.mainHeader.appendChild(this.headerButtonWrapper);
-        this.headerButtonWrapper.classList.add('content-header-button');
-
-        this.headerButtonIcon.classList.add('fa', 'fa-solid', 'fa-ellipsis-vertical', 'fa-2x', 'icon-button-rotate-back');
-            this.submenu = new SubMenu();
-            this.submenu.addSubmenu(this.mainBox);
-            this.submenu.setSubmenuPosition(this.headerButtonWrapper);
-            this.submenu.setDeleteButtonEvent(this.aritcleIdHolder.value, DeleteCallback);
-            this.submenu.setEditEvent(this.aritcleIdHolder.value);
-            this.setExpandButtonEvent();
-            this.setContentBoxResizeEvent();
+    makeArticle = () => {
+        return this.mainBox;
+        //this.mainBoxArea.appendChild(this.mainBox);
     }
 
-    setExpandButtonEvent = () => {
-        this.headerButton.addEventListener("click", () => {
-            if (!this.onTrans) {
-                this.onTrans = true;
-                this.setIconAnnimation();
-                this.submenu.setSubmenuAnimation();
+    makeSubmenu = (submenuTemplate, deleteCallback) => {
 
-                this.headerButtonIcon.addEventListener('transitionend', () => {
-                    this.onTrans = false;
-                }, { once: true })
-            }
-        })
+        //Make the submenu
+        this.submenu = new SubMenu(submenuTemplate);
+        this.submenu.setSubmenuPosition();
+        this.submenu.setDeleteButtonEvent(this.aritcleIdHolder.value, this.mainBox, deleteCallback, "article");
+        this.submenu.setEditEvent(this.aritcleIdHolder.value);
+        this.submenu.setExpandButtonEvent();
+        this.submenu.setContentBoxResizeEvent(this.mainBox);
+        this.submenu.addSubmenu(this.mainBox);
+        this.submenu.addSubmenuButton(this.mainHeader);
     }
 
-    setContentBoxResizeEvent = () => {
-        const resize = new ResizeObserver(() => {
-            this.submenu.setSubmenuPosition(this.headerButtonWrapper);
-        })
-        resize.observe(this.mainBox);
-    }
-
-    setIconAnnimation = () => {
-        this.headerButtonIcon.classList.toggle('icon-button-rotate-click');
-        this.headerButtonIcon.classList.toggle('icon-button-rotate-back');
-    }
-}
-
-export const showArticle = async () => {
-    try{
-        const dbOperation = new DBOperation();
-        const articleArray = await dbOperation.fetchArticle();
-        //let newArticle = articleArray.filter(el => el.ArticleHeader.includes("Test"));
-        if(articleArray !== null){
-            for (const value of articleArray) {
-                const article = new Article(value.ArticleID, value.ArticleHeader, value.ArticleText);
-                article.addArticle(refreshArticle);
-            }
-        }
-    }
-    catch(err){
-        console.log("Error: "+err);
-    }
-}
-
-const refreshArticle = async () => {
-    document.getElementById('main-box').innerHTML = '';
-    await showArticle();
-}
-
-export const getMainContent = async () => {
-    const response = await fetch('/simplePHPFetch/view/article.html');
-    const text = await response.text();
-    return text;
+    
 }

@@ -1,3 +1,5 @@
+//Handle all server request.
+
 export default class DBOperation {
     fetchArticle = async (id = null) => {
         try {
@@ -16,7 +18,7 @@ export default class DBOperation {
     fetchSingleArticle = async (id) =>{
         let articlFormData = new FormData();
         articlFormData.append("aricleID", id);
-        const response = await fetch("/simplePHPFetch/php/fetch.php", {
+        const response = await fetch("/php/article/fetch.php", {
             method: "POST",
             body: articlFormData,
         });
@@ -26,7 +28,7 @@ export default class DBOperation {
     }
 
     fetchAllArticle = async () =>{
-        const response = await fetch("/simplePHPFetch/php/fetch.php");
+        const response = await fetch("/php/article/fetch.php");
         const data = await response.json();
         return data;
     }
@@ -35,7 +37,7 @@ export default class DBOperation {
         try {
             let data = new FormData();
             data.append('ArticleID', articleID);
-            const response = await fetch('/simplePHPFetch/php/delete.php', {
+            const response = await fetch('/php/article/delete.php', {
                 method: 'POST',
                 body: data
             });
@@ -44,19 +46,18 @@ export default class DBOperation {
         }
 
         catch (err) {
-            alert("Error has occured: " + err);
+            console.error("Error occured: "+err);
         }
     }
 
-    uploadArticle = async (articleTitle, articleContent, uploader, date) =>{
+    uploadArticle = async (articleTitle, articleContent, date) =>{
         try{
             let uploadFormData = new FormData();
             uploadFormData.append("articleTitle", articleTitle);
             uploadFormData.append("articleContent", articleContent);
-            uploadFormData.append("uploader", uploader);
             uploadFormData.append("date", date);
 
-            const response = await fetch('/simplePHPFetch/php/insert.php', {
+            const response = await fetch('/php/article/insert.php', {
                 method: 'POST',
                 body: uploadFormData
             });
@@ -66,20 +67,19 @@ export default class DBOperation {
         }
 
         catch (err) {
-            alert("Error has occured: " + err);
+            console.error("Error occured: "+err);
         }
     }
 
-    updateArticle = async (articleID, articleTitle, articleContent, uploader, date) =>{
+    updateArticle = async (articleID, articleTitle, articleContent, date) =>{
         try{
             let updateFormData = new FormData();
             updateFormData.append("articleID", articleID);
             updateFormData.append("articleTitle", articleTitle);
             updateFormData.append("articleContent", articleContent);
-            updateFormData.append("uploader", uploader);
             updateFormData.append("date", date);
 
-            const response = await fetch('/simplePHPFetch/php/update.php', {
+            const response = await fetch('/php/article/update.php', {
                 method: 'POST',
                 body: updateFormData
             });
@@ -89,7 +89,7 @@ export default class DBOperation {
         }
 
         catch (err) {
-            alert("Error has occured: " + err);
+            console.error("Error occured: "+err);
         }
     }
 
@@ -99,7 +99,7 @@ export default class DBOperation {
         loginFormData.append('password', password);
 
         try{
-            const response = await fetch('/simplePHPFetch/php/login.php', {
+            const response = await fetch('/php/user/login.php', {
                 method: 'Post',
                 body: loginFormData
             });
@@ -109,18 +109,18 @@ export default class DBOperation {
         }
 
         catch(err){
-            alert("Error has occured: " + err);
+            console.error("Error occured: "+err);
         }
     }
 
     logoutUser = async () => {
         try{
-            const response = await fetch('/simplePHPFetch/php/logout.php');
+            const response = await fetch('/php/user/logout.php');
             const result = await response.json();
             return result;
         }
         catch(err){
-            alert("Error has occored: " + err);
+            console.error("Error occured: "+err);
         }
     }
 
@@ -130,7 +130,7 @@ export default class DBOperation {
         registerFormData.append('password', password);
 
         try{
-            const response = await fetch('/simplePHPFetch/php/register.php', {
+            const response = await fetch('/php/user/register.php', {
                 method: 'Post',
                 body: registerFormData
             });
@@ -140,19 +140,89 @@ export default class DBOperation {
         }
 
         catch(err){
-            alert("Error has occured: " + err);
+            console.error("Error occured: "+err);
         }
     }
 
     fetchUsername = async () =>{
         try{
-            const response = await fetch('/simplePHPFetch/php/getUsername.php');
+            const response = await fetch('/php/getUsername.php');
             const result = await response.json();
             return result; 
         }
         catch(err){
-            alert("Error has occured: " + err);
+            console.error("Error occured: "+err);
         }
     }
 
+    fetchComment = async (id) => {
+        try{
+            const commentFormData = new FormData();
+            commentFormData.append("articleID", id);
+            const response = await fetch("/php/comment/fetch.php", {
+                method: "POST",
+                body: commentFormData,
+        });
+            const data = await response.json();
+            return data;
+        }
+        catch(err){
+            console.error("Error occured: "+err);
+        }
+    }
+
+    insertComment = async(articleID, commentContent, date) => {
+        try{
+            let commentFormData = new FormData();
+            commentFormData.append('articleID', articleID);
+            commentFormData.append('commentContent', commentContent);
+            commentFormData.append('date', date);
+            const response = await fetch('/php/comment/insert.php', {
+                method: 'POST',
+                body: commentFormData
+            });
+            const result = await response.json();
+            return result;
+        }
+
+        catch(err){
+            console.error("Error occured: "+err);
+        }
+    }
+    
+    deleteComment = async (commentID) => {
+        try{
+            let data = new FormData();
+            data.append('CommentID', commentID);
+            const response = await fetch('/php/comment/delete.php', {
+                method: 'POST',
+                body: data
+            });
+            const result = await response.json();
+            return result;
+        }
+
+        catch(err){
+            console.error("Error occured: "+err);
+        }
+    }
+
+    updateComment = async (commentID, commentContent, date) => {
+        try{
+            let commentFormData = new FormData();
+            commentFormData.append('commentID', commentID);
+            commentFormData.append('commentText', commentContent);
+            commentFormData.append('date', date);
+            const response = await fetch('/php/comment/update.php', {
+                method: 'POST',
+                body: commentFormData
+            });
+            const result = await response.json();
+            return result;
+        }
+        
+        catch(err){
+            console.error("Error occured: "+err);
+        }
+    }
 }

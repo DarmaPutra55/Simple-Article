@@ -1,9 +1,10 @@
 <?php
     include_once('simple.php');
     class Session {
+        private $user;
 
         public function __construct(){
-            $this->db = new Database();
+            $this->user = new User();
         }
 
         public function checkLogin(){
@@ -24,7 +25,7 @@
         }
 
         public function logIn(string $username, string $password){
-            $login = $this->db->checkUser($username, $password);
+            $login = $this->user->checkUser($username, $password);
             if($login){
                 $_SESSION['username'] = $username;
                 return "login success";
