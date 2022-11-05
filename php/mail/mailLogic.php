@@ -32,7 +32,7 @@
                 $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
                 $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
                 $mail->Username   = 'yoursmtp.username';                     //SMTP username
-                $mail->Password   = 'ckmpnlsfzgsyktlf';                               //SMTP password
+                $mail->Password   = 'yoursmtp.password';                               //SMTP password
                 $mail->Port = 587;
                 //Set sistem enkripsi untuk menggunakan - ssl (deprecated) atau tls
                 $mail->SMTPSecure = 'tls';     
