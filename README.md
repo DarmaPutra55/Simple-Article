@@ -1,6 +1,8 @@
 ﻿# Simple-Article
 Sebuah website CRUD responsif sederhana dimana pengguna bisa menambah, menghapus dan mengedit artikel. Dibuat dengan menggunakan Html, Scss, Javascript(Vanilla), PHP(OOP) dan Mysql.
 
+Link hosted: http://simple-artikel.infinityfreeapp.com/
+
 Berikut adalah halaman yang ada di website:
 
 # Home
